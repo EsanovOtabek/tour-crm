@@ -1,47 +1,78 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@extends('layouts.main')
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+@section('title', "Sign In - Tour")
+@section('description', "")
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+@section('content')
+    <div class="flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen pt:mt-0 dark:bg-gray-900">
+        <a href="{{ route('dashboard') }}"
+           class="flex items-center justify-center mb-8 text-2xl font-semibold lg:mb-10 dark:text-white">
+            <img src="{{ Vite::asset('resources/images/logo.png') }}" class="mr-4 h-11 block dark:hidden" alt="EducIT">
+            <img src="{{ Vite::asset('resources/images/logo_light.png') }}" class="mr-4 h-11 hidden dark:block" alt="EducIT">
+        </a>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        <!-- Card -->
+        <div class="w-full max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow dark:bg-gray-800">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                Tizimga kirish
+            </h2>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
+            <!-- Session Status -->
+            @if (session('status'))
+                <div class="mb-4 text-sm text-green-600 dark:text-green-400">
+                    {{ session('status') }}
+                </div>
             @endif
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
+            <form class="mt-8 space-y-4" method="POST" action="{{ route('login') }}">
+                @csrf
+
+                <!-- Email -->
+                <div>
+                    <label for="email" class="e-label">Email</label>
+                    <input type="email" name="email" id="email"
+                           class="e-input"
+                           placeholder="mail@example.com"
+                           value="{{ old('email') }}"
+                           required autofocus autocomplete="username">
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label for="password" class="e-label">Parol</label>
+                    <input type="password" name="password" id="password"
+                           class="e-input"
+                           placeholder="••••••••"
+                           required autocomplete="current-password">
+
+                    @if (Route::has('password.request'))
+                        <a href="{{ route('password.request') }}"
+                           class="ml-auto mt-2 text-sm block text-end text-green-700 hover:underline dark:text-green-500">
+                            Parolni unutdingizmi?
+                        </a>
+                    @endif
+                </div>
+
+                <!-- Remember Me -->
+                <div class="flex items-center">
+                    <input type="checkbox" name="remember" id="remember"
+                           class="rounded border-gray-300 dark:bg-gray-900 dark:border-gray-700 text-green-600 shadow-sm focus:ring-green-500">
+                    <label for="remember" class="ms-2 text-sm text-gray-600 dark:text-gray-400">
+                        Meni eslab qol
+                    </label>
+                </div>
+
+                <button type="submit" class="auth-btn">Tizimga kirish</button>
+
+                <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    Ro'yxatdan o'tmadingizmi?
+                    <a class="text-green-700 hover:underline dark:text-green-500" href="{{ route('register') }}">
+                        Ro'yxatdan o'tish
+                    </a>
+                </div>
+            </form>
+
+            <hr class="divide-green-950">
         </div>
-    </form>
-</x-guest-layout>
+    </div>
+@endsection

@@ -1,36 +1,60 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="@yield('description', "EducIT - onlayn kurslar platformasi")">
+    <meta name="keywords"
+          content="@yield('keywords', "dasturlash, it, it kurslar,android, programmalash, online, c++, python, php, web dasturlash, lifepc, lifepc group, sun'iy intellekt")">
+    @yield('meta_tags')
+    <meta name="author" content="Esanov Otabek">
+    <meta name="generator" content="Esanov Otabek">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta property="og:image" content="@yield('og_image', Vite::asset('resources/images/logo.png'))">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        @yield("title")
+    </title>
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+    @vite(['resources/css/app.css','resources/js/app.js'])
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    @stack('styles')
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
+</head>
+<body  class="bg-gray-50 dark:bg-gray-800">
 
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
+@yield("big-content")
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
-    </body>
+
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        <x-tools.toastr message="{{ $error }}" type="danger" icon="Error icon"/>
+    @endforeach
+@endif
+
+@if(Session::has('success_msg'))
+    <x-tools.toastr message="{!! session('success_msg') !!}" type="success" icon="Error icon"/>
+@endif
+
+@if(Session::has('error_msg'))
+    <x-tools.toastr message="{!!  session('error_msg') !!}" type="danger" icon="Error icon"/>
+@endif
+
+@if(Session::has('success'))
+    <x-tools.toastr message="{!! session('success') !!}" type="success" icon="Error icon"/>
+@endif
+
+@if(Session::has('error_msg'))
+    <x-tools.toastr message="{!!  session('error_msg') !!}" type="danger" icon="Error icon"/>
+@endif
+
+
+
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script src="https://flowbite-admin-dashboard.vercel.app//app.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js"></script>
+@stack('scripts')
+</body>
+
 </html>
