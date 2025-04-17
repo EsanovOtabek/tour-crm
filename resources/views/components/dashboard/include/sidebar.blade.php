@@ -13,6 +13,16 @@
                         </x-dashboard.sidebar.item>
                     </li>
 
+                    {{-- Settings --}}
+                    <li>
+                        <x-dashboard.sidebar.item path="{{ route('users.index') }}/"
+                                                  content="Users" >
+                            <x-s-v-g-s.users
+                                class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
+                        </x-dashboard.sidebar.item>
+                    </li>
+                    <hr>
+
 
                     {{-- Settings --}}
                     <li>
