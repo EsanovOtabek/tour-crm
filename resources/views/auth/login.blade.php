@@ -19,7 +19,7 @@
 
             <!-- Session Status -->
             @if (session('status'))
-                <div class="mb-4 text-sm text-green-600 dark:text-green-400">
+                <div class="mb-4 text-sm text-primary-600 dark:text-primary-400">
                     {{ session('status') }}
                 </div>
             @endif
@@ -47,7 +47,7 @@
 
                     @if (Route::has('password.request'))
                         <a href="{{ route('password.request') }}"
-                           class="ml-auto mt-2 text-sm block text-end text-green-700 hover:underline dark:text-green-500">
+                           class="ml-auto mt-2 text-sm block text-end text-primary-700 hover:underline dark:text-primary-500">
                             Parolni unutdingizmi?
                         </a>
                     @endif
@@ -56,7 +56,7 @@
                 <!-- Remember Me -->
                 <div class="flex items-center">
                     <input type="checkbox" name="remember" id="remember"
-                           class="rounded border-gray-300 dark:bg-gray-900 dark:border-gray-700 text-green-600 shadow-sm focus:ring-green-500">
+                           class="rounded border-gray-300 dark:bg-gray-900 dark:border-gray-700 text-primary-600 shadow-sm focus:ring-primary-500">
                     <label for="remember" class="ms-2 text-sm text-gray-600 dark:text-gray-400">
                         Meni eslab qol
                     </label>
@@ -66,13 +66,13 @@
 
                 <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
                     Ro'yxatdan o'tmadingizmi?
-                    <a class="text-green-700 hover:underline dark:text-green-500" href="{{ route('register') }}">
+                    <a class="text-primary-700 hover:underline dark:text-primary-500" href="{{ route('register') }}">
                         Ro'yxatdan o'tish
                     </a>
                 </div>
             </form>
 
-            <hr class="divide-green-950">
+            <hr class="divide-primary-950">
         </div>
     </div>
 @endsection

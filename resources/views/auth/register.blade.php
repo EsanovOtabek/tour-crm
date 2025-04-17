@@ -52,13 +52,13 @@
 
                 <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
                     Oldin ro'yxatdan o'tganmisiz?
-                    <a class="text-green-700 hover:underline dark:text-green-500" href="{{ route('login') }}">
+                    <a class="text-primary-700 hover:underline dark:text-primary-500" href="{{ route('login') }}">
                         Kirish
                     </a>
                 </div>
             </form>
 
-            <hr class="divide-green-950">
+            <hr class="divide-primary-950">
 
 
         </div>
