@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    protected function middleware(): array
+    {
+        return [
+            'permission:users.index' => ['only' => ['index']],
+            'permission:users.create' => ['only' => ['store']],
+            'permission:users.edit' => ['only' => [ 'update']],
+            'permission:users.delete' => ['only' => ['destroy']],
+        ];
+    }
+
     public function index()
     {
         $users = User::with('roles')->paginate(10);

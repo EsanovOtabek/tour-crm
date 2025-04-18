@@ -12,20 +12,49 @@ class RolesAndPermissionsSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create roles
-        $adminRole = Role::create(['name' => 'admin']);
-        $managerRole = Role::create(['name' => 'manager']);
-        $userRole = Role::create(['name' => 'user']);
+        // 1. Rollarni yaratish
+        $adminRole = Role::firstOrCreate(['name' => 'admin']);
+        $operatorRole = Role::firstOrCreate(['name' => 'operator']);
+        $casserRole = Role::firstOrCreate(['name' => 'casser']);
 
-        // Create permissions
-        $createUserPermission = Permission::create(['name' => 'create user']);
-        $deleteUserPermission = Permission::create(['name' => 'delete user']);
+        // 2. Permissionlarni yaratish
+        $permissions = [
+            'users.index',
+            'users.create',
+            'users.edit',
+            'users.delete',
 
-        // Assign permissions to roles
-        $adminRole->givePermissionTo($createUserPermission);
-        $adminRole->givePermissionTo($deleteUserPermission);
+            'roles.index',
+            'roles.store',
 
-        $managerRole->givePermissionTo($createUserPermission);
+            'permissions.index',
+            'permissions.create',
+            'permissions.edit',
+            'permissions.delete',
+
+            'roles.permissions.index',
+            'roles.permissions.sync',
+        ];
+
+        foreach ($permissions as $permissionName) {
+            Permission::firstOrCreate(['name' => $permissionName]);
+        }
+
+        // 3. Admin - barcha permissionlarga ega
+        $adminRole->syncPermissions(Permission::all());
+
+        // 4. Operator - role va permission bilan bog‘liq amallardan tashqari permissionlar
+        $operatorRole->syncPermissions([
+            'users.index',
+            'users.create',
+            'users.edit',
+            'users.delete',
+        ]);
+
+        // 5. Casser - cheklangan permissionlar (masalan, faqat ko‘rish va yangilash)
+        $casserRole->syncPermissions([
+            'users.index',
+            'users.edit',
+        ]);
     }
-
 }

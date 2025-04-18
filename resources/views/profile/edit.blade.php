@@ -14,11 +14,7 @@
                             {{ __("Update your account's profile information and email address.") }}
                         </p>
 
-                        <form id="send-verification" method="post" action="{{ route('verification.send') }}">
-                            @csrf
-                        </form>
-
-                        <form method="post" action="{{ route('profile.update') }}" class="space-y-6">
+                        <form method="post" action="{{ route('profile.update') }}" class="space-y-6" enctype="multipart/form-data">
                             @csrf
                             @method('patch')
 
@@ -55,6 +51,34 @@
                                     </div>
                                 @endif
                             </div>
+
+                            {{-- Telefon raqam --}}
+                            <div class="mb-4">
+                                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Phone') }}</label>
+                                <input type="text" id="phone" name="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="+998(XX)0000000" value="{{ old('phone', $user->phone) }}" autocomplete="tel">
+                                @error('phone')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            {{-- Telegram ID --}}
+                            <div class="mb-4">
+                                <label for="telegram_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Telegram ID') }}</label>
+                                <input type="text" id="telegram_id" name="telegram_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="telegram_id" value="{{ old('telegram_id', $user->telegram_id) }}">
+                                @error('telegram_id')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            {{-- Rasm yuklash (agar kerak bo‘lsa) --}}
+                            <div class="mb-4">
+                                <label for="picture" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Profile Picture') }}</label>
+                                <input type="file" id="picture" name="picture" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600">
+                                @error('picture')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                                @enderror
+                            </div>
+
 
                             <div class="flex items-center">
                                 <button type="submit" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">

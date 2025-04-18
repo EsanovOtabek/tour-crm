@@ -3,7 +3,7 @@
 @section('description', "Manage system users")
 
 @section('content')
-    <div class="px-4 pt-6">
+    <div class="px-4 pt-6 min-h-screen">
         <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
             <!-- Card header -->
             <div class="items-center justify-between lg:flex">
@@ -29,10 +29,16 @@
                                 <thead class="bg-gray-50 dark:bg-gray-700">
                                 <tr>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                        ID
+                                    </th>
+                                    <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                         Name
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                         Email
+                                    </th>
+                                    <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                        Phone
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                         Role
@@ -49,10 +55,16 @@
                                 @foreach($users as $user)
                                     <tr>
                                         <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
+                                            {{ $loop->index + 1 }}
+                                        </td>
+                                        <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
                                             {{ $user->name }}
                                         </td>
                                         <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                                             {{ $user->email }}
+                                        </td>
+                                        <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                            {{ $user->phone }}
                                         </td>
                                         <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             @foreach($user->roles as $role)
@@ -70,7 +82,7 @@
                                                 </svg>
                                                 Edit
                                             </button>
-                                            <a href="{{ route('users.show', $user->id) }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:focus:ring-green-900">
+                                            <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:focus:ring-green-900">
                                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>

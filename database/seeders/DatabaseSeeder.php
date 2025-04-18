@@ -19,7 +19,12 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('qwertyuiop[]'),
         ]);
 
+        $this->call([
+            RolesAndPermissionsSeeder::class,
+        ]);
+
         $user->assignRole('admin');
 
     }
+
 }
