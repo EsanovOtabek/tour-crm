@@ -8,35 +8,38 @@ use Illuminate\Http\Request;
 
 class PartnerController extends Controller
 {
+    protected function middleware(): array
+    {
+        return [
+            'permission:partners.index' => ['only' => ['index']],
+            'permission:partners.store' => ['only' => ['store']],
+            'permission:partners.show' => ['only' => ['show']],
+            'permission:partners.update' => ['only' => ['update']],
+            'permission:partners.destroy' => ['only' => ['destroy']],
+        ];
+    }
     public function index()
     {
         $partners = Partner::with('type')->latest()->paginate(10);
-        return view('partners.index', compact('partners'));
+        $partnerTypes = PartnerType::all();
+        return view('partners.index', compact('partners', 'partnerTypes'));
     }
 
-    public function create()
+    public function show(Partner $partner)
     {
-        $types = PartnerType::all();
-        return view('partners.create', compact('types'));
+        return view('partners.show', compact('partner'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'balans' => 'nullable|numeric',
             'type_id' => 'required|exists:partner_types,id',
         ]);
 
         Partner::create($validated);
 
         return redirect()->route('partners.index')->with('success', 'Hamkor muvaffaqiyatli qo‘shildi.');
-    }
-
-    public function edit(Partner $partner)
-    {
-        $types = PartnerType::all();
-        return view('partners.edit', compact('partner', 'types'));
     }
 
     public function update(Request $request, Partner $partner)

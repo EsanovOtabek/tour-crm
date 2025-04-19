@@ -123,21 +123,19 @@
                         <x-dashboard.sidebar.drop-down-wrapper controls="companies">
                             <li>
                                 <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Partner companies" >
+                                                          path="{{ route('partners.index') }}"
+                                                          content="Partners" >
                                 </x-dashboard.sidebar.item>
-                                <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Add new Partner" />
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('partner-types.index') }}"
                                                           content="Partner types" />
+
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path=""
-                                                          content="Obyektlar" />
+                                                          content="Partner Objects" />
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path=""
-                                                          content="Obyekt mahsulotlari" />
+                                                          content="Partner Object Items" />
                             </li>
                         </x-dashboard.sidebar.drop-down-wrapper>
                     </li>
@@ -213,25 +211,24 @@
 
                     {{-- Settings --}}
                     <li>
-                        <x-dashboard.sidebar.drop-down-button content="Sozlamalar" controls='settings'>
+                        <x-dashboard.sidebar.drop-down-button content="Tools" controls='tools'>
                             <x-s-v-g-s.settings-3
                                 class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
                         </x-dashboard.sidebar.drop-down-button>
-                        <x-dashboard.sidebar.drop-down-wrapper controls="settings">
+                        <x-dashboard.sidebar.drop-down-wrapper controls="tools">
                             <li>
                                 <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Shaharlar" >
+                                                          path="{{ route('tools.countries') }}"
+                                                          content="Countries" >
                                 </x-dashboard.sidebar.item>
+
                                 <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Tillar" />
+                                                          path="{{ route('tools.languages') }}"
+                                                          content="Languages" />
+
                                 <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Narxlar ro'yxati" />
-                                <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Profil" />
+                                                          path="{{ route('tools.currencies') }}"
+                                                          content="Currencies" />
                             </li>
                         </x-dashboard.sidebar.drop-down-wrapper>
                     </li>
