@@ -54,6 +54,9 @@
 <script async defer src="{{ asset('assets/js/button.js') }}"></script>
 <script src="{{ asset('assets/js/flowbite/app.bundle.js') }}"></script>
 <script src="{{ asset('assets/js/flowbite/datepicker.min.js') }}"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 @stack('scripts')
 </body>
 

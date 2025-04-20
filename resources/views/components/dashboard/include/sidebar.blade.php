@@ -91,25 +91,25 @@
 
                     {{-- Guides --}}
                     <li>
-                        <x-dashboard.sidebar.drop-down-button content="Gidlar" controls='guides'>
+                        <x-dashboard.sidebar.drop-down-button content="Guides" controls='guides'>
                             <x-s-v-g-s.user-plus
                                 class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
                         </x-dashboard.sidebar.drop-down-button>
                         <x-dashboard.sidebar.drop-down-wrapper controls="guides">
                             <li>
                                 <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Barcha gidlar" >
+                                                          path="{{ route('guides.index') }}"
+                                                          content="All Guides" >
                                 </x-dashboard.sidebar.item>
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path=""
-                                                          content="Yangi gid qo'shish" />
+                                                          content="New Guides" />
+                                <x-dashboard.sidebar.item class="pl-10"
+                                                          path="{{ route('guide-categories.index') }}"
+                                                          content="Guide Categories" />
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path=""
-                                                          content="Gid kategoriyalari" />
-                                <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Gidlar kalendari" />
+                                                          content="Guide Calendar" />
                             </li>
                         </x-dashboard.sidebar.drop-down-wrapper>
                     </li>
@@ -131,11 +131,11 @@
                                                           content="Partner types" />
 
                                 <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
+                                                          path="{{ route('partners.show') }}"
                                                           content="Partner Objects" />
                                 <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Partner Object Items" />
+                                                          path="{{ route('object-items.index') }}"
+                                                          content="Object Items" />
                             </li>
                         </x-dashboard.sidebar.drop-down-wrapper>
                     </li>

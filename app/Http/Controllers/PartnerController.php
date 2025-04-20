@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Partner;
+use App\Models\PartnerObject;
 use App\Models\PartnerType;
 use Illuminate\Http\Request;
 
@@ -25,9 +26,23 @@ class PartnerController extends Controller
         return view('partners.index', compact('partners', 'partnerTypes'));
     }
 
-    public function show(Partner $partner)
+    public function show(Request $request)
     {
-        return view('partners.show', compact('partner'));
+        $selectedPartnerId = $request->query('partner_id', null);
+        $partners = Partner::all();
+
+        $query = PartnerObject::query();
+
+        if ($selectedPartnerId) {
+            $query->where('partner_id', $selectedPartnerId);
+            $selectedPartner = Partner::find($selectedPartnerId);
+        } else {
+            $selectedPartner = null;
+        }
+
+        $partnerObjects = $query->paginate(15);
+
+        return view('partners.objects', compact('partnerObjects', 'partners', 'selectedPartner', 'selectedPartnerId'));
     }
 
     public function store(Request $request)

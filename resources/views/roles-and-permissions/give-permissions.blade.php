@@ -27,7 +27,7 @@
                             </select>
                         </div>
                         <div>
-                            <button type="submit" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 mt-7">
+                            <button type="submit" class="admin-add-btn mt-7">
                                 Load Permissions
                             </button>
                         </div>
@@ -72,7 +72,7 @@
                         </div>
 
                         <div class="mt-6">
-                            <button type="submit" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                            <button type="submit" class="admin-add-btn">
                                 Update Permissions
                             </button>
                         </div>
