@@ -20,6 +20,6 @@ class TourCity extends Model
 
     public function guides()
     {
-        $this->hasMany(Guide::class);
+        return $this->hasMany(Guide::class);
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
-@section('title', "Guide Categories Management")
-@section('description', "Manage categories for guides")
+@section('title', "Tour Categories Management")
+@section('description', "Manage categories for tours")
 
 @section('content')
     <div class="px-4 pt-6 min-h-screen w-1/2">
@@ -8,7 +8,7 @@
             <!-- Card header -->
             <div class="items-center justify-between lg:flex">
                 <div class="mb-4 lg:mb-0">
-                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Guide Categories Management</h3>
+                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Tour Categories Management</h3>
                 </div>
                 <div class="items-center sm:flex">
                     <button data-modal-target="createCategoryModal" data-modal-toggle="createCategoryModal" class="admin-add-btn" type="button">
@@ -34,7 +34,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($guideCategories as $category)
+                                @foreach($tourCategories as $category)
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                                         <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $loop->iteration }}</td>
                                         <td class="px-6 py-4">{{ $category->name }}</td>
@@ -46,7 +46,7 @@
                                                 </svg>
                                                 Edit
                                             </button>
-                                            <form action="{{ route('guide-categories.destroy', $category->id) }}" method="POST" class="inline-block">
+                                            <form action="{{ route('tour-categories.destroy', $category->id) }}" method="POST" class="inline-block">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" onclick="return confirm('Are you sure?')" class="admin-delete-btn">
@@ -71,7 +71,7 @@
                                                         </svg>
                                                     </button>
                                                 </div>
-                                                <form action="{{ route('guide-categories.update', $category->id) }}" method="POST">
+                                                <form action="{{ route('tour-categories.update', $category->id) }}" method="POST">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="mb-4">
@@ -108,7 +108,7 @@
                         </svg>
                     </button>
                 </div>
-                <form action="{{ route('guide-categories.store') }}" method="POST">
+                <form action="{{ route('tour-categories.store') }}" method="POST">
                     @csrf
                     <div class="mb-4">
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>

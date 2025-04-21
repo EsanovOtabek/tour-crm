@@ -44,6 +44,9 @@
                                         Role
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                        Last Activity
+                                    </th>
+                                    <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                         Created At
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
@@ -70,6 +73,9 @@
                                             @foreach($user->roles as $role)
                                                 <span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">{{ $role->name }}</span>
                                             @endforeach
+                                        </td>
+                                        <td class="p-4 text-sm font-normal text-gray-800 whitespace-nowrap dark:text-gray-100">
+                                            {{ $user->last_activity() }}
                                         </td>
                                         <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                                             {{ $user->created_at->format('M d, Y') }}

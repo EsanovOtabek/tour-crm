@@ -24,7 +24,7 @@
 
                     {{-- Rolas And Permissions --}}
                     <li>
-                        <x-dashboard.sidebar.drop-down-button content="Rolas And Permissions" controls='roles-and-permissions'>
+                        <x-dashboard.sidebar.drop-down-button content="Roles And Permissions" controls='roles-and-permissions'>
                             <x-s-v-g-s.pages
                                 class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
                         </x-dashboard.sidebar.drop-down-button>
@@ -47,41 +47,42 @@
 
                     {{-- Tours --}}
                     <li>
-                        <x-dashboard.sidebar.drop-down-button content="Turlar" controls='tours'>
+                        <x-dashboard.sidebar.drop-down-button content="Tours" controls='tours'>
                             <x-s-v-g-s.pages
                                 class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
                         </x-dashboard.sidebar.drop-down-button>
                         <x-dashboard.sidebar.drop-down-wrapper controls="tours">
                             <li>
                                 <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Barcha turlar" >
+                                                          path="{{ route('tours.index') }}"
+                                                          content="All Tours" >
                                 </x-dashboard.sidebar.item>
                                 <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Yangi tur qo'shish" />
+                                                          path="{{ route('tour-categories.index') }}"
+                                                          content="Tour Categories" />
                                 <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Tur turlari" />
+                                                          path="{{ route('price-lists.index') }}"
+                                                          content="Price List" />
                             </li>
                         </x-dashboard.sidebar.drop-down-wrapper>
                     </li>
 
                     {{-- Bookings --}}
                     <li>
-                        <x-dashboard.sidebar.drop-down-button content="Buyurtmalar" controls='bookings'>
+                        <x-dashboard.sidebar.drop-down-button content="Bookings" controls='bookings'>
                             <x-s-v-g-s.calendar
                                 class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
                         </x-dashboard.sidebar.drop-down-button>
                         <x-dashboard.sidebar.drop-down-wrapper controls="bookings">
                             <li>
                                 <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Barcha buyurtmalar" >
+                                                          path="{{ route('bookings.index') }}"
+                                                          content="Bookings" >
                                 </x-dashboard.sidebar.item>
                                 <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Yangi buyurtma" />
+                                                          path="{{ route('bookings.index',['filter' => 'archive']) }}"
+                                                          content="Archive Bookings" >
+                                </x-dashboard.sidebar.item>
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path=""
                                                           content="Guruh a'zolari" />

@@ -1,23 +1,29 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\GuideCategoryController;
-use App\Http\Controllers\GuideController;
-use App\Http\Controllers\ObjectItemController;
-use App\Http\Controllers\PartnerController;
-use App\Http\Controllers\PartnerObjectController;
-use App\Http\Controllers\PartnerTypeController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RolesAndPermission\GivePermissionController;
-use App\Http\Controllers\RolesAndPermission\PermissionController;
-use App\Http\Controllers\RolesAndPermission\RoleController;
-use App\Http\Controllers\ToolsController;
-use App\Http\Controllers\TourCitiesController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\{BookingController,
+    DashboardController,
+    GuideCategoryController,
+    GuideController,
+    ObjectItemController,
+    PartnerController,
+    PartnerObjectController,
+    PartnerTypeController,
+    PriceListController,
+    ProfileController,
+    RolesAndPermission\GivePermissionController,
+    RolesAndPermission\PermissionController,
+    RolesAndPermission\RoleController,
+    ToolsController,
+    TourCategoryController,
+    TourCitiesController,
+    TourController,
+    UserController,
+    GroupMemberController};
+
 use Illuminate\Support\Facades\Route;
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(callback: function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -68,6 +74,19 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('guide-categories', GuideCategoryController::class)->names('guide-categories')->only('index', 'store', 'update', 'destroy');
     Route::resource('guides', GuideController::class)->names('guides');
+
+
+    Route::resource('tour-categories', TourCategoryController::class)->names('tour-categories')->only('index', 'store', 'update', 'destroy');
+    Route::resource('tours', TourController::class)->names('tours');
+
+    Route::resource('price-lists', PriceListController::class)->names('price-lists')->only('index', 'store', 'update', 'destroy');
+
+    Route::resource('bookings', BookingController::class)->names('bookings')->only('index', 'store', 'update', 'destroy');
+    Route::prefix('bookings/{booking}')->group(function () {
+        Route::resource('group-members', GroupMemberController::class)->only(['index','store','update','destroy',])->names('bookings.group-members');
+    });
+
+
 
 });
 
