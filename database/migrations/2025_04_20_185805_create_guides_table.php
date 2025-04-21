@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->enum('status', ['green', 'yellow', 'red'])->default('yellow')->comment('green - tasdiqlangan, yellow - kutish, red - band');
             $table->foreignId('guide_category_id')->constrained('guide_categories')->onDelete('cascade');
-            $table->foreignId('city_id')->constrained('cities')->onDelete('cascade');
+            $table->foreignId('tour_city_id')->constrained('tour_cities')->onDelete('cascade');
             $table->decimal('price', 15, 2);
             $table->softDeletes();
             $table->timestamps();

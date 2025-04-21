@@ -102,9 +102,6 @@
                                                           content="All Guides" >
                                 </x-dashboard.sidebar.item>
                                 <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="New Guides" />
-                                <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('guide-categories.index') }}"
                                                           content="Guide Categories" />
                                 <x-dashboard.sidebar.item class="pl-10"
@@ -221,6 +218,10 @@
                                                           path="{{ route('tools.countries') }}"
                                                           content="Countries" >
                                 </x-dashboard.sidebar.item>
+
+                                <x-dashboard.sidebar.item class="pl-10"
+                                                          path="{{ route('tools.cities.index') }}"
+                                                          content="Tour Cities" />
 
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('tools.languages') }}"

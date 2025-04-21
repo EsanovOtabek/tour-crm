@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Nnjeim\World\Models\City;
 use Nnjeim\World\Models\Language;
 
 class Guide extends Model
@@ -18,7 +17,7 @@ class Guide extends Model
         'name',
         'status',
         'guide_category_id',
-        'city_id',
+        'tour_city_id',
         'price',
     ];
 
@@ -27,9 +26,9 @@ class Guide extends Model
         return $this->belongsTo(GuideCategory::class, 'guide_category_id');
     }
 
-    public function city(): BelongsTo
+    public function tour_city(): BelongsTo
     {
-        return $this->belongsTo(City::class, 'shahar_id');
+        return $this->belongsTo(TourCity::class);
     }
 
     public function languages(): BelongsToMany

@@ -3,7 +3,7 @@
 @section('description', "Manage system roles")
 
 @section('content')
-    <div class="px-4 pt-6 ">
+    <div class="px-4 pt-6 min-h-screen">
         <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
             <!-- Card header -->
             <div class="items-center justify-between lg:flex">

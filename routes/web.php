@@ -12,6 +12,7 @@ use App\Http\Controllers\RolesAndPermission\GivePermissionController;
 use App\Http\Controllers\RolesAndPermission\PermissionController;
 use App\Http\Controllers\RolesAndPermission\RoleController;
 use App\Http\Controllers\ToolsController;
+use App\Http\Controllers\TourCitiesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,7 +43,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('tools')->group(function() {
         Route::get('/davlatlar', [ToolsController::class, 'countries'])->name('tools.countries');
-        // Route::get('/shaharlar', [ToolsController::class, 'shaharlar'])->name('tools.cities');
+        Route::resource('/shaharlar', TourCitiesController::class)->names('tools.cities')->only(['index', 'store', 'update', 'destroy']);
+
         Route::get('/tillar', [ToolsController::class, 'languages'])->name('tools.languages');
         Route::get('/valyutalar', [ToolsController::class, 'currencies'])->name('tools.currencies');
     });
