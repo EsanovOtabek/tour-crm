@@ -83,9 +83,6 @@
                                                           path="{{ route('bookings.index',['filter' => 'archive']) }}"
                                                           content="Archive Bookings" >
                                 </x-dashboard.sidebar.item>
-                                <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Guruh a'zolari" />
                             </li>
                         </x-dashboard.sidebar.drop-down-wrapper>
                     </li>
@@ -159,19 +156,19 @@
 
                     {{-- Finance --}}
                     <li>
-                        <x-dashboard.sidebar.drop-down-button content="Moliya" controls='finance'>
+                        <x-dashboard.sidebar.drop-down-button content="Finance" controls='finance'>
                             <x-s-v-g-s.coins
                                 class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
                         </x-dashboard.sidebar.drop-down-button>
                         <x-dashboard.sidebar.drop-down-wrapper controls="finance">
                             <li>
                                 <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Balanslar" >
+                                                          path="{{ route('balances.index') }}"
+                                                          content="Balances" >
                                 </x-dashboard.sidebar.item>
                                 <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Harajatlar" />
+                                                          path="{{ route('expenses.index') }}"
+                                                          content="Expenses" />
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path=""
                                                           content="To'lov tarixi" />

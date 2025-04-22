@@ -77,6 +77,7 @@
                         <th scope="col" class="py-3 px-6">Passport</th>
                         <th scope="col" class="py-3 px-6">Contact</th>
                         <th scope="col" class="py-3 px-6">Status</th>
+                        <th scope="col" class="py-3 px-6">Agent</th>
                         <th scope="col" class="py-3 px-6 text-right">Actions</th>
                     </tr>
                     </thead>
@@ -137,7 +138,17 @@
                                     </span>
                                 @endif
                             </td>
+                            <td class="py-4 px-6">
+                                @if($member->agent)
+                                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">{{ $member->agent->name }} </span>
+                                @else
+                                    <span class="text-gray-500 dark:text-gray-400">No agent</span>
+                                @endif
+                            </td>
                             <td class="py-4 px-6 text-right">
+                                <a href="{{route('bookings.group-members.show', [$booking->id, $member->id])}}" class="admin-add-btn ">
+                                    View
+                                </a>
                                 <button data-modal-target="editMemberModal-{{ $member->id }}" data-modal-toggle="editMemberModal-{{ $member->id }}" class="admin-edit-btn">
                                     Edit
                                 </button>
@@ -166,6 +177,15 @@
                                         @csrf
                                         @method('PUT') <!-- yoki PATCH -->
                                         <div class="grid gap-4 mb-4">
+                                            <div>
+                                                <label for="edit-agent-{{ $member->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Agent</label>
+                                                <select name="agent_id" required id="edit-agent-{{ $member->id }}" class="e-input">
+                                                    <option value="" >Select Agent</option>
+                                                    @foreach($agents as $agent)
+                                                        <option value="{{ $agent->id }}" {{ $member->agent_id == $agent->id ? 'selected' : '' }}>{{ $agent->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                             <div class="grid grid-cols-2 gap-4">
                                                 <div>
                                                     <label for="edit-surname-{{ $member->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Surname</label>
@@ -281,6 +301,15 @@
                 <form action="{{ route('bookings.group-members.store', $booking->id) }}" method="POST">
                     @csrf
                     <div class="grid gap-4 mb-4">
+                        <div>
+                            <label for="create-agent" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Agent</label>
+                            <select name="agent_id" required id="create-agent" class="e-input">
+                                <option value="">Select Agent</option>
+                                @foreach($agents as $agent)
+                                    <option value="{{ $agent->id }}">{{ $agent->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label for="create-surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Surname</label>

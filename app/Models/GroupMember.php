@@ -9,6 +9,7 @@ class GroupMember extends Model
 {
     protected $fillable = [
         'booking_id',
+        'agent_id', // Added
         'surname',
         'name',
         'passport_number',
@@ -24,6 +25,12 @@ class GroupMember extends Model
         return $this->belongsTo(Booking::class);
     }
 
+    // Add relationship to agent
+    public function agent(): BelongsTo
+    {
+        return $this->belongsTo(Agent::class, 'agent_id');
+    }
+
     // Status constants for consistent usage
     const STATUS_ACTIVE = 'active';
     const STATUS_CANCELLED = 'cancelled';
@@ -36,5 +43,10 @@ class GroupMember extends Model
             self::STATUS_CANCELLED => 'Cancelled',
             self::STATUS_PENDING => 'Pending',
         ];
+    }
+
+    public function dailyRecords()
+    {
+        return $this->hasMany(DailyRecord::class);
     }
 }

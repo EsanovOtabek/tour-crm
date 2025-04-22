@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\{
-    AgentController,
+use App\Http\Controllers\{AgentController,
+    BalanceController,
     BookingController,
+    DailyRecordController,
     DashboardController,
+    ExpenseController,
     GuideCategoryController,
     GuideController,
     ObjectItemController,
@@ -85,12 +87,20 @@ Route::middleware(['auth'])->group(callback: function () {
 
     Route::resource('bookings', BookingController::class)->names('bookings')->only('index', 'store', 'update', 'destroy');
     Route::prefix('bookings/{booking}')->group(function () {
-        Route::resource('group-members', GroupMemberController::class)->only(['index','store','update','destroy',])->names('bookings.group-members');
+        Route::resource('group-members', GroupMemberController::class)->only(['index','show', 'store','update','destroy',])->names('bookings.group-members');
+
     });
+
+    Route::resource('daily-records', DailyRecordController::class)->names('daily-records')->only('index','store','update','destroy');
+
+
 
 
     Route::resource('agents', AgentController::class)->names('agents')->except('create','edit');
 
+    Route::resource('balances', BalanceController::class)->names('balances')->only('index','update','store');
+
+    Route::resource('expenses', ExpenseController::class)->names('expenses')->only('index','update','store');
 
 });
 

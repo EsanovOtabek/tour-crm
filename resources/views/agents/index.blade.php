@@ -28,48 +28,48 @@
                             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600 border">
                                 <thead class="bg-gray-50 dark:bg-gray-700">
                                 <tr>
-                                    <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                    <th scope="col" class="p-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase dark:text-white">
                                         ID
                                     </th>
-                                    <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                    <th scope="col" class="p-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase dark:text-white">
                                         Name
                                     </th>
-                                    <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                    <th scope="col" class="p-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase dark:text-white">
                                         Email
                                     </th>
-                                    <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                    <th scope="col" class="p-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase dark:text-white">
                                         Balance
                                     </th>
-                                    <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                    <th scope="col" class="p-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase dark:text-white">
                                         Contact Details
                                     </th>
-                                    <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                    <th scope="col" class="p-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase dark:text-white">
                                         Created At
                                     </th>
-                                    <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                    <th scope="col" class="p-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase dark:text-white">
                                         Actions
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody class="bg-white dark:bg-gray-800">
                                 @foreach($agents as $agent)
-                                    <tr>
+                                    <tr class="border">
                                         <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
                                             {{ $loop->index + 1 }}
                                         </td>
                                         <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
                                             {{ $agent->name }}
                                         </td>
-                                        <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                        <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-gray-400">
                                             {{ $agent->email }}
                                         </td>
-                                        <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                        <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-gray-400">
                                             {{ number_format($agent->balance, 2) }}
                                         </td>
-                                        <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                        <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-gray-400">
                                             {{ $agent->contact_details }}
                                         </td>
-                                        <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                        <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-gray-400">
                                             {{ $agent->created_at->format('M d, Y') }}
                                         </td>
                                         <td class="p-4 space-x-2 whitespace-nowrap">
@@ -92,7 +92,7 @@
 
                                     <!-- Edit Agent Modal -->
                                     <div id="editAgentModal-{{ $agent->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
-                                        <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+                                        <div class="relative p-4 w-full max-w-lg h-full md:h-auto">
                                             <!-- Modal content -->
                                             <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
                                                 <!-- Modal header -->
@@ -112,22 +112,18 @@
                                                     @csrf
                                                     @method('PUT')
 
-                                                    <div class="grid gap-4 mb-4 sm:grid-cols-2">
+                                                    <div class="grid gap-4 mb-4 sm:grid-cols-1">
                                                         <div>
-                                                            <label for="name-{{ $agent->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                                            <input type="text" name="name" id="name-{{ $agent->id }}" value="{{ $agent->name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Agent name" required>
+                                                            <label for="name-{{ $agent->id }}" class="e-label">Name</label>
+                                                            <input type="text" name="name" id="name-{{ $agent->id }}" value="{{ $agent->name }}" class="e-input" placeholder="Agent name" required>
                                                         </div>
                                                         <div>
-                                                            <label for="email-{{ $agent->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                                            <input type="email" name="email" id="email-{{ $agent->id }}" value="{{ $agent->email }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="agent@example.com" required>
+                                                            <label for="email-{{ $agent->id }}" class="e-label">Email</label>
+                                                            <input type="email" name="email" id="email-{{ $agent->id }}" value="{{ $agent->email }}" class="e-input" placeholder="agent@example.com" required>
                                                         </div>
                                                         <div>
-                                                            <label for="balance-{{ $agent->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Balance</label>
-                                                            <input type="number" step="0.01" name="balance" id="balance-{{ $agent->id }}" value="{{ $agent->balance }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="0.00">
-                                                        </div>
-                                                        <div>
-                                                            <label for="contact_details-{{ $agent->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact Details</label>
-                                                            <input type="text" name="contact_details" id="contact_details-{{ $agent->id }}" value="{{ $agent->contact_details }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Phone, address, etc.">
+                                                            <label for="contact_details-{{ $agent->id }}" class="e-label">Contact Details</label>
+                                                            <textarea  name="contact_details" id="contact_details-{{ $agent->id }}" class="e-input" placeholder="Phone, address, etc.">{{ $agent->contact_details }}</textarea>
                                                         </div>
                                                     </div>
                                                     <div class="flex items-center space-x-4">
@@ -209,20 +205,20 @@
                     @csrf
                     <div class="grid gap-4 mb-4 sm:grid-cols-1">
                         <div>
-                            <label for="create-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                            <input type="text" name="name" id="create-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Agent name" required>
+                            <label for="create-name" class="e-label">Name</label>
+                            <input type="text" name="name" id="create-name" class="e-input" placeholder="Agent name" required>
                         </div>
                         <div>
-                            <label for="create-email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                            <input type="email" name="email" id="create-email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="agent@example.com" required>
+                            <label for="create-email" class="e-label">Email</label>
+                            <input type="email" name="email" id="create-email" class="e-input" placeholder="agent@example.com" required>
                         </div>
                         <div>
-                            <label for="create-balance" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Balance</label>
-                            <input type="number" step="0.01" name="balance" id="create-balance" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="0.00">
+                            <label for="create-balance" class="e-label">Balance</label>
+                            <input type="number" step="0.01" name="balance" id="create-balance" class="e-input" placeholder="0.00">
                         </div>
                         <div>
-                            <label for="create-contact-details" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact Details</label>
-                            <textarea name="contact_details" id="create-contact-details" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Phone, address, etc."></textarea>
+                            <label for="create-contact-details" class="e-label">Contact Details</label>
+                            <textarea name="contact_details" id="create-contact-details" class="e-input" placeholder="Phone, address, etc."></textarea>
                         </div>
                     </div>
                     <div class="flex items-center space-x-4">

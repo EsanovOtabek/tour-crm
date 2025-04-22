@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('group_members', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('booking_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('agent_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('surname');
             $table->string('name');
             $table->string('passport_number');
