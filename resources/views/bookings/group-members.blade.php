@@ -49,12 +49,12 @@
                     </div>
                 </div>
             </div>
-
+            <hr class="mb-3">
             <!-- Card header -->
             <div class="items-center justify-between lg:flex mb-6 ">
                 <div class="mb-4 lg:mb-0">
                     <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Group Members</h3>
-                    <p class="text-gray-600 dark:text-gray-400">Manage members for this booking</p>
+{{--                    <p class="text-gray-600 dark:text-gray-400">Manage members for this booking</p>--}}
                 </div>
                 <div class="items-center sm:flex">
                     <button data-modal-target="createMemberModal" data-modal-toggle="createMemberModal" class="admin-add-btn" type="button">
@@ -69,8 +69,10 @@
             <!-- Members Table -->
             <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-primary-200 dark:bg-primary-900 dark:text-gray-400">
                     <tr>
+                        <th scope="col" class="py-3 px-6">&num;</th>
+                        <th scope="col" class="py-3 px-6">Surname</th>
                         <th scope="col" class="py-3 px-6">Name</th>
                         <th scope="col" class="py-3 px-6">Passport</th>
                         <th scope="col" class="py-3 px-6">Contact</th>
@@ -82,8 +84,16 @@
                     @forelse($booking->groupMembers as $member)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <td class="py-4 px-6">
+                                {{ $loop->index + 1 }}
+                            </td>
+                            <td class="py-4 px-6">
                                 <div class="font-medium text-gray-900 dark:text-white">
-                                    {{ $member->surname }}, {{ $member->name }}
+                                    {{ $member->surname }}
+                                </div>
+                            </td>
+                            <td class="py-4 px-6">
+                                <div class="font-medium text-gray-900 dark:text-white">
+                                    {{ $member->name }}
                                 </div>
                             </td>
                             <td class="py-4 px-6">

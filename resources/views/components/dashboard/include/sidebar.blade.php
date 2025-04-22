@@ -140,19 +140,16 @@
 
                     {{-- Agents --}}
                     <li>
-                        <x-dashboard.sidebar.drop-down-button content="Agentlar" controls='agents'>
+                        <x-dashboard.sidebar.drop-down-button content="Agents" controls='agents'>
                             <x-s-v-g-s.users
                                 class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
                         </x-dashboard.sidebar.drop-down-button>
                         <x-dashboard.sidebar.drop-down-wrapper controls="agents">
                             <li>
                                 <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Barcha agentlar" >
+                                                          path="{{ route('agents.index') }}"
+                                                          content="All agents" >
                                 </x-dashboard.sidebar.item>
-                                <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Yangi agent" />
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path=""
                                                           content="Agent buyurtmalari" />

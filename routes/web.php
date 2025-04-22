@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\{BookingController,
+use App\Http\Controllers\{
+    AgentController,
+    BookingController,
     DashboardController,
     GuideCategoryController,
     GuideController,
@@ -86,6 +88,8 @@ Route::middleware(['auth'])->group(callback: function () {
         Route::resource('group-members', GroupMemberController::class)->only(['index','store','update','destroy',])->names('bookings.group-members');
     });
 
+
+    Route::resource('agents', AgentController::class)->names('agents')->except('create','edit');
 
 
 });
