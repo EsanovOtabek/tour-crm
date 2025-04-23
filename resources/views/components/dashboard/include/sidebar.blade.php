@@ -102,9 +102,9 @@
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('guide-categories.index') }}"
                                                           content="Guide Categories" />
-                                <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Guide Calendar" />
+{{--                                <x-dashboard.sidebar.item class="pl-10"--}}
+{{--                                                          path=""--}}
+{{--                                                          content="Guide Calendar" />--}}
                             </li>
                         </x-dashboard.sidebar.drop-down-wrapper>
                     </li>
@@ -147,9 +147,9 @@
                                                           path="{{ route('agents.index') }}"
                                                           content="All agents" >
                                 </x-dashboard.sidebar.item>
-                                <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Agent buyurtmalari" />
+{{--                                <x-dashboard.sidebar.item class="pl-10"--}}
+{{--                                                          path=""--}}
+{{--                                                          content="Agent buyurtmalari" />--}}
                             </li>
                         </x-dashboard.sidebar.drop-down-wrapper>
                     </li>
@@ -169,12 +169,12 @@
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('expenses.index') }}"
                                                           content="Expenses" />
-                                <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="To'lov tarixi" />
-                                <x-dashboard.sidebar.item class="pl-10"
-                                                          path=""
-                                                          content="Buyurtma harajatlari" />
+{{--                                <x-dashboard.sidebar.item class="pl-10"--}}
+{{--                                                          path=""--}}
+{{--                                                          content="To'lov tarixi" />--}}
+{{--                                <x-dashboard.sidebar.item class="pl-10"--}}
+{{--                                                          path=""--}}
+{{--                                                          content="Buyurtma harajatlari" />--}}
                             </li>
                         </x-dashboard.sidebar.drop-down-wrapper>
                     </li>

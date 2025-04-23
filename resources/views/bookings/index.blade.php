@@ -43,57 +43,41 @@
                 @foreach($bookings as $booking)
                     <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <div class="p-5">
-                            <div class="flex justify-between items-start">
+                            <div class="flex justify-between items-start flex-wrap gap-2">
                                 <div>
                                     <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                                         {{ $booking->tour->name ?? 'No Tour' }}
                                     </h5>
                                     <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
-                                        {{ $booking->user->name ?? 'No User' }}
-                                    </span>
+                        {{ $booking->user->name ?? 'No User' }}
+                    </span>
                                 </div>
-                                <span class="bg-{{
-                                    $booking->status == 'confirmed' ? 'green' :
-                                    ($booking->status == 'cancelled' ? 'red' :
-                                    ($booking->status == 'completed' ? 'purple' : 'yellow'))
-                                }}-100 text-{{
-                                    $booking->status == 'confirmed' ? 'green' :
-                                    ($booking->status == 'cancelled' ? 'red' :
-                                    ($booking->status == 'completed' ? 'purple' : 'yellow'))
-                                }}-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-{{
-                                    $booking->status == 'confirmed' ? 'green' :
-                                    ($booking->status == 'cancelled' ? 'red' :
-                                    ($booking->status == 'completed' ? 'purple' : 'yellow'))
-                                }}-200 dark:text-{{
-                                    $booking->status == 'confirmed' ? 'green' :
-                                    ($booking->status == 'cancelled' ? 'red' :
-                                    ($booking->status == 'completed' ? 'purple' : 'yellow'))
-                                }}-800">
-                                    {{ ucfirst($booking->status) }}
-                                </span>
+
+                                <span class="text-xs font-semibold px-2.5 py-0.5 rounded
+                    bg-{{ $booking->status == 'confirmed' ? 'green' : ($booking->status == 'cancelled' ? 'red' : ($booking->status == 'completed' ? 'purple' : 'yellow')) }}-100
+                    text-{{ $booking->status == 'confirmed' ? 'green' : ($booking->status == 'cancelled' ? 'red' : ($booking->status == 'completed' ? 'purple' : 'yellow')) }}-800
+                    dark:bg-{{ $booking->status == 'confirmed' ? 'green' : ($booking->status == 'cancelled' ? 'red' : ($booking->status == 'completed' ? 'purple' : 'yellow')) }}-200
+                    dark:text-{{ $booking->status == 'confirmed' ? 'green' : ($booking->status == 'cancelled' ? 'red' : ($booking->status == 'completed' ? 'purple' : 'yellow')) }}-800">
+                    {{ ucfirst($booking->status) }}
+                </span>
                             </div>
 
-                            <div class="mt-4 space-y-2">
-                                <p class="text text-gray-600 dark:text-gray-300">
-                                    <span class="font-semibold">Dates:</span>
-                                    {{ $booking->start_date->format('M d, Y') }} - {{ $booking->end_date->format('M d, Y') }}
-                                </p>
-                                <p class="text text-gray-600 dark:text-gray-300">
-                                    <span class="font-semibold">Price:</span> ${{ number_format($booking->price, 2) }}
-                                </p>
-                                <p class="text text-gray-600 dark:text-gray-300">
-                                    <span class="font-semibold">Cost Price:</span> ${{ number_format($booking->cost_price, 2) }}
-                                </p>
-                                <p class="text text-gray-600 dark:text-gray-300">
-                                    <span class="font-semibold">Total Amount:</span> ${{ number_format($booking->total_amount, 2) }}
-                                </p>
+                            <div class="mt-4 space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                                <p><span class="font-semibold">Dates:</span> {{ $booking->start_date->format('M d, Y') }} - {{ $booking->end_date->format('M d, Y') }}</p>
+                                <p><span class="font-semibold">Price:</span> ${{ number_format($booking->price, 2) }}</p>
+                                <p><span class="font-semibold">Cost Price:</span> ${{ number_format($booking->cost_price, 2) }}</p>
+                                <p><span class="font-semibold">Total Amount:</span> ${{ number_format($booking->total_amount, 2) }}</p>
                             </div>
 
-                            <div class="mt-4 flex space-x-2">
-                                <a href="{{ route('bookings.group-members.index', $booking->id) }}"  class="admin-add-btn">
-                                    <x-s-v-g-s.users class="w-4 h-4 mr-2"></x-s-v-g-s.users>
+                            {{-- Action buttons --}}
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                {{-- Group Members --}}
+                                <a href="{{ route('bookings.group-members.index', $booking->id) }}" class="admin-add-btn">
+                                    <x-s-v-g-s.users class="w-4 h-4 mr-2" />
                                     Members
                                 </a>
+
+                                {{-- Edit Booking --}}
                                 <button type="button" data-modal-target="editBookingModal-{{ $booking->id }}" data-modal-toggle="editBookingModal-{{ $booking->id }}" class="admin-edit-btn">
                                     <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
@@ -101,16 +85,40 @@
                                     </svg>
                                     Edit
                                 </button>
+
+                                {{-- Delete Booking --}}
                                 <button type="button" data-modal-target="deleteBookingModal-{{ $booking->id }}" data-modal-toggle="deleteBookingModal-{{ $booking->id }}" class="admin-delete-btn">
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                     </svg>
                                     Delete
                                 </button>
+
+                                {{-- View Expenses --}}
+                                <a href="{{ route('bookings.expenses.index', $booking->id) }}" class="admin-purple-btn">
+                                    <x-s-v-g-s.coins class="w-4 h-4 mr-2" />
+                                    Expenses
+                                </a>
+
+                                {{-- View Details --}}
+                                <a href="{{ route('bookings.show', $booking->id) }}" class="admin-info-btn">
+                                    <x-s-v-g-s.eye class="w-4 h-4 mr-2" />
+                                    Details
+                                </a>
+
+                                {{-- Mashrutlar --}}
+                                <a href="{{ route('mashruts.index', $booking->id) }}" class="admin-add-btn">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                              d="M3 3h3l3 7-4 5h11l4-10H9" />
+                                    </svg>
+                                    Mashrutlar
+                                </a>
+
                             </div>
                         </div>
                     </div>
-
                     <!-- Edit Booking Modal -->
                     <div id="editBookingModal-{{ $booking->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
                         <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">

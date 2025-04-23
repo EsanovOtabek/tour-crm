@@ -3,11 +3,13 @@
 use App\Http\Controllers\{AgentController,
     BalanceController,
     BookingController,
+    BookingExpenseController,
     DailyRecordController,
     DashboardController,
     ExpenseController,
     GuideCategoryController,
     GuideController,
+    MashrutController,
     ObjectItemController,
     PartnerController,
     PartnerObjectController,
@@ -85,9 +87,16 @@ Route::middleware(['auth'])->group(callback: function () {
 
     Route::resource('price-lists', PriceListController::class)->names('price-lists')->only('index', 'store', 'update', 'destroy');
 
-    Route::resource('bookings', BookingController::class)->names('bookings')->only('index', 'store', 'update', 'destroy');
+    Route::resource('bookings', BookingController::class)->names('bookings')->only('index','show', 'store', 'update', 'destroy');
     Route::prefix('bookings/{booking}')->group(function () {
         Route::resource('group-members', GroupMemberController::class)->only(['index','show', 'store','update','destroy',])->names('bookings.group-members');
+
+        // Booking Expenses routes
+        Route::resource('expenses', BookingExpenseController::class)->only(['index', 'store', 'update', 'destroy'])->names('bookings.expenses');
+        Route::resource('mashruts', MashrutController::class)->only(['index', 'store', 'update', 'destroy']);
+
+
+        Route::get('mashruts/pdf', [MashrutController::class, 'downloadPdf'])->name('bookings.mashruts.pdf');
 
     });
 

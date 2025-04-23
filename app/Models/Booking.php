@@ -35,4 +35,13 @@ class Booking extends Model
     public function tour(){
         return $this->belongsTo(Tour::class);
     }
+
+    public function expenses()
+    {
+        return $this->hasMany(BookingExpense::class);
+    }
+    public function mashruts()
+    {
+        return $this->hasMany(Mashrut::class);
+    }
 }
