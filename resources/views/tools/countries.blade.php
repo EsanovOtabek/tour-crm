@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
-@section('title', "Countries Management")
-@section('description', "Manage world countries")
+@section('title', "Davlatlar ro'yxati")
+@section('description', "Davlatlar ro'yxati")
 
 @section('content')
     <div class="px-4 pt-6">
@@ -8,8 +8,8 @@
             <!-- Header -->
             <div class="items-center justify-between lg:flex">
                 <div class="mb-4 lg:mb-0">
-                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Countries Management</h3>
-                    <span class="text-base font-normal text-gray-500 dark:text-gray-400">List of all countries</span>
+                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Davlatlar ro'yxati</h3>
+                    <span class="text-base font-normal text-gray-500 dark:text-gray-400">Barcha davlatlar ro'yxati</span>
                 </div>
             </div>
 
@@ -22,7 +22,7 @@
                                 <thead class="bg-gray-50 dark:bg-gray-700">
                                 <tr>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">ID</th>
-                                    <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Name</th>
+                                    <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Nomi</th>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">ISO2</th>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">ISO3</th>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Phone Code</th>

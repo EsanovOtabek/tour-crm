@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
-@section('title', "Role Permissions Management")
-@section('description', "Manage role permissions")
+@section('title', "Tizimdagi rollarga ruxsatlarni biriktirish")
+@section('description', "Tizimdagi rollarga ruxsatlarni biriktirish")
 
 @section('content')
     <div class="px-4 pt-6 min-h-screen">
@@ -8,8 +8,8 @@
             <!-- Card header -->
             <div class="items-center justify-between lg:flex">
                 <div class="mb-4 lg:mb-0">
-                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Role Permissions Management</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Assign permissions to roles</p>
+                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Rollar va ruxsatlarni boshqarish</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Tizimdagi rollarga ruxsatlarni biriktirish</p>
                 </div>
             </div>
 
@@ -18,9 +18,9 @@
                 <form method="GET" action="{{ route('roles.permissions.index') }}">
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div>
-                            <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Role</label>
+                            <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rolni tanlang</label>
                             <select id="role" name="role_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
-                                <option value="">Select a role</option>
+                                <option value="">Tanlang</option>
                                 @foreach($roles as $role)
                                     <option value="{{ $role->id }}" {{ request('role_id') == $role->id ? 'selected' : '' }}>{{ $role->name }}</option>
                                 @endforeach
@@ -28,7 +28,7 @@
                         </div>
                         <div>
                             <button type="submit" class="admin-add-btn mt-7">
-                                Load Permissions
+                                Tortib olish
                             </button>
                         </div>
                     </div>
@@ -42,16 +42,16 @@
                     <input type="hidden" name="role_id" value="{{ $selectedRole->id }}">
 
                     <div class="mt-6">
-                        <h4 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">Permissions for {{ $selectedRole->name }}</h4>
+                        <h4 class="mb-4 text-lg font-medium text-gray-900 dark:text-white"> {{ $selectedRole->name }} ruxsatlari</h4>
 
                         <div class="space-y-6">
                             @foreach($custom_permission as $group => $permissions)
                                 <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4 group-permission-block">
                                     <div class="flex items-center justify-between mb-3">
-                                        <h5 class="text-md font-semibold text-gray-800 dark:text-gray-200 capitalize">{{ $group }} Permissions</h5>
+                                        <h5 class="text-md font-semibold text-gray-800 dark:text-gray-200 capitalize">{{ $group }} Ruxsatlar</h5>
                                         <label class="text-sm text-gray-700 dark:text-gray-300">
                                             <input type="checkbox" class="select-all-group-checkbox mr-1">
-                                            Select All
+                                            Barchasini tanlash
                                         </label>
                                     </div>
 
@@ -73,7 +73,7 @@
 
                         <div class="mt-6">
                             <button type="submit" class="admin-add-btn">
-                                Update Permissions
+                                Yangilash
                             </button>
                         </div>
                     </div>

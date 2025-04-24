@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
-@section('title', "Guides Management")
-@section('description', "Manage guides for tourists")
+@section('title', "Gitlarni boshqarish")
+@section('description', "Gitlarni boshqarish")
 
 @section('content')
     <div class="px-4 pt-6 min-h-screen">
@@ -8,12 +8,12 @@
             <!-- Card header -->
             <div class="items-center justify-between lg:flex">
                 <div class="mb-4 lg:mb-0">
-                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Partner Types Management</h3>
+                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Gitlarni boshqarish</h3>
                 </div>
                 <div class="items-center sm:flex">
                     <button type="button" data-modal-target="add-guide-modal" data-modal-toggle="add-guide-modal" class="admin-add-btn">
                         <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                        Add Guide
+                        Qo'shish
                     </button>
                 </div>
             </div>
@@ -31,22 +31,22 @@
                                         Name
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                        Category
+                                        Kategoriya
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                        City
+                                        Shahar
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                        Price
+                                        Narxi
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                        Languages
+                                        Tillari
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                         Status
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                        Actions
+                                        Amallar
                                     </th>
                                 </tr>
                                 </thead>
@@ -82,7 +82,7 @@
                                         <td class="p-4 space-x-2 whitespace-nowrap">
                                             <button type="button" data-modal-target="edit-guide-modal-{{ $guide->id }}" data-modal-toggle="edit-guide-modal-{{ $guide->id }}" class="admin-add-btn">
                                                 <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
-                                                Edit
+                                                Tahrirlash
                                             </button>
                                             <button type="button" data-modal-target="delete-guide-modal-{{ $guide->id }}" data-modal-toggle="delete-guide-modal-{{ $guide->id }}" class="admin-delete-btn">
                                                 <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
@@ -119,7 +119,7 @@
         </div>
     </div>
 
-    <!-- Add Guide Modal -->
+    <!-- Qo'shish Modal -->
     <div class="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto top-4 md:inset-0 h-modal sm:h-full" id="add-guide-modal">
         <div class="relative w-full h-full max-w-2xl px-4 md:h-auto">
             <!-- Modal content -->
@@ -139,20 +139,20 @@
                         @csrf
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6">
-                                <label for="name" class="e-label">Name</label>
+                                <label for="name" class="e-label">Nomi</label>
                                 <input type="text" name="name" id="name" class="e-input" required placeholder="Name">
                             </div>
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="guide_category_id" class="e-label">Category</label>
+                                <label for="guide_category_id" class="e-label">Kategoriya</label>
                                 <select name="guide_category_id" id="guide_category_id" class="e-input" required>
-                                    <option value="">Select category</option>
+                                    <option value="">Kategoriyani tanlash</option>
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="tour_city_id" class="e-label">City</label>
+                                <label for="tour_city_id" class="e-label">Shahar</label>
                                 <select name="tour_city_id" id="tour_city_id" class="e-input" required>
                                     <option value="">Select city</option>
                                     @foreach($tour_cities as $city)
@@ -161,7 +161,7 @@
                                 </select>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="price" class="e-label">Price</label>
+                                <label for="price" class="e-label">Narxi</label>
                                 <input type="number" step="0.01" name="price" id="price" class="e-input" required placeholder="0">
                             </div>
                             <div class="col-span-6 sm:col-span-3">
@@ -174,9 +174,9 @@
                                 </select>
                             </div>
                             <div class="col-span-6">
-                                <label for="languages" class="e-label">Languages</label>
+                                <label for="languages" class="e-label">Tillari</label>
                                 <div class="select2-purple">
-                                    <select id="languages" name="languages[]" multiple data-placeholder="Select a Languages" data-dropdown-css-class="select2-purple"
+                                    <select id="languages" name="languages[]" multiple data-placeholder="Select a Tillari" data-dropdown-css-class="select2-purple"
                                             class="select-languages" style="width: 100%">
                                         @foreach($languages as $language)
                                             <option value="{{ $language->id }}">{{ $language->name }} ({{ $language->name_native }})</option>
@@ -218,11 +218,11 @@
 
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6">
-                                <label for="name-{{ $guide->id }}" class="e-label">Name</label>
+                                <label for="name-{{ $guide->id }}" class="e-label">Nomi</label>
                                 <input type="text" name="name" id="name-{{ $guide->id }}" value="{{ $guide->name }}" class="e-input" required>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="guide_category_id-{{ $guide->id }}" class="e-label">Category</label>
+                                <label for="guide_category_id-{{ $guide->id }}" class="e-label">Kategoriya</label>
                                 <select name="guide_category_id" id="guide_category_id-{{ $guide->id }}" class="e-input" required>
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}" {{ $guide->guide_category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
@@ -230,7 +230,7 @@
                                 </select>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="tour_city_id-{{ $guide->id }}" class="e-label">City</label>
+                                <label for="tour_city_id-{{ $guide->id }}" class="e-label">Shahar</label>
                                 <select name="tour_city_id" id="tour_city_id-{{ $guide->id }}" class="e-input" required>
                                     @foreach($tour_cities as $city)
                                         <option value="{{ $city->id }}" {{ $guide->tour_city_id == $city->id ? 'selected' : '' }}>{{ $city->name }}</option>
@@ -238,7 +238,7 @@
                                 </select>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="price-{{ $guide->id }}" class="e-label">Price</label>
+                                <label for="price-{{ $guide->id }}" class="e-label">Narxi</label>
                                 <input type="number" step="0.01" name="price" id="price-{{ $guide->id }}" value="{{ $guide->price }}" class="e-input" required>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
@@ -250,10 +250,10 @@
                                 </select>
                             </div>
                             <div class="col-span-6">
-                                <label for="languages-{{ $guide->id }}" class="e-label">Languages</label>
+                                <label for="languages-{{ $guide->id }}" class="e-label">Tillari</label>
                                 <div class="select2-purple">
 
-                                    <select id="languages-{{ $guide->id }}" name="languages[]" multiple data-placeholder="Select a Languages" data-dropdown-css-class="select2-purple"
+                                    <select id="languages-{{ $guide->id }}" name="languages[]" multiple data-placeholder="Select a Tillari" data-dropdown-css-class="select2-purple"
                                             class="select-languages" style="width: 100%">
                                         @foreach($languages as $language)
                                             <option value="{{ $language->id }}" {{ $guide->languages->contains($language->id) ? 'selected' : '' }}>{{ $language->name }} ({{ $language->name_native }})</option>
@@ -292,7 +292,7 @@
                                   d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                         <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                            Are you sure you want to delete this guide?
+                            O'chirganingizdan keyin uni qayta tiklab bo'lmaydi this guide?
                         </h3>
                         <form action="{{ route('guides.destroy', $guide->id) }}" method="POST">
                             @csrf

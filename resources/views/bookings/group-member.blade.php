@@ -121,7 +121,7 @@
                                 <th scope="col" class="px-6 py-3">Comment</th>
                                 <th scope="col" class="px-6 py-3">Problem</th>
                                 <th scope="col" class="px-6 py-3">Solution</th>
-                                <th scope="col" class="px-6 py-3">Actions</th>
+                                <th scope="col" class="px-6 py-3">Amallar</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -137,7 +137,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
                                             </svg>
                                         </button>
-                                        <form action="{{ route('daily-records.destroy', $record->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this record?');">
+                                        <form action="{{ route('daily-records.destroy', $record->id) }}" method="POST" onsubmit="return confirm('O'chirganingizdan keyin uni qayta tiklab bo'lmaydi this record?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="admin-delete-btn">
@@ -190,7 +190,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                                    <button type="button" data-modal-hide="editDailyRecordModal-{{ $record->id }}" class="admin-cancel-btn">Cancel</button>
+                                                    <button type="button" data-modal-hide="editDailyRecordModal-{{ $record->id }}" class="admin-cancel-btn">Bekor qilish</button>
                                                     <button type="submit" class="admin-add-btn">Update Record</button>
                                                 </div>
                                             </form>
@@ -260,7 +260,7 @@
                         </div>
                     </div>
                     <div class="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                        <button type="button" data-modal-hide="addDailyRecordModal" class="admin-cancel-btn">Cancel</button>
+                        <button type="button" data-modal-hide="addDailyRecordModal" class="admin-cancel-btn">Bekor qilish</button>
                         <button type="submit" class="admin-add-btn">Add Record</button>
                     </div>
                 </form>

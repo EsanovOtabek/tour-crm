@@ -29,9 +29,14 @@ class BookingController extends Controller
         $tours = Tour::all();
         $priceList = PriceList::all();
 
+        // If you need to call the recommendedPrice() method for each booking,
+        // iterate over the bookings and get the recommended price
+        foreach ($bookings as $booking) {
+            $booking->recommendedPrice = $booking->getRecommendedPrice(); // Call the new method
+        }
+
         return view('bookings.index', compact('bookings', 'tours', 'priceList'));
     }
-
 
 
     public function store(Request $request)

@@ -1,14 +1,14 @@
 @extends('layouts.dashboard')
-@section('title', "Languages Management")
-@section('description', "Manage world languages")
+@section('title', "Tillar ro'yxati")
+@section('description', "Tillar ro'yxati")
 
 @section('content')
     <div class="px-4 pt-6 min-h-screen">
         <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
             <!-- Header -->
             <div class="mb-4">
-                <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Languages Management</h3>
-                <span class="text-base font-normal text-gray-500 dark:text-gray-400">List of all languages</span>
+                <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Tillar ro'yxati</h3>
+                <span class="text-base font-normal text-gray-500 dark:text-gray-400">Barcha Tillar ro'yxati</span>
             </div>
 
             <!-- Table -->
@@ -19,7 +19,7 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
+                                <th>Nomi</th>
                                 <th>Code</th>
                                 <th>Direction</th>
                             </tr>

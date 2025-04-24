@@ -1,21 +1,21 @@
 @extends('layouts.dashboard')
-@section('title', "Bookings Management")
-@section('description', "Manage tour bookings")
+@section('title', "Buyurtmalarni boshqarish")
+@section('description', "Yangi buyurtmalarni boshqarish")
 
 @section('content')
     <div class="px-4 pt-6 min-h-screen">
-        <div class="p-4 rounded-lg shadow-sm sm:p-6">
+        <div class="p-4 rounded-lg shadow-sm sm:p-6 ">
             <!-- Card header -->
             <div class="items-center justify-between lg:flex">
                 <div class="mb-4 lg:mb-0">
-                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Tour Bookings</h3>
+                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Buyurtmalar</h3>
                 </div>
 
                 <div class="items-center sm:flex space-x-3">
                     <!-- Filter dropdown -->
                     <form action="" method="GET" class="mb-4 lg:mb-0">
                         <select name="filter" id="filter"
-                                class="w-96 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                            focus:ring-primary-500 focus:border-primary-500 p-2.5
                            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
                            dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -33,90 +33,126 @@
                         <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
                         </svg>
-                        Add New Booking
+                        Qo'shish
                     </button>
                 </div>
             </div>
 
             <!-- Bookings Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
                 @foreach($bookings as $booking)
-                    <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <div class="p-5">
-                            <div class="flex justify-between items-start flex-wrap gap-2">
-                                <div>
-                                    <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                                        {{ $booking->tour->name ?? 'No Tour' }}
-                                    </h5>
-                                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                    <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
+                        <div class="flex flex-row">
+                            <!-- Left section - Booking information (larger part) -->
+                            <div class="p-5 w-3/5">
+                                <div class="flex justify-between items-start flex-wrap gap-2">
+                                    <div>
+                                        <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                            {{ $booking->tour->name ?? 'No Tour' }}
+                                        </h5>
+                                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
                         {{ $booking->user->name ?? 'No User' }}
                     </span>
-                                </div>
+                                    </div>
 
-                                <span class="text-xs font-semibold px-2.5 py-0.5 rounded
+                                    <span class="text-xs font-semibold px-2.5 py-0.5 rounded
                     bg-{{ $booking->status == 'confirmed' ? 'green' : ($booking->status == 'cancelled' ? 'red' : ($booking->status == 'completed' ? 'purple' : 'yellow')) }}-100
                     text-{{ $booking->status == 'confirmed' ? 'green' : ($booking->status == 'cancelled' ? 'red' : ($booking->status == 'completed' ? 'purple' : 'yellow')) }}-800
                     dark:bg-{{ $booking->status == 'confirmed' ? 'green' : ($booking->status == 'cancelled' ? 'red' : ($booking->status == 'completed' ? 'purple' : 'yellow')) }}-200
                     dark:text-{{ $booking->status == 'confirmed' ? 'green' : ($booking->status == 'cancelled' ? 'red' : ($booking->status == 'completed' ? 'purple' : 'yellow')) }}-800">
                     {{ ucfirst($booking->status) }}
                 </span>
+                                </div>
+                                <hr class="mt-2">
+
+                                <div class="mt-4 space-y-2 text-sm text-gray-800 dark:text-gray-100">
+                                    <p><span class="font-semibold">Davomiyligi:</span> {{ $booking->start_date->format('M d, Y') }} - {{ $booking->end_date->format('M d, Y') }}</p>
+                                    <p><span class="font-semibold">Narxi:</span> {{ number_format($booking->price, 2) }}</p>
+                                    <p><span class="font-semibold">Tan narxi:</span> {{ number_format($booking->cost_price, 2) }}</p>
+                                    <p><span class="font-semibold">Ja'mi summa:</span> {{ number_format($booking->total_amount, 2) }}</p>
+                                </div>
                             </div>
 
-                            <div class="mt-4 space-y-2 text-sm text-gray-600 dark:text-gray-300">
-                                <p><span class="font-semibold">Dates:</span> {{ $booking->start_date->format('M d, Y') }} - {{ $booking->end_date->format('M d, Y') }}</p>
-                                <p><span class="font-semibold">Price:</span> ${{ number_format($booking->price, 2) }}</p>
-                                <p><span class="font-semibold">Cost Price:</span> ${{ number_format($booking->cost_price, 2) }}</p>
-                                <p><span class="font-semibold">Total Amount:</span> ${{ number_format($booking->total_amount, 2) }}</p>
+                            <!-- Right section - Actions (like sidebar menu) -->
+                            <div class="bg-gray-50 dark:bg-gray-700 px-2 py-4 w-2/5 border-t md:border-t-0 md:border-l border-gray-200 dark:border-gray-600">
+                                <div class="flex flex-col space-y-1">
+                                    <!-- Group Members -->
+                                    <a href="{{ route('bookings.group-members.index', $booking->id) }}" class="admin-add-btn">
+                                        <x-s-v-g-s.users class="w-4 h-4 mr-2" />
+                                        Guruh a'zolari ({{$booking->groupMembers()->count()}} ta)
+                                    </a>
+
+                                    <!-- Expenses -->
+                                    <a href="{{ route('bookings.expenses.index', $booking->id) }}" class="admin-delete-btn">
+                                        <x-s-v-g-s.coins class="w-4 h-4 mr-2" />
+                                        Xarajatlar
+                                    </a>
+
+                                    <!-- Details -->
+                                    <a href="{{ route('bookings.show', $booking->id) }}" class="admin-info-btn">
+                                        <x-s-v-g-s.eye class="w-4 h-4 mr-2" />
+                                        Detallar
+                                    </a>
+
+                                    <!-- Routes -->
+                                    <a href="{{ route('mashruts.index', $booking->id) }}" class="admin-purple-btn">
+                                        <svg class="w-5 h-5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12v4m0 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM8 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 0v2a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V8m0 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
+                                        </svg>
+
+                                        Mashrutlar
+                                    </a>
+
+                                    <!-- Gifts -->
+                                    <a href="{{ route('booking-guides.index', $booking->id) }}" class="admin-pink-btn">
+
+                                        <svg class="w-5 h-5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M6 2c-1.10457 0-2 .89543-2 2v4c0 .55228.44772 1 1 1s1-.44772 1-1V4h12v7h-2c-.5523 0-1 .4477-1 1v2h-1c-.5523 0-1 .4477-1 1s.4477 1 1 1h5c.5523 0 1-.4477 1-1V3.85714C20 2.98529 19.3667 2 18.268 2H6Z"/>
+                                            <path d="M6 11.5C6 9.567 7.567 8 9.5 8S13 9.567 13 11.5 11.433 15 9.5 15 6 13.433 6 11.5ZM4 20c0-2.2091 1.79086-4 4-4h3c2.2091 0 4 1.7909 4 4 0 1.1046-.8954 2-2 2H6c-1.10457 0-2-.8954-2-2Z"/>
+                                        </svg>
+
+
+                                        Gitlar
+                                    </a>
+                                </div>
                             </div>
+                        </div>
 
-                            {{-- Action buttons --}}
-                            <div class="mt-4 flex flex-wrap gap-2">
-                                {{-- Group Members --}}
-                                <a href="{{ route('bookings.group-members.index', $booking->id) }}" class="admin-add-btn">
-                                    <x-s-v-g-s.users class="w-4 h-4 mr-2" />
-                                    Members
-                                </a>
+                        <!-- Bottom section - Edit/Delete buttons -->
+                        <div class="bg-gray-100 dark:bg-gray-700 px-4 py-3 flex justify-start space-x-2 border-t border-gray-200 dark:border-gray-600">
 
-                                {{-- Edit Booking --}}
-                                <button type="button" data-modal-target="editBookingModal-{{ $booking->id }}" data-modal-toggle="editBookingModal-{{ $booking->id }}" class="admin-edit-btn">
-                                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
-                                        <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
+                            @if($booking->recommendedPrice['recommendation'])
+                                <!-- Notification Button -->
+                                <button type="button"
+                                        onclick="showRecommendationToast({{ $booking->recommendedPrice['member'] }}, {{ $booking->recommendedPrice['price'] }})"
+                                        class="relative inline-flex items-center p-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:outline-none animate-ring-pulse dark:bg-blue-600 dark:hover:bg-blue-700">
+                                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                         fill="currentColor" viewBox="0 0 24 24">
+                                        <path fill-rule="evenodd"
+                                              d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z"
+                                              clip-rule="evenodd" />
                                     </svg>
-                                    Edit
+                                    <span class="sr-only">Notifications</span>
                                 </button>
 
-                                {{-- Delete Booking --}}
-                                <button type="button" data-modal-target="deleteBookingModal-{{ $booking->id }}" data-modal-toggle="deleteBookingModal-{{ $booking->id }}" class="admin-delete-btn">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                    </svg>
-                                    Delete
-                                </button>
+                            @endif
 
-                                {{-- View Expenses --}}
-                                <a href="{{ route('bookings.expenses.index', $booking->id) }}" class="admin-purple-btn">
-                                    <x-s-v-g-s.coins class="w-4 h-4 mr-2" />
-                                    Expenses
-                                </a>
+                            <!-- Edit Button -->
+                            <button type="button" data-modal-target="editBookingModal-{{ $booking->id }}" data-modal-toggle="editBookingModal-{{ $booking->id }}" class="admin-edit-btn">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
+                                    <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
+                                </svg>
+                                Tahrirlash
+                            </button>
 
-                                {{-- View Details --}}
-                                <a href="{{ route('bookings.show', $booking->id) }}" class="admin-info-btn">
-                                    <x-s-v-g-s.eye class="w-4 h-4 mr-2" />
-                                    Details
-                                </a>
-
-                                {{-- Mashrutlar --}}
-                                <a href="{{ route('mashruts.index', $booking->id) }}" class="admin-add-btn">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                              d="M3 3h3l3 7-4 5h11l4-10H9" />
-                                    </svg>
-                                    Mashrutlar
-                                </a>
-
-                            </div>
+                            <!-- Delete Button -->
+                            <button type="button" data-modal-target="deleteBookingModal-{{ $booking->id }}" data-modal-toggle="deleteBookingModal-{{ $booking->id }}" class="admin-delete-btn">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                                O'chirish
+                            </button>
                         </div>
                     </div>
                     <!-- Edit Booking Modal -->
@@ -159,15 +195,15 @@
                                             </select>
                                         </div>
                                         <div>
-                                            <label for="edit-start-date-{{ $booking->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Date</label>
+                                            <label for="edit-start-date-{{ $booking->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Boshlanish sanasi</label>
                                             <input type="date" name="start_date" id="edit-start-date-{{ $booking->id }}" value="{{ $booking->start_date->format('Y-m-d') }}" class="e-input" required>
                                         </div>
                                         <div>
-                                            <label for="edit-end-date-{{ $booking->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Date</label>
+                                            <label for="edit-end-date-{{ $booking->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tugash sanasi</label>
                                             <input type="date" name="end_date" id="edit-end-date-{{ $booking->id }}" value="{{ $booking->end_date->format('Y-m-d') }}" class="e-input" required>
                                         </div>
                                         <div>
-                                            <label for="edit-price-{{ $booking->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+                                            <label for="edit-price-{{ $booking->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Narxi</label>
                                             <input type="number" step="0.01" name="price" id="edit-price-{{ $booking->id }}" value="{{ $booking->price }}" class="e-input" required>
                                         </div>
                                         <div>
@@ -181,10 +217,10 @@
                                     </div>
                                     <div class="flex items-center space-x-4">
                                         <button type="submit" class="admin-add-btn">
-                                            Update Booking
+                                            Yangilash
                                         </button>
                                         <button type="button" data-modal-hide="editBookingModal-{{ $booking->id }}" class="admin-cancel-btn">
-                                            Cancel
+                                            Bekor qilish
                                         </button>
                                     </div>
                                 </form>
@@ -192,7 +228,7 @@
                         </div>
                     </div>
 
-                    <!-- Delete Booking Modal -->
+                    <!-- O'chirish Booking Modal -->
                     <div id="deleteBookingModal-{{ $booking->id }}" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
                         <div class="relative p-4 w-full max-w-md h-full md:h-auto">
                             <div class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
@@ -205,17 +241,17 @@
                                 <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
                                 </svg>
-                                <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want to delete this booking?</p>
+                                <p class="mb-4 text-gray-500 dark:text-gray-300">O'chirganingizdan keyin uni qayta tiklab bo'lmaydi this booking?</p>
                                 <div class="flex justify-center items-center space-x-4">
                                     <form action="{{ route('bookings.destroy', $booking->id) }}" method="POST" class="inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="py-2 px-3 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
-                                            Yes, I'm sure
+                                            Ha , o'chirish
                                         </button>
                                     </form>
                                     <button data-modal-toggle="deleteBookingModal-{{ $booking->id }}" type="button" class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                                        No, cancel
+                                        Bekor qilish
                                     </button>
                                 </div>
                             </div>
@@ -234,7 +270,7 @@
                 <!-- Modal header -->
                 <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                        Add New Booking
+                        Qo'shish
                     </h3>
                     <button type="button" class="admin-close-modal-btn" data-modal-hide="createBookingModal">
                         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -265,16 +301,16 @@
                             </select>
                         </div>
                         <div>
-                            <label for="create-start-date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Date</label>
+                            <label for="create-start-date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Boshlanish sanasi</label>
                             <input type="date" name="start_date" id="create-start-date" class="e-input" required>
                         </div>
                         <div>
-                            <label for="create-end-date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Date</label>
+                            <label for="create-end-date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tugash sanasi</label>
                             <input type="date" name="end_date" id="create-end-date" class="e-input" required>
                         </div>
                         <!-- PriceList va Custom Price tanlash -->
                         <div>
-                            <label for="create-price-select" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+                            <label for="create-price-select" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Narxi</label>
 
                             <select id="create-price-select" class="e-input" onchange="handlePriceSelection()" required>
                                 <option selected disabled value="">-- Select Price --</option>
@@ -300,17 +336,71 @@
                     </div>
                     <div class="flex items-center space-x-4">
                         <button type="submit" class="admin-add-btn">
-                            Create Booking
+                            Saqlash
                         </button>
                         <button type="button" data-modal-hide="createBookingModal" class="admin-cancel-btn">
-                            Cancel
+                            Bekor qilish
                         </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
+
+
+    <!-- Toast Notification -->
+    <div id="toast-recommendation" class="fixed hidden top-20 left-1/2 transform -translate-x-1/2 flex items-center w-full max-w-md p-4 space-x-4 text-gray-500 bg-orange-50 rounded-lg shadow-lg border border-orange-200 animate-slideDown dark:bg-orange-800 dark:border-orange-700 dark:text-orange-100" role="alert">
+        <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"/>
+            </svg>
+            <span class="sr-only">Warning icon</span>
+        </div>
+        <div class="text-sm font-medium" id="toast-message"></div>
+        <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-orange-50 text-orange-500 rounded-lg focus:ring-2 focus:ring-orange-400 p-1.5 hover:bg-orange-200 inline-flex items-center justify-center h-8 w-8 dark:bg-orange-800 dark:text-orange-200 dark:hover:bg-orange-700" data-dismiss-target="#toast-recommendation" aria-label="Close">
+            <span class="sr-only">Close</span>
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+        </button>
+    </div>
 @endsection
+
+@push('styles')
+    <style>
+        @keyframes slideDown {
+            from {
+                transform: translate(-50%, -100%);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, 0);
+                opacity: 1;
+            }
+        }
+        .animate-slideDown {
+            animation: slideDown 0.5s ease-out forwards;
+        }
+
+        @keyframes ring-pulse {
+            0% {
+                box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.6);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.6);
+            }
+        }
+
+        .animate-ring-pulse {
+            animation: ring-pulse 1.5s infinite;
+        }
+
+    </style>
+@endpush
 
 
 @push('scripts')
@@ -362,5 +452,32 @@
                 }
             });
         });
+
+
+        function showRecommendationToast(memberCount, recommendedPrice) {
+            const toast = document.getElementById('toast-recommendation');
+            const message = document.getElementById('toast-message');
+
+            message.textContent = `Recommended price for ${memberCount} members: ${recommendedPrice}`;
+
+            toast.classList.remove('hidden');
+            toast.classList.add('flex');
+
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('flex');
+            }, 5000);
+        }
+
+        // Close button functionality
+        document.querySelectorAll('[data-dismiss-target="#toast-recommendation"]').forEach(button => {
+            button.addEventListener('click', () => {
+                const toast = document.getElementById('toast-recommendation');
+                toast.classList.add('hidden');
+                toast.classList.remove('flex');
+            });
+        });
+
     </script>
 @endpush

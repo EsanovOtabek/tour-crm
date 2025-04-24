@@ -19,10 +19,10 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">#</th>
-                            <th scope="col" class="px-6 py-3">Name</th>
+                            <th scope="col" class="px-6 py-3">Nomi</th>
                             <th scope="col" class="px-6 py-3">Allowed</th>
                             <th scope="col" class="px-6 py-3">Sub Category</th>
-                            <th scope="col" class="px-6 py-3">Actions</th>
+                            <th scope="col" class="px-6 py-3">Amallar</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -51,7 +51,7 @@
                 <form action="{{ route('expenses.store') }}" method="POST">
                     @csrf
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Nomi</label>
                         <input type="text" name="name" class="e-input" required>
                     </div>
                     <div class="mb-4">
@@ -64,7 +64,7 @@
                     </div>
                     <div class="flex justify-end space-x-2">
                         <button type="submit" class="admin-add-btn">Add Expense</button>
-                        <button type="button" data-modal-hide="createExpenseModal" class="admin-cancel-btn">Cancel</button>
+                        <button type="button" data-modal-hide="createExpenseModal" class="admin-cancel-btn">Bekor qilish</button>
                     </div>
                 </form>
             </div>

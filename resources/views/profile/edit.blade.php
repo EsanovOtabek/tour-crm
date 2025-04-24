@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Edit Profile')
+@section('title', 'Profilni tahrirkasg')
 
 @section('content')
     <div class="px-4 pt-6">
@@ -9,17 +9,15 @@
             <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
                 <div class="items-center sm:flex xl:block 2xl:flex sm:space-x-4 xl:space-x-0 2xl:space-x-4">
                     <div class="w-full">
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">{{ __('Profile Information') }}</h3>
-                        <p class="mt-2 mb-4 text-sm text-gray-500 dark:text-gray-400">
-                            {{ __("Update your account's profile information and email address.") }}
-                        </p>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Profil ma'lumotlari</h3>
+
 
                         <form method="post" action="{{ route('profile.update') }}" class="space-y-6" enctype="multipart/form-data">
                             @csrf
                             @method('patch')
 
                             <div class="mb-4">
-                                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Name') }}</label>
+                                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">To'liq ismi</label>
                                 <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="{{ old('name', $user->name) }}" required autofocus autocomplete="name">
                                 @error('name')
                                 <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
@@ -27,34 +25,16 @@
                             </div>
 
                             <div class="mb-4">
-                                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Email') }}</label>
+                                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                                 <input type="email" id="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="{{ old('email', $user->email) }}" required autocomplete="username">
                                 @error('email')
                                 <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                                 @enderror
-
-                                @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-                                    <div class="mt-2">
-                                        <p class="text-sm text-gray-800 dark:text-gray-200">
-                                            {{ __('Your email address is unverified.') }}
-
-                                            <button form="send-verification" class="text-sm text-blue-600 underline rounded-md dark:text-blue-500 hover:text-blue-800 dark:hover:text-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 dark:focus:ring-offset-gray-800">
-                                                {{ __('Click here to re-send the verification email.') }}
-                                            </button>
-                                        </p>
-
-                                        @if (session('status') === 'verification-link-sent')
-                                            <p class="mt-2 text-sm font-medium text-green-600 dark:text-green-400">
-                                                {{ __('A new verification link has been sent to your email address.') }}
-                                            </p>
-                                        @endif
-                                    </div>
-                                @endif
                             </div>
 
                             {{-- Telefon raqam --}}
                             <div class="mb-4">
-                                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Phone') }}</label>
+                                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefon</label>
                                 <input type="text" id="phone" name="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="+998(XX)0000000" value="{{ old('phone', $user->phone) }}" autocomplete="tel">
                                 @error('phone')
                                 <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
@@ -72,7 +52,7 @@
 
                             {{-- Rasm yuklash (agar kerak bo‘lsa) --}}
                             <div class="mb-4">
-                                <label for="picture" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Profile Picture') }}</label>
+                                <label for="picture" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profil rasmi</label>
                                 <input type="file" id="picture" name="picture" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600">
                                 @error('picture')
                                 <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
@@ -92,7 +72,7 @@
                                         x-transition
                                         x-init="setTimeout(() => show = false, 2000)"
                                         class="ml-4 text-sm text-gray-600 dark:text-gray-400"
-                                    >{{ __('Saved.') }}</p>
+                                    >Saqlandi</p>
                                 @endif
                             </div>
                         </form>
@@ -102,11 +82,7 @@
 
             <!-- Update Password Card -->
             <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-                <h3 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">{{ __('Update Password') }}</h3>
-                <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">
-                    {{ __('Ensure your account is using a long, random password to stay secure.') }}
-                </p>
-
+                <h3 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">Parolni yangilash</h3>
                 <form method="post" action="{{ route('password.update') }}" class="space-y-6">
                     @csrf
                     @method('put')
@@ -147,7 +123,7 @@
                                 x-transition
                                 x-init="setTimeout(() => show = false, 2000)"
                                 class="ml-4 text-sm text-gray-600 dark:text-gray-400"
-                            >{{ __('Saved.') }}</p>
+                            >Saqlandi</p>
                         @endif
                     </div>
                 </form>
@@ -155,9 +131,9 @@
 
             <!-- Delete Account Card -->
             <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-                <h3 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">{{ __('Delete Account') }}</h3>
+                <h3 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">Akkauntni o'chirish</h3>
                 <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">
-                    {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}
+                    Agar akkauntni o'chirsangiz siz qilgan barcha amallar yo'qoladi, va ULARNI QAYTA TIKLAB BO'LMAYDI
                 </p>
 
                 <button
@@ -166,7 +142,7 @@
                     data-modal-toggle="delete-account-modal"
                     class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800"
                 >
-                    {{ __('Delete Account') }}
+                    Akkauntni o'chirish
                 </button>
 
                 <!-- Delete Account Modal -->
@@ -181,7 +157,7 @@
                                 <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
 
                                 <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                    {{ __('Are you sure you want to delete your account?') }}
+                                    Akkauntni o'chirganingizdan keyin uni qayta tiklab bo'lmaydi!!
                                 </h3>
 
                                 <form method="post" action="{{ route('profile.destroy') }}">
@@ -189,23 +165,23 @@
                                     @method('delete')
 
                                     <p class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-                                        {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
+                                        Agar akkauntni o'chirsangiz siz qilgan barcha amallar yo'qoladi, va ULARNI QAYTA TIKLAB BO'LMAYDI
                                     </p>
 
                                     <div class="mb-4">
-                                        <label for="delete-account-password" class="sr-only">{{ __('Password') }}</label>
-                                        <input type="password" id="delete-account-password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="{{ __('Password') }}">
+                                        <label for="delete-account-password" class="sr-only">Parol</label>
+                                        <input type="password" id="delete-account-password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Parol">
                                         @error('password', 'userDeletion')
                                         <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                                         @enderror
                                     </div>
 
                                     <button type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600" data-modal-hide="delete-account-modal">
-                                        {{ __('Cancel') }}
+                                        Bekor qilish
                                     </button>
 
                                     <button type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                                        {{ __('Delete Account') }}
+                                        Akkauntni o'chirish
                                     </button>
                                 </form>
                             </div>

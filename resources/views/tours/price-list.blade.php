@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
-@section('title', "Price Lists Management")
-@section('description', "Manage price lists for tours")
+@section('title', "Narxlar ro'yxati")
+@section('description', "Turlar uchun Narxlar ro'yxati")
 
 @section('content')
     <div class="px-4 pt-6 min-h-screen">
@@ -8,14 +8,14 @@
             <!-- Card header -->
             <div class="items-center justify-between lg:flex">
                 <div class="mb-4 lg:mb-0">
-                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Price Lists Management</h3>
+                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Narxlar ro'yxati</h3>
                 </div>
                 <div class="items-center sm:flex">
                     <button data-modal-target="createPriceListModal" data-modal-toggle="createPriceListModal" class="admin-add-btn" type="button">
                         <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
                         </svg>
-                        Add new price list
+                        Qo'shish
                     </button>
                 </div>
             </div>
@@ -25,10 +25,10 @@
                 <table class="w-full whitespace-nowrap border-2">
                     <thead class="bg-gray-100 dark:bg-gray-700">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tour</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tur</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Soni</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Narxi</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Amallar</th>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
@@ -45,13 +45,13 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <button data-modal-target="editPriceListModal{{ $priceList->id }}" data-modal-toggle="editPriceListModal{{ $priceList->id }}" class="admin-edit-btn">
-                                    Edit
+                                    Tahrirlash
                                 </button>
                                 <form action="{{ route('price-lists.destroy', $priceList->id) }}" method="POST" class="inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="admin-delete-btn" onclick="return confirm('Are you sure you want to delete this item?')">
-                                        Delete
+                                    <button type="submit" class="admin-delete-btn" onclick="return confirm('O'chirganingizdan keyin uni qayta tiklab bo'lmaydi this item?')">
+                                        O'chirish
                                     </button>
                                 </form>
                             </td>
@@ -81,16 +81,16 @@
                                             </select>
                                         </div>
                                         <div class="mb-4">
-                                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>
-                                            <input type="number" name="quantity" class="e-input" placeholder="Quantity" value="{{ $priceList->quantity }}" required>
+                                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Odam soni</label>
+                                            <input type="number" name="quantity" class="e-input" placeholder="Odam soni" value="{{ $priceList->quantity }}" required>
                                         </div>
                                         <div class="mb-4">
-                                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+                                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Narxi</label>
                                             <input type="number" step="0.01" name="price" class="e-input" placeholder="Price" value="{{ $priceList->price }}" required>
                                         </div>
                                         <div class="flex justify-end space-x-2">
-                                            <button type="submit" class="admin-add-btn">Update</button>
-                                            <button type="button" data-modal-hide="editPriceListModal{{ $priceList->id }}" class="admin-cancel-btn">Cancel</button>
+                                            <button type="submit" class="admin-add-btn">Yangilash</button>
+                                            <button type="button" data-modal-hide="editPriceListModal{{ $priceList->id }}" class="admin-cancel-btn">Bekor qilish</button>
                                         </div>
                                     </form>
                                 </div>
@@ -162,16 +162,16 @@
                         </select>
                     </div>
                     <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>
-                        <input type="number" name="quantity" class="e-input" placeholder="Quantity" required>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Odam soni</label>
+                        <input type="number" name="quantity" class="e-input" placeholder="Odam soni" required>
                     </div>
                     <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Narxi</label>
                         <input type="number" step="0.01" name="price" class="e-input" placeholder="Price" required>
                     </div>
                     <div class="flex justify-end space-x-2">
                         <button type="submit" class="admin-add-btn">Add Price List</button>
-                        <button type="button" data-modal-hide="createPriceListModal" class="admin-cancel-btn">Cancel</button>
+                        <button type="button" data-modal-hide="createPriceListModal" class="admin-cancel-btn">Bekor qilish</button>
                     </div>
                 </form>
             </div>

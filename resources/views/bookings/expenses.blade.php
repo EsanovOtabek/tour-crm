@@ -44,7 +44,7 @@
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                             </svg>
-                            Back to Bookings
+                            Buyurtmalarga qaytish
                         </a>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
                                 <th scope="col" class="px-6 py-3">Amount</th>
                                 <th scope="col" class="px-6 py-3">Description</th>
                                 <th scope="col" class="px-6 py-3">Added By</th>
-                                <th scope="col" class="px-6 py-3">Actions</th>
+                                <th scope="col" class="px-6 py-3">Amallar</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -98,7 +98,7 @@
                                         <div class="flex items-center space-x-2">
                                             <!-- Edit Button -->
                                             <button data-modal-target="editExpenseModal-{{ $expense->id }}" data-modal-toggle="editExpenseModal-{{ $expense->id }}" class="admin-edit-btn">
-                                                Edit
+                                                Tahrirlash
                                             </button>
 
                                             <!-- Delete Button -->
@@ -152,7 +152,7 @@
                                                 </div>
                                                 <div class="flex justify-end space-x-2">
                                                     <button type="submit" class="admin-add-btn">Update Expense</button>
-                                                    <button type="button" data-modal-hide="editExpenseModal-{{ $expense->id }}" class="admin-cancel-btn">Cancel</button>
+                                                    <button type="button" data-modal-hide="editExpenseModal-{{ $expense->id }}" class="admin-cancel-btn">Bekor qilish</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -172,13 +172,13 @@
                                             <svg class="mx-auto mb-4 w-12 h-12 text-gray-400 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                             </svg>
-                                            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this expense?</h3>
+                                            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">O'chirganingizdan keyin uni qayta tiklab bo'lmaydi this expense?</h3>
                                             <div class="flex justify-center space-x-4">
                                                 <form action="{{ route('bookings.expenses.destroy', [$booking->id, $expense->id]) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="admin-delete-btn">
-                                                        Yes, I'm sure
+                                                        Ha , o'chirish
                                                     </button>
                                                 </form>
                                                 <button type="button" data-modal-hide="deleteExpenseModal-{{ $expense->id }}" class="admin-cancel-btn">
@@ -245,7 +245,7 @@
                     </div>
                     <div class="flex justify-end space-x-2">
                         <button type="submit" class="admin-add-btn">Add Expense</button>
-                        <button type="button" data-modal-hide="createExpenseModal" class="admin-cancel-btn">Cancel</button>
+                        <button type="button" data-modal-hide="createExpenseModal" class="admin-cancel-btn">Bekor qilish</button>
                     </div>
                 </form>
             </div>

@@ -4,6 +4,7 @@ use App\Http\Controllers\{AgentController,
     BalanceController,
     BookingController,
     BookingExpenseController,
+    BookingGuideController,
     DailyRecordController,
     DashboardController,
     ExpenseController,
@@ -94,6 +95,8 @@ Route::middleware(['auth'])->group(callback: function () {
         // Booking Expenses routes
         Route::resource('expenses', BookingExpenseController::class)->only(['index', 'store', 'update', 'destroy'])->names('bookings.expenses');
         Route::resource('mashruts', MashrutController::class)->only(['index', 'store', 'update', 'destroy']);
+        // Booking Guides routes
+        Route::resource('booking-guides', BookingGuideController::class)->only(['index', 'store', 'update', 'destroy']);
 
 
         Route::get('mashruts/pdf', [MashrutController::class, 'downloadPdf'])->name('bookings.mashruts.pdf');

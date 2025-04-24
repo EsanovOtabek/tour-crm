@@ -29,10 +29,10 @@
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" class="px-6 py-3">#</th>
-                                    <th scope="col" class="px-6 py-3">Name</th>
+                                    <th scope="col" class="px-6 py-3">Nomi</th>
                                     <th scope="col" class="px-6 py-3">Currency</th>
                                     <th scope="col" class="px-6 py-3">Amount</th>
-                                    <th scope="col" class="px-6 py-3">Actions</th>
+                                    <th scope="col" class="px-6 py-3">Amallar</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -48,7 +48,7 @@
                                                     <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
                                                     <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
                                                 </svg>
-                                                Edit
+                                                Tahrirlash
                                             </button>
                                         </td>
                                     </tr>
@@ -69,7 +69,7 @@
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="mb-4">
-                                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomi</label>
                                                         <input type="text" name="name" value="{{ $balance->name }}" class="e-input" required>
                                                     </div>
                                                     <div class="mb-4">
@@ -87,8 +87,8 @@
                                                         <input type="number" step="0.01" name="amount" value="{{ $balance->amount }}" class="e-input" required>
                                                     </div>
                                                     <div class="flex justify-end space-x-2">
-                                                        <button type="submit" class="admin-add-btn">Update</button>
-                                                        <button type="button" data-modal-hide="editBalanceModal-{{ $balance->id }}" class="admin-cancel-btn">Cancel</button>
+                                                        <button type="submit" class="admin-add-btn">Yangilash</button>
+                                                        <button type="button" data-modal-hide="editBalanceModal-{{ $balance->id }}" class="admin-cancel-btn">Bekor qilish</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -119,7 +119,7 @@
                 <form action="{{ route('balances.store') }}" method="POST">
                     @csrf
                     <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomi</label>
                         <input type="text" name="name" class="e-input" placeholder="Balance name" required>
                     </div>
                     <div class="mb-4">
@@ -136,7 +136,7 @@
                     </div>
                     <div class="flex justify-end space-x-2">
                         <button type="submit" class="admin-add-btn">Add Balance</button>
-                        <button type="button" data-modal-hide="createBalanceModal" class="admin-cancel-btn">Cancel</button>
+                        <button type="button" data-modal-hide="createBalanceModal" class="admin-cancel-btn">Bekor qilish</button>
                     </div>
                 </form>
             </div>

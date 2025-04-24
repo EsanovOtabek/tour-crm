@@ -44,7 +44,7 @@
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                             </svg>
-                            Back to Bookings
+                            Buyurtmalarga qaytish
                         </a>
                     </div>
                 </div>
@@ -73,12 +73,12 @@
                     <tr>
                         <th scope="col" class="py-3 px-6">&num;</th>
                         <th scope="col" class="py-3 px-6">Surname</th>
-                        <th scope="col" class="py-3 px-6">Name</th>
+                        <th scope="col" class="py-3 px-6">Nomi</th>
                         <th scope="col" class="py-3 px-6">Passport</th>
                         <th scope="col" class="py-3 px-6">Contact</th>
                         <th scope="col" class="py-3 px-6">Status</th>
                         <th scope="col" class="py-3 px-6">Agent</th>
-                        <th scope="col" class="py-3 px-6 text-right">Actions</th>
+                        <th scope="col" class="py-3 px-6 text-right">Amallar</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -150,7 +150,7 @@
                                     View
                                 </a>
                                 <button data-modal-target="editMemberModal-{{ $member->id }}" data-modal-toggle="editMemberModal-{{ $member->id }}" class="admin-edit-btn">
-                                    Edit
+                                    Tahrirlash
                                 </button>
                                 <button data-modal-target="deleteMemberModal-{{ $member->id }}" data-modal-toggle="deleteMemberModal-{{ $member->id }}" class="admin-delete-btn">
                                     Remove
@@ -192,7 +192,7 @@
                                                     <input type="text" name="surname" id="edit-surname-{{ $member->id }}" value="{{ $member->surname }}" class="e-input" required>
                                                 </div>
                                                 <div>
-                                                    <label for="edit-name-{{ $member->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                                    <label for="edit-name-{{ $member->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomi</label>
                                                     <input type="text" name="name" id="edit-name-{{ $member->id }}" value="{{ $member->name }}" class="e-input" required>
                                                 </div>
                                             </div>
@@ -260,11 +260,11 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="py-2 px-3 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
-                                                Yes, I'm sure
+                                                Ha , o'chirish
                                             </button>
                                         </form>
                                         <button data-modal-toggle="deleteMemberModal-{{ $member->id }}" type="button" class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                                            No, cancel
+                                            No, Bekor qilish
                                         </button>
                                     </div>
                                 </div>
@@ -316,7 +316,7 @@
                                 <input type="text" name="surname" id="create-surname" class="e-input" required>
                             </div>
                             <div>
-                                <label for="create-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                <label for="create-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomi</label>
                                 <input type="text" name="name" id="create-name" class="e-input" required>
                             </div>
                         </div>
@@ -357,7 +357,7 @@
                             Add Member
                         </button>
                         <button type="button" data-modal-hide="createMemberModal" class="admin-cancel-btn">
-                            Cancel
+                            Bekor qilish
                         </button>
                     </div>
                 </form>

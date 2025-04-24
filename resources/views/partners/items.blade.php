@@ -59,7 +59,7 @@
                                         Partner Object
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                        Actions
+                                        Amallar
                                     </th>
                                 </tr>
                                 </thead>
@@ -94,7 +94,7 @@
                                                     <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
                                                     <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
                                                 </svg>
-                                                Edit
+                                                Tahrirlash
                                             </button>
                                             <button type="button" data-modal-target="deleteItemModal-{{ $item->id }}" data-modal-toggle="deleteItemModal-{{ $item->id }}" class="admin-delete-btn">
                                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -114,12 +114,12 @@
                                                 <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Edit Item</h2>
 
                                                 <div class="mb-4">
-                                                    <label class="e-label">Name</label>
+                                                    <label class="e-label">Nomi</label>
                                                     <input type="text" name="name" value="{{ $item->name }}" required class="e-input">
                                                 </div>
 
                                                 <div class="mb-4">
-                                                    <label class="e-label">Price</label>
+                                                    <label class="e-label">Narxi</label>
                                                     <input type="number" name="price" step="0.01" value="{{ $item->price }}" required class="e-input">
                                                 </div>
 
@@ -140,8 +140,8 @@
                                                 </div>
 
                                                 <div class="flex justify-end space-x-2">
-                                                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Update</button>
-                                                    <button type="button" data-modal-hide="editItemModal-{{ $item->id }}" class="text-gray-700 dark:text-white border px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Cancel</button>
+                                                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Yangilash</button>
+                                                    <button type="button" data-modal-hide="editItemModal-{{ $item->id }}" class="text-gray-700 dark:text-white border px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Bekor qilish</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -160,13 +160,13 @@
                                                 <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
                                                 </svg>
-                                                <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want to delete this object?</p>
+                                                <p class="mb-4 text-gray-500 dark:text-gray-300">O'chirganingizdan keyin uni qayta tiklab bo'lmaydi this object?</p>
                                                 <div class="flex justify-center items-center space-x-4">
                                                     <form action="{{ route('object-items.destroy', $object->id) }}" method="POST" class="inline">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="py-2 px-3 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
-                                                            Yes, I'm sure
+                                                            Ha , o'chirish
                                                         </button>
                                                     </form>
                                                     <button data-modal-toggle="deleteItemModal-{{ $object->id }}" type="button" class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
@@ -240,11 +240,11 @@
                     @csrf
                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
                         <div>
-                            <label for="create-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                            <label for="create-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomi</label>
                             <input type="text" name="name" id="create-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Item name" required>
                         </div>
                         <div>
-                            <label for="create-price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+                            <label for="create-price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Narxi</label>
                             <input type="number" name="price" id="create-price" step="0.01" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Price" required>
                         </div>
                         <div>
@@ -263,7 +263,7 @@
                     </div>
                     <div class="flex items-center space-x-4">
                         <button type="submit" class="text-white bg-primary-700 hover:bg-primary-800 font-medium rounded-lg text-sm px-5 py-2.5">Add Item</button>
-                        <button type="button" data-modal-hide="createItemModal" class="text-red-600 hover:text-white border border-red-600 hover:bg-red-600 font-medium rounded-lg text-sm px-5 py-2.5">Cancel</button>
+                        <button type="button" data-modal-hide="createItemModal" class="text-red-600 hover:text-white border border-red-600 hover:bg-red-600 font-medium rounded-lg text-sm px-5 py-2.5">Bekor qilish</button>
                     </div>
                 </form>
             </div>

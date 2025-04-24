@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
-@section('title', "Guide Categories Management")
-@section('description', "Manage categories for guides")
+@section('title', "Git kategoriyalari")
+@section('description', "Git kategoriyalari")
 
 @section('content')
     <div class="px-4 pt-6 min-h-screen w-1/2">
@@ -8,14 +8,14 @@
             <!-- Card header -->
             <div class="items-center justify-between lg:flex">
                 <div class="mb-4 lg:mb-0">
-                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Guide Categories Management</h3>
+                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Git kategoriyalari</h3>
                 </div>
                 <div class="items-center sm:flex">
                     <button data-modal-target="createCategoryModal" data-modal-toggle="createCategoryModal" class="admin-add-btn" type="button">
                         <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
                         </svg>
-                        Add new category
+                        Qo'shish
                     </button>
                 </div>
             </div>
@@ -29,8 +29,8 @@
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" class="px-6 py-3">#</th>
-                                    <th scope="col" class="px-6 py-3">Name</th>
-                                    <th scope="col" class="px-6 py-3">Actions</th>
+                                    <th scope="col" class="px-6 py-3">Nomi</th>
+                                    <th scope="col" class="px-6 py-3">Amallar</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -44,7 +44,7 @@
                                                     <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
                                                     <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
                                                 </svg>
-                                                Edit
+                                                Tahrirlash
                                             </button>
                                             <form action="{{ route('guide-categories.destroy', $category->id) }}" method="POST" class="inline-block">
                                                 @csrf
@@ -53,7 +53,7 @@
                                                     <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                                         <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
                                                     </svg>
-                                                    Delete
+                                                    O'chirish
                                                 </button>
                                             </form>
                                         </td>
@@ -75,12 +75,12 @@
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="mb-4">
-                                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomi</label>
                                                         <input type="text" name="name" value="{{ $category->name }}" class="e-input" required>
                                                     </div>
                                                     <div class="flex justify-end space-x-2">
-                                                        <button type="submit" class="admin-add-btn">Update</button>
-                                                        <button type="button" data-modal-hide="editCategoryModal-{{ $category->id }}" class="admin-cancel-btn">Cancel</button>
+                                                        <button type="submit" class="admin-add-btn">Yangilash</button>
+                                                        <button type="button" data-modal-hide="editCategoryModal-{{ $category->id }}" class="admin-cancel-btn">Bekor qilish</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -111,12 +111,12 @@
                 <form action="{{ route('guide-categories.store') }}" method="POST">
                     @csrf
                     <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomi</label>
                         <input type="text" name="name" class="e-input" placeholder="Category name" required>
                     </div>
                     <div class="flex justify-end space-x-2">
                         <button type="submit" class="admin-add-btn">Add Category</button>
-                        <button type="button" data-modal-hide="createCategoryModal" class="admin-cancel-btn">Cancel</button>
+                        <button type="button" data-modal-hide="createCategoryModal" class="admin-cancel-btn">Bekor qilish</button>
                     </div>
                 </form>
             </div>

@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
-@section('title', "Users Management")
-@section('description', "Manage system users")
+@section('title', "Foydalanuvchilar")
+@section('description', "Tizim foydalanuvchilarini boshqarish")
 
 @section('content')
     <div class="px-4 pt-6 min-h-screen">
@@ -8,14 +8,14 @@
             <!-- Card header -->
             <div class="items-center justify-between lg:flex">
                 <div class="mb-4 lg:mb-0">
-                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Users Management</h3>
+                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Foydalanuvchilar</h3>
                 </div>
                 <div class="items-center sm:flex">
                     <button data-modal-target="createUserModal" data-modal-toggle="createUserModal" class="admin-add-btn" type="button">
                         <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
                         </svg>
-                        Add new user
+                        Foydalanuvchi qo'shish
                     </button>
                 </div>
             </div>
@@ -32,25 +32,25 @@
                                         ID
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                        Name
+                                        Nomi
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                         Email
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                        Phone
+                                        Tel
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                        Role
+                                        Roli
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                        Last Activity
+                                        So'ngi faolliyk
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                        Created At
+                                        Sana
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                        Actions
+                                        Amallar
                                     </th>
                                 </tr>
                                 </thead>
@@ -86,14 +86,14 @@
                                                     <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
                                                     <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
                                                 </svg>
-                                                Edit
+                                                Tahrirlash
                                             </button>
                                             <a href="#" class="admin-view-btn">
                                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                                 </svg>
-                                                View
+                                                Ko'rish
                                             </a>
                                         </td>
                                     </tr>
@@ -106,7 +106,7 @@
                                                 <!-- Modal header -->
                                                 <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                                                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                                        Edit User
+                                                        Tahrirlash
                                                     </h3>
                                                     <button type="button" class="admin-close-modal-btn" data-modal-hide="editUserModal-{{ $user->id }}">
                                                         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -122,7 +122,7 @@
 
                                                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
                                                         <div>
-                                                            <label for="name-{{ $user->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                                            <label for="name-{{ $user->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">To'liq ismi</label>
                                                             <input type="text" name="name" id="name-{{ $user->id }}" value="{{ $user->name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="User name" required="">
                                                         </div>
                                                         <div>
@@ -130,11 +130,11 @@
                                                             <input type="email" name="email" id="email-{{ $user->id }}" value="{{ $user->email }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="user@example.com" required="">
                                                         </div>
                                                         <div>
-                                                            <label for="password-{{ $user->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password (Leave blank to keep current)</label>
+                                                            <label for="password-{{ $user->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Parol</label>
                                                             <input type="password" name="password" id="password-{{ $user->id }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="••••••••">
                                                         </div>
                                                         <div>
-                                                            <label for="role-{{ $user->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
+                                                            <label for="role-{{ $user->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tizimdagi roli</label>
                                                             <select id="role-{{ $user->id }}" name="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                                                 @foreach($roles as $role)
                                                                     <option value="{{ $role->name }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>{{ $role->name }}</option>
@@ -144,10 +144,10 @@
                                                     </div>
                                                     <div class="flex items-center space-x-4">
                                                         <button type="submit" class="admin-add-btn">
-                                                            Update user
+                                                            Yangilash
                                                         </button>
                                                         <button type="button" data-modal-hide="editUserModal-{{ $user->id }}" class="admin-cancel-btn">
-                                                            Cancel
+                                                            Orqaga
                                                         </button>
                                                     </div>
                                                 </form>
@@ -207,7 +207,7 @@
                 <!-- Modal header -->
                 <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                        Add New User
+                        Foydalanuvchi qo'shish
                     </h3>
                     <button type="button" class="admin-close-modal-btn" data-modal-hide="createUserModal">
                         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -221,7 +221,7 @@
                     @csrf
                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
                         <div>
-                            <label for="create-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                            <label for="create-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">To'liq ismi</label>
                             <input type="text" name="name" id="create-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="User name" required="">
                         </div>
                         <div>
@@ -229,17 +229,17 @@
                             <input type="email" name="email" id="create-email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="user@example.com" required="">
                         </div>
                         <div>
-                            <label for="create-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                            <label for="create-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Parol</label>
                             <input type="password" name="password" id="create-password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="••••••••" required="">
                         </div>
                         <div>
-                            <label for="create-password-confirmation" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm Password</label>
+                            <label for="create-password-confirmation" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Parolni takrolang</label>
                             <input type="password" name="password_confirmation" id="create-password-confirmation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="••••••••" required="">
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="create-role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
+                            <label for="create-role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tizimdagi roli</label>
                             <select id="create-role" name="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
-                                <option value="">Select a role</option>
+                                <option value="" selected disabled>Tanlang</option>
                                 @foreach($roles as $role)
                                     <option value="{{ $role->name }}">{{ $role->name }}</option>
                                 @endforeach
@@ -248,10 +248,10 @@
                     </div>
                     <div class="flex items-center space-x-4">
                         <button type="submit" class="admin-add-btn">
-                            Add new user
+                            Saqlash
                         </button>
                         <button type="button" data-modal-hide="createUserModal" class="admin-cancel-btn">
-                            Cancel
+                            Bekor qilish
                         </button>
                     </div>
                 </form>

@@ -3,11 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tour extends Model
 {
-
     protected $fillable = [
         'name',
         'code',
@@ -21,7 +19,7 @@ class Tour extends Model
         return $this->belongsTo(TourCategory::class);
     }
 
-    public function price_list()
+    public function price_lists()
     {
         return $this->hasMany(PriceList::class);
     }

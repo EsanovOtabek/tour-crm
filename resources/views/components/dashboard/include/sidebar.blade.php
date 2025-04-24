@@ -16,7 +16,7 @@
                     {{-- Users --}}
                     <li>
                         <x-dashboard.sidebar.item path="{{ route('users.index') }}/"
-                                                  content="Users" >
+                                                  content="Foydalanuvchilar" >
                             <x-s-v-g-s.users
                                 class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
                         </x-dashboard.sidebar.item>
@@ -24,7 +24,7 @@
 
                     {{-- Rolas And Permissions --}}
                     <li>
-                        <x-dashboard.sidebar.drop-down-button content="Roles And Permissions" controls='roles-and-permissions'>
+                        <x-dashboard.sidebar.drop-down-button content="Ruxsatlar" controls='roles-and-permissions'>
                             <x-s-v-g-s.pages
                                 class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
                         </x-dashboard.sidebar.drop-down-button>
@@ -32,14 +32,14 @@
                             <li>
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('roles.index') }}"
-                                                          content="Roles" >
+                                                          content="Foydalanuvchi rollari" >
                                 </x-dashboard.sidebar.item>
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('permissions.index') }}"
-                                                          content="Permissions" />
+                                                          content="Ruxsatlar" />
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('roles.permissions.index') }}"
-                                                          content="Give Permissions" />
+                                                          content="Ruxsat biriktish" />
 
                             </li>
                         </x-dashboard.sidebar.drop-down-wrapper>
@@ -47,7 +47,7 @@
 
                     {{-- Tours --}}
                     <li>
-                        <x-dashboard.sidebar.drop-down-button content="Tours" controls='tours'>
+                        <x-dashboard.sidebar.drop-down-button content="Turlar" controls='tours'>
                             <x-s-v-g-s.pages
                                 class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
                         </x-dashboard.sidebar.drop-down-button>
@@ -55,21 +55,21 @@
                             <li>
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('tours.index') }}"
-                                                          content="All Tours" >
+                                                          content="Barcha Turlar" >
                                 </x-dashboard.sidebar.item>
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('tour-categories.index') }}"
-                                                          content="Tour Categories" />
+                                                          content="Tur Kategoriyalari" />
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('price-lists.index') }}"
-                                                          content="Price List" />
+                                                          content="Narxlar ro'yxati" />
                             </li>
                         </x-dashboard.sidebar.drop-down-wrapper>
                     </li>
 
                     {{-- Bookings --}}
                     <li>
-                        <x-dashboard.sidebar.drop-down-button content="Bookings" controls='bookings'>
+                        <x-dashboard.sidebar.drop-down-button content="Buyurtmalar" controls='bookings'>
                             <x-s-v-g-s.calendar
                                 class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
                         </x-dashboard.sidebar.drop-down-button>
@@ -77,11 +77,11 @@
                             <li>
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('bookings.index') }}"
-                                                          content="Bookings" >
+                                                          content="Buyurtmalar" >
                                 </x-dashboard.sidebar.item>
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('bookings.index',['filter' => 'archive']) }}"
-                                                          content="Archive Bookings" >
+                                                          content="Buyurtmalar arxivi" >
                                 </x-dashboard.sidebar.item>
                             </li>
                         </x-dashboard.sidebar.drop-down-wrapper>
@@ -89,7 +89,7 @@
 
                     {{-- Guides --}}
                     <li>
-                        <x-dashboard.sidebar.drop-down-button content="Guides" controls='guides'>
+                        <x-dashboard.sidebar.drop-down-button content="Gitlar" controls='guides'>
                             <x-s-v-g-s.user-plus
                                 class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
                         </x-dashboard.sidebar.drop-down-button>
@@ -97,11 +97,11 @@
                             <li>
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('guides.index') }}"
-                                                          content="All Guides" >
+                                                          content="Barcha Gitlar" >
                                 </x-dashboard.sidebar.item>
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('guide-categories.index') }}"
-                                                          content="Guide Categories" />
+                                                          content="Git Kategoriyalari" />
 {{--                                <x-dashboard.sidebar.item class="pl-10"--}}
 {{--                                                          path=""--}}
 {{--                                                          content="Guide Calendar" />--}}
@@ -111,7 +111,7 @@
 
                     {{-- Companies --}}
                     <li>
-                        <x-dashboard.sidebar.drop-down-button content="Partners" controls='companies'>
+                        <x-dashboard.sidebar.drop-down-button content="Hamkorlar" controls='companies'>
                             <x-s-v-g-s.building
                                 class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
                         </x-dashboard.sidebar.drop-down-button>
@@ -119,25 +119,25 @@
                             <li>
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('partners.index') }}"
-                                                          content="Partners" >
+                                                          content="Hamkorlar" >
                                 </x-dashboard.sidebar.item>
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('partner-types.index') }}"
-                                                          content="Partner types" />
+                                                          content="Hamkorlar turlari" />
 
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('partners.show') }}"
-                                                          content="Partner Objects" />
+                                                          content="Hamkorlar obyektlari" />
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('object-items.index') }}"
-                                                          content="Object Items" />
+                                                          content="Hamkor obyekt mahsulotlari" />
                             </li>
                         </x-dashboard.sidebar.drop-down-wrapper>
                     </li>
 
                     {{-- Agents --}}
                     <li>
-                        <x-dashboard.sidebar.drop-down-button content="Agents" controls='agents'>
+                        <x-dashboard.sidebar.drop-down-button content="Agentlar" controls='agents'>
                             <x-s-v-g-s.users
                                 class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
                         </x-dashboard.sidebar.drop-down-button>
@@ -145,7 +145,7 @@
                             <li>
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('agents.index') }}"
-                                                          content="All agents" >
+                                                          content="Barcha Agentlar" >
                                 </x-dashboard.sidebar.item>
 {{--                                <x-dashboard.sidebar.item class="pl-10"--}}
 {{--                                                          path=""--}}
@@ -156,7 +156,7 @@
 
                     {{-- Finance --}}
                     <li>
-                        <x-dashboard.sidebar.drop-down-button content="Finance" controls='finance'>
+                        <x-dashboard.sidebar.drop-down-button content="Moliyaviy amallar" controls='finance'>
                             <x-s-v-g-s.coins
                                 class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
                         </x-dashboard.sidebar.drop-down-button>
@@ -164,11 +164,11 @@
                             <li>
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('balances.index') }}"
-                                                          content="Balances" >
+                                                          content="Balanslar" >
                                 </x-dashboard.sidebar.item>
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('expenses.index') }}"
-                                                          content="Expenses" />
+                                                          content="Xarajatlar" />
 {{--                                <x-dashboard.sidebar.item class="pl-10"--}}
 {{--                                                          path=""--}}
 {{--                                                          content="To'lov tarixi" />--}}
@@ -203,7 +203,7 @@
 
                     {{-- Settings --}}
                     <li>
-                        <x-dashboard.sidebar.drop-down-button content="Tools" controls='tools'>
+                        <x-dashboard.sidebar.drop-down-button content="Vositalar" controls='tools'>
                             <x-s-v-g-s.settings-3
                                 class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
                         </x-dashboard.sidebar.drop-down-button>
@@ -211,20 +211,20 @@
                             <li>
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('tools.countries') }}"
-                                                          content="Countries" >
+                                                          content="Davlatlar" >
                                 </x-dashboard.sidebar.item>
 
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('tools.cities.index') }}"
-                                                          content="Tour Cities" />
+                                                          content="Shaharlar" />
 
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('tools.languages') }}"
-                                                          content="Languages" />
+                                                          content="Tillar" />
 
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('tools.currencies') }}"
-                                                          content="Currencies" />
+                                                          content="Valyutalar" />
                             </li>
                         </x-dashboard.sidebar.drop-down-wrapper>
                     </li>
@@ -233,13 +233,13 @@
 
 
                 </ul>
-                <div class="pt-2 space-y-2">
+{{--                <div class="pt-2 space-y-2">--}}
 
-                    {{-- Components --}}
-                    <x-dashboard.sidebar.item path="https://flowbite.com/docs/components/alerts/" content="Components">
-                        <x-s-v-g-s.components/>
-                    </x-dashboard.sidebar.item>
-                </div>
+{{--                    --}}{{-- Components --}}
+{{--                    <x-dashboard.sidebar.item path="https://flowbite.com/docs/components/alerts/" content="Components">--}}
+{{--                        <x-s-v-g-s.components/>--}}
+{{--                    </x-dashboard.sidebar.item>--}}
+{{--                </div>--}}
             </div>
         </div>
     </div>

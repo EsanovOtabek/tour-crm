@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
-@section('title', "Roles Management")
-@section('description', "Manage system roles")
+@section('title', "Tizimdagi rollarni boshqarish")
+@section('description', "Tizimdagi rollarni boshqarish")
 
 @section('content')
     <div class="px-4 pt-6 min-h-screen">
@@ -8,14 +8,14 @@
             <!-- Card header -->
             <div class="items-center justify-between lg:flex">
                 <div class="mb-4 lg:mb-0">
-                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Roles Management</h3>
+                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Tizimdagi rollarni boshqarish</h3>
                 </div>
                 <div class="items-center sm:flex">
                     <button data-modal-target="createRoleModal" data-modal-toggle="createRoleModal" class="admin-add-btn" type="button">
                         <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
                         </svg>
-                        Add new role
+                        Rol qo'shish
                     </button>
                 </div>
             </div>
@@ -32,13 +32,13 @@
                                         ID
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                        Name
+                                        Nomi
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                        Users Count
+                                        Foydalanuvchilar soni
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                        Created At
+                                        Sana
                                     </th>
                                 </tr>
                                 </thead>
@@ -78,7 +78,7 @@
                 <!-- Modal header -->
                 <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                        Add New Role
+                        Rol qo'shish
                     </h3>
                     <button type="button" class="admin-close-modal-btn" data-modal-hide="createRoleModal">
                         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -92,16 +92,16 @@
                     @csrf
                     <div class="grid gap-4 mb-4">
                         <div>
-                            <label for="role-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role Name</label>
+                            <label for="role-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomi</label>
                             <input type="text" name="name" id="role-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="e.g. editor" required>
                         </div>
                     </div>
                     <div class="flex items-center space-x-4">
                         <button type="submit" class="admin-add-btn">
-                            Add role
+                            Saqlash
                         </button>
                         <button type="button" data-modal-hide="createRoleModal" class="admin-cancel-btn">
-                            Cancel
+                            Bekor qilish
                         </button>
                     </div>
                 </form>
