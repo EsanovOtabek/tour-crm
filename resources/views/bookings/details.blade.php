@@ -319,38 +319,51 @@
             // Create modal event listeners
             const createPartnerSelect = document.getElementById('create-partner');
             const createObjectSelect = document.getElementById('create-object');
-            const createQuantityInput = document.getElementById('create-quantity');
 
             if (createPartnerSelect && createObjectSelect) {
                 createPartnerSelect.addEventListener('change', function() {
                     loadObjects(this.value, createObjectSelect);
                 });
-
-                // When object is selected, you can optionally do something with the prices
-                createObjectSelect.addEventListener('change', function() {
-                    // You could auto-calculate something here if needed
-                });
             }
 
             // Edit modals event listeners
-            document.querySelectorAll('select[name="partner_id"]').forEach(partnerSelect => {
-                if (partnerSelect.id.startsWith('edit-partner-')) {
-                    const detailId = partnerSelect.id.replace('edit-partner-', '');
-                    const objectSelect = document.getElementById(`edit-object-${detailId}`);
+            document.querySelectorAll('[id^="edit-partner-"]').forEach(partnerSelect => {
+                const detailId = partnerSelect.id.replace('edit-partner-', '');
+                const objectSelect = document.getElementById(`edit-object-${detailId}`);
 
-                    if (objectSelect) {
-                        partnerSelect.addEventListener('change', function() {
-                            loadObjects(this.value, objectSelect);
-                        });
+                if (objectSelect) {
+                    // Add change event listener
+                    partnerSelect.addEventListener('change', function() {
+                        loadObjects(this.value, objectSelect);
+                    });
 
-                        // Initialize with current values when modal opens
-                        document.getElementById(`editDetailModal-${detailId}`).addEventListener('shown.bs.modal', function() {
-                            const currentObjectId = objectSelect.value;
-                            loadObjects(partnerSelect.value, objectSelect, currentObjectId);
+                    // Initialize with current values when modal opens
+                    const modalToggle = document.querySelector(`[data-modal-toggle="editDetailModal-${detailId}"]`);
+                    if (modalToggle) {
+                        modalToggle.addEventListener('click', function() {
+                            // Load objects when modal is opened
+                            loadObjects(partnerSelect.value, objectSelect, objectSelect.dataset.selectedObjectId);
                         });
                     }
+
+                    // Store the current object_item_id value for later use
+                    if (objectSelect.value) {
+                        objectSelect.dataset.selectedObjectId = objectSelect.value;
+                    }
                 }
-            }
+            });
+
+            // Initially load objects for edit modals that are already populated
+            document.querySelectorAll('[id^="edit-partner-"]').forEach(partnerSelect => {
+                if (partnerSelect.value) {
+                    const detailId = partnerSelect.id.replace('edit-partner-', '');
+                    const objectSelect = document.getElementById(`edit-object-${detailId}`);
+                    if (objectSelect && objectSelect.value) {
+                        objectSelect.dataset.selectedObjectId = objectSelect.value;
+                        loadObjects(partnerSelect.value, objectSelect, objectSelect.value);
+                    }
+                }
+            });
         });
     </script>
 @endpush

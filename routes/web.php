@@ -121,6 +121,15 @@ Route::middleware(['auth'])->group(callback: function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/partners/{partner}/objects', function(Partner $partner) {
-    return response()->json($partner->objectItems()->select('id', 'name', 'sale_price', 'price')->get());
+Route::get('/api/partners/{partner}/objects', function (Partner $partner) {
+    // This could either return Partner Objects or flatten to ObjectItems
+    // Option 1: Return Partner Objects
+    // return $partner->partnerObjects;
+
+    // Option 2: Return flattened Object Items
+    $objectItems = collect();
+    foreach ($partner->partnerObjects as $partnerObject) {
+        $objectItems = $objectItems->merge($partnerObject->items);
+    }
+    return $objectItems;
 });

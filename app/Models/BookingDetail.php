@@ -19,6 +19,10 @@ class BookingDetail extends Model
         'user_id',
         'comment',
     ];
+    protected $casts = [
+        'sana' => 'date',
+    ];
+
 
     public function booking()
     {
@@ -33,6 +37,11 @@ class BookingDetail extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function partner()
+    {
+        return $this->belongsTo(Partner::class);
     }
 
 
