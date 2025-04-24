@@ -40,7 +40,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <!-- Personal Information -->
                             <div class="space-y-3">
-                                <h6 class="text-md font-semibold text-gray-700 dark:text-gray-300 border-b pb-1">Personal Information</h6>
+                                <h6 class="text-md font-semibold text-gray-700 dark:text-gray-300 border-b pb-1">Shaxsiy ma'lumotlari</h6>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">Full Name</label>
                                     <input type="text" value="{{ $groupMember->surname }} {{ $groupMember->name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" disabled>
@@ -53,7 +53,7 @@
 
                             <!-- Contact Information -->
                             <div class="space-y-3">
-                                <h6 class="text-md font-semibold text-gray-700 dark:text-gray-300 border-b pb-1">Contact Information</h6>
+                                <h6 class="text-md font-semibold text-gray-700 dark:text-gray-300 border-b pb-1">Kontakt ma'lumotlari</h6>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">Email</label>
                                     <input type="text" value="{{ $groupMember->email ?? 'N/A' }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" disabled>
@@ -81,14 +81,14 @@
             <!-- Booking Information -->
             <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mb-6">
                 <div class="p-5">
-                    <h5 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Booking Information</h5>
+                    <h5 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Buyurtma ma'lumotlari</h5>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">Tour Name</label>
+                            <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">Tur nomi</label>
                             <input type="text" value="{{ $booking->tour->name ?? 'N/A' }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" disabled>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">Booking Dates</label>
+                            <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">Buyurtma davomiyligi </label>
                             <input type="text" value="{{ $booking->start_date->format('M d, Y') }} - {{ $booking->end_date->format('M d, Y') }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" disabled>
                         </div>
                         <div>

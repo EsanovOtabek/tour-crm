@@ -89,7 +89,7 @@
                                     </a>
 
                                     <!-- Details -->
-                                    <a href="{{ route('bookings.show', $booking->id) }}" class="admin-info-btn">
+                                    <a href="{{ route('details.index', $booking->id) }}" class="admin-info-btn">
                                         <x-s-v-g-s.eye class="w-4 h-4 mr-2" />
                                         Detallar
                                     </a>

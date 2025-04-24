@@ -3,6 +3,7 @@
 use App\Http\Controllers\{AgentController,
     BalanceController,
     BookingController,
+    BookingDetailController,
     BookingExpenseController,
     BookingGuideController,
     DailyRecordController,
@@ -27,6 +28,7 @@ use App\Http\Controllers\{AgentController,
     UserController,
     GroupMemberController};
 
+use App\Models\Partner;
 use Illuminate\Support\Facades\Route;
 
 
@@ -97,7 +99,8 @@ Route::middleware(['auth'])->group(callback: function () {
         Route::resource('mashruts', MashrutController::class)->only(['index', 'store', 'update', 'destroy']);
         // Booking Guides routes
         Route::resource('booking-guides', BookingGuideController::class)->only(['index', 'store', 'update', 'destroy']);
-
+        // Booking Details routes
+        Route::resource('details', BookingDetailController::class)->only(['index', 'store', 'update', 'destroy']);
 
         Route::get('mashruts/pdf', [MashrutController::class, 'downloadPdf'])->name('bookings.mashruts.pdf');
 
@@ -118,3 +121,6 @@ Route::middleware(['auth'])->group(callback: function () {
 
 require __DIR__.'/auth.php';
 
+Route::get('/partners/{partner}/objects', function(Partner $partner) {
+    return response()->json($partner->objectItems()->select('id', 'name', 'sale_price', 'price')->get());
+});

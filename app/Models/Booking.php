@@ -48,6 +48,10 @@ class Booking extends Model
     {
         return $this->hasMany(Mashrut::class);
     }
+    public function details()
+    {
+        return $this->hasMany(BookingDetail::class);
+    }
 
     public function getRecommendedPrice() // nomini o'zgartirdik
     {

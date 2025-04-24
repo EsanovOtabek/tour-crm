@@ -10,7 +10,7 @@
                 <div class="p-5 flex flex-col md:flex-row md:items-center md:justify-between">
                     <div class="mb-4 md:mb-0">
                         <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                            Booking #{{ $booking->id }} - {{ $booking->tour->name ?? 'No Tour' }}
+                            Buyurtma #{{ $booking->id }} - {{ $booking->tour->name ?? 'No Tour' }}
                         </h5>
                         <div class="flex flex-wrap gap-2">
                             <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
@@ -33,10 +33,10 @@
                             </span>
                         </div>
                         <div class="mt-2 text-sm text-gray-600 dark:text-gray-300">
-                            <p><span class="font-semibold">Dates:</span>
+                            <p><span class="font-semibold">Davomiyligi:</span>
                                 {{ $booking->start_date->format('M d, Y') }} - {{ $booking->end_date->format('M d, Y') }}
                             </p>
-                            <p><span class="font-semibold">Total Amount:</span> ${{ number_format($booking->total_amount, 2) }}</p>
+                            <p><span class="font-semibold">Jami summa:</span> ${{ number_format($booking->total_amount, 2) }}</p>
                         </div>
                     </div>
                     <div class="flex-shrink-0">
@@ -61,7 +61,7 @@
                         <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
                         </svg>
-                        Add New Member
+                        Qo'shish
                     </button>
                 </div>
             </div>
@@ -180,7 +180,7 @@
                                             <div>
                                                 <label for="edit-agent-{{ $member->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Agent</label>
                                                 <select name="agent_id" required id="edit-agent-{{ $member->id }}" class="e-input">
-                                                    <option value="" >Select Agent</option>
+                                                    <option value="" >Agentni tanlash</option>
                                                     @foreach($agents as $agent)
                                                         <option value="{{ $agent->id }}" {{ $member->agent_id == $agent->id ? 'selected' : '' }}>{{ $agent->name }}</option>
                                                     @endforeach
@@ -230,10 +230,10 @@
                                         </div>
                                         <div class="flex items-center space-x-4">
                                             <button type="submit" class="admin-add-btn">
-                                                Update Member
+                                                Yangilash
                                             </button>
                                             <button type="button" data-modal-hide="editMemberModal-{{ $member->id }}" class="admin-cancel-btn">
-                                                Cancel
+                                                Bekor qilish
                                             </button>
                                         </div>
                                     </form>
@@ -273,7 +273,7 @@
                     @empty
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <td colspan="5" class="py-4 px-6 text-center text-gray-500 dark:text-gray-400">
-                                No group members found for this booking.
+                                Hali odamlar biriktirilmagan.
                             </td>
                         </tr>
                     @endforelse
@@ -289,7 +289,7 @@
             <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
                 <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                        Add New Group Member
+                        Yangi odam qo'shish
                     </h3>
                     <button type="button" class="admin-close-modal-btn" data-modal-hide="createMemberModal">
                         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -304,7 +304,7 @@
                         <div>
                             <label for="create-agent" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Agent</label>
                             <select name="agent_id" required id="create-agent" class="e-input">
-                                <option value="">Select Agent</option>
+                                <option value="">Agentni tanlash</option>
                                 @foreach($agents as $agent)
                                     <option value="{{ $agent->id }}">{{ $agent->name }}</option>
                                 @endforeach
@@ -345,7 +345,7 @@
                         <div>
                             <label for="create-status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                             <select name="status" id="create-status" class="e-input">
-                                <option value="">Select Status</option>
+                                <option value="">Statusni tanlash</option>
                                 @foreach(App\Models\GroupMember::statusOptions() as $value => $label)
                                     <option value="{{ $value }}">{{ $label }}</option>
                                 @endforeach
@@ -354,7 +354,7 @@
                     </div>
                     <div class="flex items-center space-x-4">
                         <button type="submit" class="admin-add-btn">
-                            Add Member
+                            Saqlash
                         </button>
                         <button type="button" data-modal-hide="createMemberModal" class="admin-cancel-btn">
                             Bekor qilish
