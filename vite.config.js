@@ -9,6 +9,6 @@ export default defineConfig({
         }),
     ],
     resolve:{
-        extensions:['.svg']
+        extensions:['.svg', '.png']
     }
 });

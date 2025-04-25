@@ -7,8 +7,8 @@
     <div class="flex flex-col items-center justify-center px-6 pt-5 mx-auto md:h-screen pt:mt-0 dark:bg-gray-900">
         <a href="{{ route('dashboard') }}"
            class="flex items-center justify-center mb-8 text-2xl font-semibold lg:mb-10 dark:text-white">
-            <img src="{{ Vite::asset('resources/images/logo.png') }}" class="mr-4 h-11 block dark:hidden" alt="Tour App">
-            <img src="{{ Vite::asset('resources/images/logo_light.png') }}" class="mr-4 h-11 hidden dark:block" alt="Tour App">
+            <img src="{{ asset('assets/images/logo.png') }}" class="mr-4 h-11 block dark:hidden" alt="Tour App">
+            <img src="{{ asset('assets/images/logo_light.png') }}" class="mr-4 h-11 hidden dark:block" alt="Tour App">
         </a>
 
         <div class="w-full max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow dark:bg-gray-800">

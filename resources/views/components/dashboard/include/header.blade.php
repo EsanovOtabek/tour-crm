@@ -12,9 +12,9 @@
                 <!-- Search mobile -->
                 <x-dashboard.header.mobile-search/>
                 <!-- Notifications -->
-{{--                <x-dashboard.header.notification-button/>--}}
+                {{-- <x-dashboard.header.notification-button/>--}}
                 <!-- Dropdown menu -->
-{{--                <x-dashboard.header.notification-drop-down/>--}}
+                {{-- <x-dashboard.header.notification-drop-down/>--}}
                 <!-- Apps -->
                 <x-dashboard.header.apps-button/>
                 <!-- Dropdown menu -->
