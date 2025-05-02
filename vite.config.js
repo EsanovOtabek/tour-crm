@@ -8,7 +8,12 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    resolve:{
-        extensions:['.svg', '.png']
+    resolve: {
+        extensions: ['.svg', '.png']
+    },
+    build: {
+        manifest: true, // production build uchun kerak
+        outDir: 'public/build', // bu default, lekin yozib qo‘yish aniqroq bo‘ladi
+        emptyOutDir: true
     }
 });
