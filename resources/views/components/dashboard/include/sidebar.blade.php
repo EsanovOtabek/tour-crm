@@ -22,6 +22,7 @@
                         </x-dashboard.sidebar.item>
                     </li>
 
+
                     {{-- Rolas And Permissions --}}
                     <li>
                         <x-dashboard.sidebar.drop-down-button content="Ruxsatlar" controls='roles-and-permissions'>
@@ -43,6 +44,16 @@
 
                             </li>
                         </x-dashboard.sidebar.drop-down-wrapper>
+                    </li>
+
+
+                    {{-- Daily Report --}}
+                    <li>
+                        <x-dashboard.sidebar.item path="{{ route('daily-reports.index') }}/"
+                                                  content="Daily report" >
+                            <x-s-v-g-s.calendar
+                                class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
+                        </x-dashboard.sidebar.item>
                     </li>
 
                     {{-- Tours --}}
@@ -80,6 +91,10 @@
                                                           content="Buyurtmalar" >
                                 </x-dashboard.sidebar.item>
                                 <x-dashboard.sidebar.item class="pl-10"
+                                                          path="{{ route('bookings.templates') }}"
+                                                          content="Buyurtma Shablonlari" >
+                                </x-dashboard.sidebar.item>
+                                <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('bookings.index',['filter' => 'archive']) }}"
                                                           content="Buyurtmalar arxivi" >
                                 </x-dashboard.sidebar.item>
@@ -102,9 +117,9 @@
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('guide-categories.index') }}"
                                                           content="Git Kategoriyalari" />
-{{--                                <x-dashboard.sidebar.item class="pl-10"--}}
-{{--                                                          path=""--}}
-{{--                                                          content="Guide Calendar" />--}}
+                                <x-dashboard.sidebar.item class="pl-10"
+                                                          path="{{ route('guides.calendar') }}"
+                                                          content="Kalendar" />
                             </li>
                         </x-dashboard.sidebar.drop-down-wrapper>
                     </li>
@@ -117,13 +132,14 @@
                         </x-dashboard.sidebar.drop-down-button>
                         <x-dashboard.sidebar.drop-down-wrapper controls="companies">
                             <li>
+
+                                <x-dashboard.sidebar.item class="pl-10"
+                                                          path="{{ route('partner-types.index') }}"
+                                                          content="Hamkorlar turlari" />
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('partners.index') }}"
                                                           content="Hamkorlar" >
                                 </x-dashboard.sidebar.item>
-                                <x-dashboard.sidebar.item class="pl-10"
-                                                          path="{{ route('partner-types.index') }}"
-                                                          content="Hamkorlar turlari" />
 
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('partners.show') }}"

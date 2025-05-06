@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('guide_category_id')->constrained('guide_categories')->onDelete('cascade');
             $table->foreignId('tour_city_id')->constrained('tour_cities')->onDelete('cascade');
             $table->decimal('price', 15, 2);
+            $table->foreignId('currency_id')->constrained('currencies')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

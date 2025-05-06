@@ -15,10 +15,13 @@ class BookingGuide extends Model
         'summa',
         'comment',
         'sana',
+        'start_date',
+        'end_date',
     ];
 
     protected $casts = [
-        'sana' => 'date',
+        'start_date' => 'date',
+        'end_date' => 'date',
     ];
 
     public function booking()

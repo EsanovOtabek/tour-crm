@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tour_cities', function (Blueprint $table) {
+        Schema::create('daily_reports', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('code');
-            $table->foreignId('country_id')->constrained('countries');
-            $table->softDeletes();
+            $table->foreignId('booking_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->text('problem')->nullable();
+            $table->text('solve')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tour_cities');
+        Schema::dropIfExists('daily_reports');
     }
 };

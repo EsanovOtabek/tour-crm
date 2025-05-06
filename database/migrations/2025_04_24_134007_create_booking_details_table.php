@@ -18,7 +18,10 @@ return new class extends Migration
             $table->integer('quantity');
             $table->decimal('price', 12, 2);       // sale_price * quantity
             $table->decimal('cost_price', 12, 2);  // price * quantity
-            $table->date('sana');
+            $table->date('start_date');
+            $table->date('end_date');
+
+
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('comment')->nullable();
             $table->timestamps();

@@ -75,7 +75,8 @@
                         <th scope="col" class="py-3 px-6">Gid</th>
                         <th scope="col" class="py-3 px-6">Shahar</th>
                         <th scope="col" class="py-3 px-6">Summa</th>
-                        <th scope="col" class="py-3 px-6">Sana</th>
+                        <th scope="col" class="py-3 px-6">Boshlash sanasi</th>
+                        <th scope="col" class="py-3 px-6">Tugash sanasi</th>
                         <th scope="col" class="py-3 px-6">Izoh</th>
                         <th scope="col" class="py-3 px-6 text-right">Amallar</th>
                     </tr>
@@ -95,10 +96,13 @@
                                 {{ $guide->tourCity->name ?? 'Shahar yo\'q' }}
                             </td>
                             <td class="py-4 px-6">
-                                {{ number_format($guide->summa, 2) }}
+                                {{ number_format($guide->summa, 2) }} {{ $guide->guide->currency->code ?? '' }}
                             </td>
                             <td class="py-4 px-6">
-                                {{ $guide->sana ? $guide->sana->format('d.m.Y') : 'Sana yo\'q' }}
+                                {{ $guide->start_date ? $guide->start_date->format('d.m.Y') : 'Sana yo\'q' }}
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ $guide->end_date ? $guide->end_date->format('d.m.Y') : 'Sana yo\'q' }}
                             </td>
                             <td class="py-4 px-6">
                                 {{ $guide->comment ?? 'Izoh yo\'q' }}
@@ -142,19 +146,43 @@
                                                 </select>
                                             </div>
                                             <div>
+                                                <label for="edit-category-{{ $guide->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Shahar</label>
+                                                <select name="category_id" id="edit-category-{{ $guide->id }}" class="e-input">
+                                                    <option value="">Gid Kategoriyasi</option>
+                                                    @foreach($categories as $cat)
+                                                        <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div>
                                                 <label for="edit-guide-{{ $guide->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gid</label>
                                                 <select name="guide_id" required id="edit-guide-{{ $guide->id }}" class="e-input guide-select">
-                                                    <option value="">Avval shaharni tanlang</option>
+                                                    <option value="" selected disabled>Gidni tanlang</option>
                                                     <!-- Gidlar JavaScript orqali yuklanadi -->
                                                 </select>
                                             </div>
                                             <div>
-                                                <label for="edit-summa-{{ $guide->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Summa</label>
-                                                <input type="number" name="summa" id="edit-summa-{{ $guide->id }}" value="{{ $guide->summa }}" class="e-input" required>
+                                                <label for="edit-summa-{{ $guide->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                    Summa ({{ $guide->guide->currency->code ?? 'USD' }})
+                                                </label>
+                                                <div class="relative">
+                                                    <input type="number" name="summa" id="edit-summa-{{ $guide->id }}" value="{{ $guide->summa }}" class="e-input" required>
+                                                    <span class="absolute right-3 top-2 text-gray-500 text-sm">{{ $guide->guide->currency->code ?? 'USD' }}</span>
+                                                </div>
                                             </div>
                                             <div>
-                                                <label for="edit-sana-{{ $guide->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sana</label>
-                                                <input type="date" name="sana" id="edit-sana-{{ $guide->id }}" value="{{ $guide->sana ? $guide->sana->format('Y-m-d') : '' }}" class="e-input">
+                                                <label for="edit-start_date-{{ $guide->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Boshlash sanasi</label>
+                                                <input type="date" name="start_date" id="edit-start_date-{{ $guide->id }}"
+                                                       value="{{ $guide->start_date ? $guide->start_date->format('Y-m-d') : '' }}" class="e-input" required
+                                                       min="{{ $booking->start_date->format('Y-m-d') }}"
+                                                       max="{{ $booking->end_date->format('Y-m-d') }}">
+                                            </div>
+                                            <div>
+                                                <label for="edit-end_date-{{ $guide->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tugash sanasi</label>
+                                                <input type="date" name="end_date" id="edit-end_date-{{ $guide->id }}"
+                                                       value="{{ $guide->end_date ? $guide->end_date->format('Y-m-d') : '' }}" class="e-input" required
+                                                       min="{{ $booking->start_date->format('Y-m-d') }}"
+                                                       max="{{ $booking->end_date->format('Y-m-d') }}">
                                             </div>
                                             <div>
                                                 <label for="edit-comment-{{ $guide->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Izoh</label>
@@ -212,7 +240,6 @@
                     @endforelse
                     </tbody>
                 </table>
-
             </div>
         </div>
     </div>
@@ -235,30 +262,57 @@
                 <form action="{{ route('booking-guides.store', $booking->id) }}" method="POST">
                     @csrf
                     <div class="grid gap-4 mb-4">
+                        <!-- Shahar tanlash -->
                         <div>
                             <label for="create-city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Shahar</label>
-                            <select name="tour_city_id" id="create-city" class="e-input city-select">
+                            <select name="tour_city_id" id="create-city" class="e-input">
                                 <option value="">Shaharni tanlang</option>
                                 @foreach($cities as $city)
                                     <option value="{{ $city->id }}">{{ $city->name }}</option>
                                 @endforeach
                             </select>
                         </div>
+
+                        <!-- Kategoriya tanlash -->
+                        <div>
+                            <label for="create-category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gid Kategoriyasi</label>
+                            <select name="guide_category_id" id="create-category" class="e-input category-select">
+                                <option value="">Kategoriyani tanlang</option>
+                                @foreach($categories as $cat)
+                                    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Gid tanlash -->
                         <div>
                             <label for="create-guide" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gid</label>
                             <select name="guide_id" required id="create-guide" class="e-input guide-select">
-                                <option value="">Avval shaharni tanlang</option>
-                                <!-- Gidlar JavaScript orqali yuklanadi -->
+                                <option value="" selected disabled>Gidni tanlang</option>
                             </select>
                         </div>
+
                         <div>
-                            <label for="create-summa" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Summa</label>
-                            <input type="number" name="summa" id="create-summa" class="e-input" required>
+                            <label for="create-summa" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Summa (<span id="currency-code">USD</span>)</label>
+                            <div class="relative">
+                                <input type="number" name="summa" id="create-summa" class="e-input" required>
+                                <span class="absolute right-3 top-2 text-gray-500 text-sm" id="currency-symbol">USD</span>
+                            </div>
                             <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Gid tanlanganda uning narxi avtomatik ravishda kiritiladi</p>
                         </div>
                         <div>
-                            <label for="create-sana" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sana</label>
-                            <input type="date" name="sana" id="create-sana" class="e-input">
+                            <label for="create-start_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Boshlash sanasi</label>
+                            <input type="date" name="start_date"
+                                   id="create-start_date" class="e-input" required
+                                   min="{{ $booking->start_date->format('Y-m-d') }}"
+                                   max="{{ $booking->end_date->format('Y-m-d') }}">
+                        </div>
+                        <div>
+                            <label for="create-end_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tugash sanasi</label>
+                            <input type="date" name="end_date"
+                                   id="create-end_date" class="e-input" required
+                                   min="{{ $booking->start_date->format('Y-m-d') }}"
+                                   max="{{ $booking->end_date->format('Y-m-d') }}">
                         </div>
                         <div>
                             <label for="create-comment" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Izoh</label>
@@ -277,136 +331,80 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @push('scripts')
-    <!-- JavaScript for auto-filling guide price -->
     @php
         $mappedGuides = $guides->map(function($guide) {
             return [
                 'id' => $guide->id,
                 'name' => $guide->name,
                 'price' => $guide->price ?? 0,
-                'city_id' => $guide->tour_city_id,
-                'city_name' => $guide->tourCity ? $guide->tourCity->name : null,
+                'city_name' => $guide->tourCity->name ?? '',
+                'category_id' => $guide->guide_category_id,
+                'currency_code' => $guide->currency->code ?? 'USD',
+                'currency_symbol' => $guide->currency->symbol ?? '$'
             ];
         });
     @endphp
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Gidlar ma'lumotlari
+        $(function () {
             const allGuides = @json($mappedGuides);
 
+            function loadGuides($categorySelect, $guideSelect, selectedGuideId = null) {
+                const categoryId = parseInt($categorySelect.val());
+                $slct = `<option value="" selected disabled>Gidni tanlang</option>`;
 
-            // Shahar tanlanganda gidlarni yuklash
-            function loadGuides(citySelect, guideSelect, selectedGuideId = null) {
-                const cityId = citySelect.value;
-                guideSelect.innerHTML = '<option value="">Avval shaharni tanlang</option>';
+                if (!categoryId) return;
 
-                if (!cityId) {
-                    // Agar shahar tanlanmagan bo'lsa, barcha gidlarni chiqaramiz
-                    allGuides.forEach(guide => {
-                        const option = new Option(
-                            guide.city_name ? `${guide.name} (${guide.city_name})` : guide.name,
-                            guide.id
-                        );
-                        option.dataset.price = guide.price;
-                        if (selectedGuideId && guide.id == selectedGuideId) {
-                            option.selected = true;
-                        }
-                        guideSelect.add(option);
+                allGuides
+                    .filter(g => g.category_id == categoryId)
+                    .forEach(g => {
+                        $slct += `<option value="${g.id}" data-price="${g.price}" data-currency="${g.currency_code}" data-symbol="${g.currency_symbol}">${g.name}</option>`;
+
                     });
-                } else {
-                    // Avval tanlangan shaharga tegishli gidlarni chiqaramiz
-                    const cityGuides = allGuides.filter(g => g.city_id == cityId);
-                    cityGuides.forEach(guide => {
-                        const option = new Option(guide.name, guide.id);
-                        option.dataset.price = guide.price;
-                        if (selectedGuideId && guide.id == selectedGuideId) {
-                            option.selected = true;
-                        }
-                        guideSelect.add(option);
-                    });
-
-                    // Keyin boshqa shaharlarga tegishli gidlarni chiqaramiz
-                    const otherGuides = allGuides.filter(g => g.city_id != cityId);
-                    if (otherGuides.length > 0) {
-                        const optgroup = document.createElement('optgroup');
-                        optgroup.label = 'Boshqa shaharlar gidlari';
-                        otherGuides.forEach(guide => {
-                            const option = new Option(
-                                `${guide.name} (${guide.city_name})`,
-                                guide.id
-                            );
-                            option.dataset.price = guide.price;
-                            if (selectedGuideId && guide.id == selectedGuideId) {
-                                option.selected = true;
-                            }
-                            optgroup.appendChild(option);
-                        });
-                        guideSelect.add(optgroup);
-                    }
-                }
+                $guideSelect.empty().append($slct);
             }
 
-            // Create modal uchun event listener
-            const createCitySelect = document.getElementById('create-city');
-            const createGuideSelect = document.getElementById('create-guide');
-            const createSummaInput = document.getElementById('create-summa');
 
-            if (createCitySelect && createGuideSelect) {
-                createCitySelect.addEventListener('change', function() {
-                    loadGuides(createCitySelect, createGuideSelect);
+            // Create modal
+            $('#create-category').on('change', function () {
+                loadGuides($(this), $('#create-guide'));
+            });
+
+            $('#create-guide').on('change', function () {
+                const $selected = $(this).find(':selected');
+
+                $('#create-summa').val($selected.data('price'));
+                $('#currency-code').text($selected.data('currency'));
+                $('#currency-symbol').text($selected.data('symbol'));
+            });
+
+            $('#createGuideModal').on('shown.bs.modal', function () {
+                loadGuides($('#create-category'), $('#create-guide'));
+            });
+
+            // Edit modallar
+            $('[id^="edit-category-"]').each(function () {
+                const guideId = this.id.replace('edit-category-', '');
+                const $categorySelect = $(this);
+                const $guideSelect = $(`#edit-guide-${guideId}`);
+                const $summaInput = $(`#edit-summa-${guideId}`);
+
+                $categorySelect.on('change', function () {
+                    loadGuides($categorySelect, $guideSelect);
                 });
 
-                // Gid tanlanganda narxni avtomatik kiritish
-                createGuideSelect.addEventListener('change', function() {
-                    const selectedOption = this.options[this.selectedIndex];
-                    const price = selectedOption.dataset.price;
-                    if (price && createSummaInput) {
-                        createSummaInput.value = price;
-                    }
+                $guideSelect.on('change', function () {
+                    const $selected = $(this).find(':selected');
+                    $summaInput.val($selected.data('price'));
                 });
 
-                // Modal ochilganda birinchi marta gidlarni yuklash
-                document.getElementById('createGuideModal').addEventListener('shown.bs.modal', function() {
-                    loadGuides(createCitySelect, createGuideSelect);
+                $(`#editGuideModal-${guideId}`).on('shown.bs.modal', function () {
+                    loadGuides($categorySelect, $guideSelect, $guideSelect.val());
                 });
-            }
-
-            // Edit modallari uchun event listenerlar
-            document.querySelectorAll('.city-select').forEach(citySelect => {
-                if (citySelect.id.startsWith('edit-city-')) {
-                    const guideId = citySelect.id.replace('edit-city-', '');
-                    const guideSelect = document.getElementById(`edit-guide-${guideId}`);
-                    const summaInput = document.getElementById(`edit-summa-${guideId}`);
-
-                    if (guideSelect) {
-                        citySelect.addEventListener('change', function() {
-                            loadGuides(citySelect, guideSelect);
-                        });
-
-                        // Gid tanlanganda narxni avtomatik kiritish
-                        guideSelect.addEventListener('change', function() {
-                            const selectedOption = this.options[this.selectedIndex];
-                            const price = selectedOption.dataset.price;
-                            if (price && summaInput) {
-                                summaInput.value = price;
-                            }
-                        });
-
-                        // Modal ochilganda birinchi marta gidlarni yuklash
-                        document.getElementById(`editGuideModal-${guideId}`).addEventListener('shown.bs.modal', function() {
-                            // Tanlangan gidni saqlab qolish uchun
-                            const selectedGuideId = guideSelect.value;
-                            loadGuides(citySelect, guideSelect, selectedGuideId);
-                        });
-                    }
-                }
             });
         });
-
     </script>
 @endpush

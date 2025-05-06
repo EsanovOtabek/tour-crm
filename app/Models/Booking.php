@@ -17,6 +17,8 @@ class Booking extends Model
         'total_amount',
         'price',
         'cost_price',
+        'unique_code',
+        'is_marked',
     ];
     protected $casts = [
         'start_date' => 'datetime',
@@ -93,6 +95,10 @@ class Booking extends Model
         }
     }
 
+    public function dailyReports()
+    {
+        return $this->hasMany(DailyReport::class);
+    }
 
 
 }

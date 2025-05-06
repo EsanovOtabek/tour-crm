@@ -19,7 +19,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // auth()->user()->id dan olinadi
             $table->decimal('summa', 12, 2)->default(0);
             $table->text('comment')->nullable();
-            $table->date('sana')->nullable();
+
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->timestamps();
         });
     }

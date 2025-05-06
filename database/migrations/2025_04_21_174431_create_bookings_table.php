@@ -18,9 +18,14 @@ return new class extends Migration
             $table->enum('status', ['confirmed', 'cancelled','completed']);
             $table->date('start_date');
             $table->date('end_date');
+
             $table->decimal('total_amount');
             $table->decimal('price');
             $table->decimal('cost_price');
+
+            $table->string('unique_code')->unique()->nullable();
+            $table->boolean('is_marked')->default(false);
+
             $table->softDeletes();
             $table->timestamps();
         });

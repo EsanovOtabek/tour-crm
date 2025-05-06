@@ -11,6 +11,7 @@ class TourCity extends Model
     use SoftDeletes;
     protected $fillable = [
         'name',
+        'code',
         'country_id',
     ];
 

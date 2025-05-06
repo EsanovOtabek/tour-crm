@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('price', 10, 2);
             $table->decimal('sale_price', 10, 2);
+            $table->foreignId('currency_id')->constrained();
+            $table->text('contact')->nullable();
             $table->foreignId('partner_object_id')->constrained('partner_objects')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();

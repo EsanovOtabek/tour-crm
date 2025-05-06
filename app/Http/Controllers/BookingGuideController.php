@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\BookingGuide;
 use App\Models\Booking;
 use App\Models\Guide;
+use App\Models\GuideCategory;
 use App\Models\TourCity;
 use Illuminate\Http\Request;
 
@@ -15,8 +16,9 @@ class BookingGuideController extends Controller
 //        dd();
         $guides = Guide::all();
         $cities = TourCity::all();
+        $categories = GuideCategory::all();
 
-        return view('bookings.guides', compact('bookingGuides', 'booking', 'guides', 'cities'));
+        return view('bookings.guides', compact('bookingGuides', 'booking','categories', 'guides', 'cities'));
     }
 
     public function store(Request $request, Booking $booking)
@@ -26,7 +28,8 @@ class BookingGuideController extends Controller
             'tour_city_id' => 'nullable|exists:tour_cities,id',
             'summa' => 'required|numeric',
             'comment' => 'nullable|string',
-            'sana' => 'nullable|date',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
         ]);
 
         $data['user_id'] = auth()->user()->id;
@@ -43,7 +46,8 @@ class BookingGuideController extends Controller
             'tour_city_id' => 'nullable|exists:tour_cities,id',
             'summa' => 'required|numeric',
             'comment' => 'nullable|string',
-            'sana' => 'nullable|date',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
         ]);
 
         $bookingGuide->update($validated);

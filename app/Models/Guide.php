@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Nnjeim\World\Models\Currency;
 use Nnjeim\World\Models\Language;
 
 class Guide extends Model
@@ -19,11 +20,17 @@ class Guide extends Model
         'guide_category_id',
         'tour_city_id',
         'price',
+        'currency_id',
     ];
 
     public function category(): BelongsTo
     {
         return $this->belongsTo(GuideCategory::class, 'guide_category_id');
+    }
+
+    public function currency(): BelongsTo
+    {
+        return $this->belongsTo(Currency::class, 'currency_id');
     }
 
     public function tour_city(): BelongsTo
@@ -35,4 +42,10 @@ class Guide extends Model
     {
         return $this->belongsToMany(Language::class, 'guide_language');
     }
+
+    public function bookingGuides()
+    {
+        return $this->hasMany(BookingGuide::class);
+    }
+
 }

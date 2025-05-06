@@ -35,6 +35,9 @@
                                         Nomi
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                        Kodi
+                                    </th>
+                                    <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                         Davlat
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
@@ -55,6 +58,9 @@
                                             {{ $city->name }}
                                         </td>
                                         <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
+                                            {{ $city->code }}
+                                        </td>
+                                        <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
                                             {{ $city->country->name ?? 'N/A' }}
                                         </td>
                                         <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
@@ -71,7 +77,7 @@
                                             <form action="{{ route('tools.cities.destroy', $city->id) }}" method="POST" class="inline-block">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="admin-delete-btn" onclick="return confirm('O'chirganingizdan keyin uni qayta tiklab bo'lmaydi this city?')">
+                                                <button type="submit" class="admin-delete-btn" onclick="return confirm('O\'chirganingizdan keyin uni qayta tiklab bo\'lmaydi')">
                                                     <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
                                                     </svg>
@@ -106,6 +112,10 @@
                                                         <div>
                                                             <label for="name-{{ $city->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Shahar nomi</label>
                                                             <input type="text" name="name" id="name-{{ $city->id }}" value="{{ $city->name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="City name" required>
+                                                        </div>
+                                                        <div>
+                                                            <label for="code-{{ $city->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Shahar kodi</label>
+                                                            <input type="text" name="code" id="code-{{ $city->id }}" value="{{ $city->code }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="City name" required>
                                                         </div>
                                                         <div>
                                                             <label for="country_id-{{ $city->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Davlat</label>
@@ -162,6 +172,10 @@
                         <div>
                             <label for="create-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Shahar nomi</label>
                             <input type="text" name="name" id="create-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="City name" required>
+                        </div>
+                        <div>
+                            <label for="create-code" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Shahar kodi</label>
+                            <input type="text" name="code" id="create-code" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="City name" required>
                         </div>
                         <div>
                             <label for="create-country" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Davlat</label>

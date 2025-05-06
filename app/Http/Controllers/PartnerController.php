@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Partner;
 use App\Models\PartnerObject;
 use App\Models\PartnerType;
+use App\Models\TourCity;
 use Illuminate\Http\Request;
 
 class PartnerController extends Controller
@@ -29,7 +30,12 @@ class PartnerController extends Controller
     public function show(Request $request)
     {
         $selectedPartnerId = $request->query('partner_id', null);
-        $partners = Partner::all();
+        $selectedPartnerTypeId = $request->query('type_id', null);
+
+        $partnerTypes = PartnerType::all();
+        $partners = Partner::when($selectedPartnerTypeId, function($query) use ($selectedPartnerTypeId) {
+            return $query->where('type_id', $selectedPartnerTypeId);
+        })->get();
 
         $query = PartnerObject::query();
 
@@ -40,10 +46,20 @@ class PartnerController extends Controller
             $selectedPartner = null;
         }
 
-        $partnerObjects = $query->paginate(15);
+        $partnerObjects = $query->with(['city','partner'])->get();
 
-        return view('partners.objects', compact('partnerObjects', 'partners', 'selectedPartner', 'selectedPartnerId'));
+        $tourCities = TourCity::all();
+        return view('partners.objects', compact(
+            'partnerObjects',
+            'partners',
+            'partnerTypes',
+            'selectedPartner',
+            'selectedPartnerId',
+            'selectedPartnerTypeId',
+            'tourCities'
+        ));
     }
+
 
     public function store(Request $request)
     {

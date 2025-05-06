@@ -21,8 +21,10 @@ class PartnerObjectController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string',
+            'unique_code'=>'nullable|string',
             'rating' => 'nullable|numeric',
             'partner_id' => 'required|exists:partners,id',
+            'tour_city_id' => 'required|exists:tour_cities,id',
             'location' => 'nullable|string',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
@@ -44,8 +46,10 @@ class PartnerObjectController extends Controller
     {
         $validated = $request->validate([
             'name' => 'sometimes|required|string',
+            'unique_code'=>'nullable|string',
             'rating' => 'nullable|numeric',
             'partner_id' => 'sometimes|required|exists:partners,id',
+            'tour_city_id' => 'required|exists:tour_cities,id',
             'location' => 'nullable|string',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',

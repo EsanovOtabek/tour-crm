@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="px-4 pt-6 min-h-screen">
-        <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+        <div class="px-3 py-1 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
             <!-- Card header -->
             <div class="items-center justify-between lg:flex">
                 <div class="mb-4 lg:mb-0">
@@ -24,28 +24,28 @@
                             <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600">
                                 <thead class="bg-gray-100 dark:bg-gray-700">
                                 <tr>
-                                    <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
+                                    <th scope="col" class="px-3 py-1 text-sm font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                         #
                                     </th>
-                                    <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
+                                    <th scope="col" class="px-3 py-1 text-sm font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                         Name
                                     </th>
-                                    <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
+                                    <th scope="col" class="px-3 py-1 text-sm font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                         Kategoriya
                                     </th>
-                                    <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
+                                    <th scope="col" class="px-3 py-1 text-sm font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                         Shahar
                                     </th>
-                                    <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                        Narxi
+                                    <th scope="col" class="px-3 py-1 text-sm font-medium text-left text-gray-500 uppercase dark:text-gray-400">
+                                        Narxi (Valyuta)
                                     </th>
-                                    <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
+                                    <th scope="col" class="px-3 py-1 text-sm font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                         Tillari
                                     </th>
-                                    <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
+                                    <th scope="col" class="px-3 py-1 text-sm font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                         Status
                                     </th>
-                                    <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
+                                    <th scope="col" class="px-3 py-1 text-sm font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                         Amallar
                                     </th>
                                 </tr>
@@ -53,17 +53,22 @@
                                 <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                                 @foreach($guides as $guide)
                                     <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ 1 + $loop->index }}</td>
-                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $guide->name }}</td>
-                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $guide->category->name ?? 'N/A' }}</td>
-                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $guide->tour_city->name ?? 'N/A' }}</td>
-                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ number_format($guide->price, 2) }}</td>
-                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <td class="px-3 py-1 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ 1 + $loop->index }}</td>
+                                        <td class="px-3 py-1 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $guide->name }}</td>
+                                        <td class="px-3 py-1 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $guide->category->name ?? 'N/A' }}</td>
+                                        <td class="px-3 py-1 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $guide->tour_city->name ?? 'N/A' }}</td>
+                                        <td class="px-3 py-1 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            {{ number_format($guide->price, 2) }}
+                                            <span class="bg-indigo-100 text-indigo-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-indigo-200 dark:text-indigo-900">
+                                                {{ $guide->currency->code }}
+                                            </span>
+                                        </td>
+                                        <td class="px-3 py-1 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             @foreach($guide->languages as $language)
                                                 <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">{{ $language->name }}</span>
                                             @endforeach
                                         </td>
-                                        <td class="p-4 text-base font-normal text-gray-900 whitespace-nowrap dark:text-white">
+                                        <td class="px-3 py-1 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
                                             <div class="flex items-center">
                                                 <div class="h-2.5 w-2.5 rounded-full bg-{{$guide->status}}-400 mr-1"></div>
                                                 @switch($guide->status)
@@ -79,7 +84,7 @@
                                                 @endswitch
                                             </div>
                                         </td>
-                                        <td class="p-4 space-x-2 whitespace-nowrap">
+                                        <td class="px-3 py-1 space-x-2 whitespace-nowrap">
                                             <button type="button" data-modal-target="edit-guide-modal-{{ $guide->id }}" data-modal-toggle="edit-guide-modal-{{ $guide->id }}" class="admin-add-btn">
                                                 <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
                                                 Tahrirlash
@@ -97,30 +102,11 @@
                     </div>
                 </div>
             </div>
-            <div class="sticky bottom-0 right-0 items-center w-full p-4 bg-white border-t border-gray-200 sm:flex sm:justify-between dark:bg-gray-800 dark:border-gray-700">
-                <div class="flex items-center mb-4 sm:mb-0">
-                    <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span class="font-semibold text-gray-900 dark:text-white">1-{{ $guides->count() }}</span> of <span class="font-semibold text-gray-900 dark:text-white">{{ $guides->total() }}</span></span>
-                </div>
-                <div class="flex items-center space-x-3">
-                    @if($guides->previousPageUrl())
-                        <a href="{{ $guides->previousPageUrl() }}" class="inline-flex items-center justify-center flex-1 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                            <svg class="w-5 h-5 mr-1 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                            Previous
-                        </a>
-                    @endif
-                    @if($guides->nextPageUrl())
-                        <a href="{{ $guides->nextPageUrl() }}" class="inline-flex items-center justify-center flex-1 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                            Next
-                            <svg class="w-5 h-5 ml-1 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                        </a>
-                    @endif
-                </div>
-            </div>
         </div>
     </div>
 
     <!-- Qo'shish Modal -->
-    <div class="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto top-4 md:inset-0 h-modal sm:h-full" id="add-guide-modal">
+    <div class="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto topx-3 py-1 md:inset-0 h-modal sm:h-full" id="add-guide-modal">
         <div class="relative w-full h-full max-w-2xl px-4 md:h-auto">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
@@ -138,7 +124,7 @@
                     <form action="{{ route('guides.store') }}" method="POST" id="addGuideForm">
                         @csrf
                         <div class="grid grid-cols-6 gap-6">
-                            <div class="col-span-6">
+                            <div class="col-span-6 sm:col-span-3">
                                 <label for="name" class="e-label">Nomi</label>
                                 <input type="text" name="name" id="name" class="e-input" required placeholder="Name">
                             </div>
@@ -161,10 +147,6 @@
                                 </select>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="price" class="e-label">Narxi</label>
-                                <input type="number" step="0.01" name="price" id="price" class="e-input" required placeholder="0">
-                            </div>
-                            <div class="col-span-6 sm:col-span-3">
                                 <label for="status" class="e-label">Status</label>
                                 <select name="status" id="status" class="e-input" required>
 
@@ -173,6 +155,23 @@
                                     <option value="red">Busy</option>
                                 </select>
                             </div>
+
+
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="price" class="e-label">Narxi</label>
+                                <input type="number" step="0.01" name="price" id="price" class="e-input" required placeholder="0">
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="currency_id" class="e-label">Valyuta</label>
+                                <select name="currency_id" id="currency_id" class="e-input" required>
+                                    @foreach($currencies as $curr)
+                                        <option value="{{ $curr->id }}">{{ $curr->code }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+
                             <div class="col-span-6">
                                 <label for="languages" class="e-label">Tillari</label>
                                 <div class="select2-purple">
@@ -198,7 +197,7 @@
 
     <!-- Edit Guide Modals -->
     @foreach($guides as $guide)
-        <div class="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto top-4 md:inset-0 h-modal sm:h-full" id="edit-guide-modal-{{ $guide->id }}">
+        <div class="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto topx-3 py-1 md:inset-0 h-modal sm:h-full" id="edit-guide-modal-{{ $guide->id }}">
             <div class="relative w-full h-full max-w-2xl px-4 md:h-auto">
                 <!-- Modal content -->
                 <form action="{{ route('guides.update', $guide->id) }}" method="POST" class="relative bg-white rounded-lg shadow dark:bg-gray-800">
@@ -217,7 +216,7 @@
                     <div class="p-6 space-y-6">
 
                         <div class="grid grid-cols-6 gap-6">
-                            <div class="col-span-6">
+                            <div class="col-span-6 sm:col-span-3">
                                 <label for="name-{{ $guide->id }}" class="e-label">Nomi</label>
                                 <input type="text" name="name" id="name-{{ $guide->id }}" value="{{ $guide->name }}" class="e-input" required>
                             </div>
@@ -237,16 +236,27 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-span-6 sm:col-span-3">
-                                <label for="price-{{ $guide->id }}" class="e-label">Narxi</label>
-                                <input type="number" step="0.01" name="price" id="price-{{ $guide->id }}" value="{{ $guide->price }}" class="e-input" required>
-                            </div>
+
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="status-{{ $guide->id }}" class="e-label">Status</label>
                                 <select name="status" id="status-{{ $guide->id }}" class="e-input" required>
                                     <option value="green" {{ $guide->status == 'green' ? 'selected' : '' }}>Accepted</option>
                                     <option value="yellow" {{ $guide->status == 'yellow' ? 'selected' : '' }}>Waiting</option>
                                     <option value="red" {{ $guide->status == 'red' ? 'selected' : '' }}>Busy</option>
+                                </select>
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="price-{{ $guide->id }}" class="e-label">Narxi</label>
+                                <input type="number" step="0.01" name="price" id="price-{{ $guide->id }}" value="{{ $guide->price }}" class="e-input" required>
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="currency_id-{{$guide->id}}" class="e-label">Valyuta</label>
+                                <select name="currency_id" id="currency_id-{{$guide->id}}" class="e-input" required>
+                                    @foreach($currencies as $curr)
+                                        <option value="{{ $curr->id }}" @selected($curr->id == $guide->currency->id)>{{ $curr->code }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-span-6">
@@ -274,7 +284,7 @@
         </div>
 
         <!-- Delete Guide Modal -->
-        <div class="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto top-4 md:inset-0 h-modal sm:h-full" id="delete-guide-modal-{{ $guide->id }}">
+        <div class="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto topx-3 py-1 md:inset-0 h-modal sm:h-full" id="delete-guide-modal-{{ $guide->id }}">
             <div class="relative w-full h-full max-w-md px-4 md:h-auto">
                 <!-- Modal content -->
                 <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
@@ -326,9 +336,6 @@
 @endpush
 
 @push('scripts')
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 

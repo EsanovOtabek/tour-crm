@@ -14,6 +14,6 @@ class TourCategory extends Model
     ];
 
     public function tours(){
-        return ;
+        return $this->hasMany(Tour::class);
     }
 }

@@ -7,8 +7,7 @@
     <div class="flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen pt:mt-0 dark:bg-gray-900">
         <a href="{{ route('dashboard') }}"
            class="flex items-center justify-center mb-8 text-2xl font-semibold lg:mb-10 dark:text-white">
-            <img src="{{  asset('assets/images/logo.png') }}" class="mr-4 h-11 block dark:hidden" alt="EducIT">
-            <img src="{{  asset('assets/images/logo_light.png') }}" class="mr-4 h-11 hidden dark:block" alt="EducIT">
+            <h1 class="text-primary-950 text-2xl dark:text-primary-50 font-extrabold">{{ env('APP_NAME') }}</h1>
         </a>
 
         <!-- Card -->
@@ -72,7 +71,6 @@
                 </div>
             </form>
 
-            <hr class="divide-primary-950">
         </div>
     </div>
 @endsection

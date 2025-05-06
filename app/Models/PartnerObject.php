@@ -13,9 +13,11 @@ class PartnerObject extends Model
 
     protected $fillable = [
         'name',
+        'unique_code',
         'rating',
         'partner_id',
         'location',
+        'tour_city_id',
         'latitude',
         'longitude',
     ];
@@ -30,4 +32,8 @@ class PartnerObject extends Model
         return $this->hasMany(ObjectItem::class);
     }
 
+    public function city()
+    {
+        return $this->belongsTo(TourCity::class, 'tour_city_id');
+    }
 }

@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('partner_objects', function (Blueprint $table) {
             $table->id();
             $table->string('name'); // Obyektning nomi (Hotel, Restoran)
+            $table->string('unique_code')->nullable();
             $table->float('rating')->nullable(); // Reytingi
             $table->foreignId('partner_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('location')->nullable(); // Joylashuvi
+
+            $table->foreignId('tour_city_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->decimal('latitude', 10, 8)->nullable(); // x kordinata
             $table->decimal('longitude', 11, 8)->nullable(); // y kordinata
             $table->softDeletes();

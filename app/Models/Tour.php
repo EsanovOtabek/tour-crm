@@ -16,7 +16,7 @@ class Tour extends Model
     ];
 
     public function category(){
-        return $this->belongsTo(TourCategory::class);
+        return $this->belongsTo(TourCategory::class, 'tour_category_id');
     }
 
     public function price_lists()

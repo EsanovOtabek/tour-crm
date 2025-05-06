@@ -15,14 +15,16 @@ class BookingDetail extends Model
         'quantity',
         'price',
         'cost_price',
-        'sana',
+        'start_date',
+        'end_date',
         'user_id',
         'comment',
     ];
-    protected $casts = [
-        'sana' => 'date',
-    ];
 
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+    ];
 
     public function booking()
     {
@@ -38,11 +40,5 @@ class BookingDetail extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    public function partner()
-    {
-        return $this->belongsTo(Partner::class);
-    }
-
 
 }

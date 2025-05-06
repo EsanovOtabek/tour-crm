@@ -21,6 +21,7 @@ class TourCitiesController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'code' => 'nullable|string|max:255',
             'country_id' => 'required|integer|exists:countries,id',
         ]);
 
@@ -30,20 +31,23 @@ class TourCitiesController extends Controller
     }
 
 
-    public function update(Request $request, TourCity $tourCity)
+    public function update(Request $request,  $city_id)
     {
+        $tourCity = TourCity::findOrFail($city_id);
         $request->validate([
             'name' => 'required|string|max:255',
             'country_id' => 'required|integer|exists:countries,id',
         ]);
 
-        $tourCity->update($request->only('name'));
+        $tourCity->update($request->all());
+
 
         return redirect()->back()->with('success', 'City updated successfully');
     }
 
-    public function destroy(TourCity $tourCity)
+    public function destroy($city_id)
     {
+        $tourCity = TourCity::findOrFail($city_id);
         $tourCity->delete();
 
         return redirect()->back()->with('success', 'City deleted successfully');

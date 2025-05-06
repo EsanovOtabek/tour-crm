@@ -15,8 +15,8 @@ class TourController extends Controller
         $tours = Tour::with('category')
             ->when($selectedCategoryId, function ($query) use ($selectedCategoryId) {
                 return $query->where('tour_category_id', $selectedCategoryId);
-            })
-            ->paginate(10);
+            })->get();
+
 
         $categories = TourCategory::all();
 
@@ -27,12 +27,13 @@ class TourController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'code' => 'required|string|max:50|unique:tours,code',
             'unique-code' => 'required|string|max:50|unique:tours,unique-code',
             'status' => 'required|string|max:50',
             'day_quantity' => 'required|integer|min:1',
             'tour_category_id' => 'required|exists:tour_categories,id',
         ]);
+        $validated['unique-code'] = strtoupper($validated['unique-code']);
+        $validated['code'] = $validated['unique-code'];
 
         Tour::create($validated);
 
@@ -43,7 +44,6 @@ class TourController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'code' => 'required|string|max:50|unique:tours,code,'.$tour->id,
             'unique-code' => 'required|string|max:50|unique:tours,unique-code,'.$tour->id,
             'status' => 'required|string|max:50',
             'day_quantity' => 'required|integer|min:1',
