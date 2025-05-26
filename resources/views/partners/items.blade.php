@@ -355,7 +355,7 @@
 
                         <div class="col-span-2">
                             <label for="contact}" class="e-label">Name</label>
-                            <textarea name="contact" id="contact" class="e-input" cols="4" rows="40" placeholder="contact (optional)"></textarea>
+                            <textarea name="contact" id="contact" class="e-input" placeholder="contact (optional)"></textarea>
                         </div>
 
                     </div>
