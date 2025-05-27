@@ -3,51 +3,33 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class DailyReportMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct()
+    public $subject;
+    public $agent;
+    public $date;
+    public $bookings;
+    public $baseMessage;
+
+    public function __construct($subject, $agent, $date, $bookings, $baseMessage)
     {
-        //
+        $this->subject = $subject;
+        $this->agent = $agent;
+        $this->date = $date;
+        $this->bookings = $bookings;
+        $this->baseMessage = $baseMessage;
     }
 
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
+    public function build()
     {
-        return new Envelope(
-            subject: 'Daily Report Mail',
-        );
+        return $this->subject($this->subject)
+            ->view('emails.daily_report');
     }
 
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
-    }
 }
+

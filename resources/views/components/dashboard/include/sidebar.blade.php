@@ -66,7 +66,7 @@
                             <li>
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('tours.index') }}"
-                                                          content="Barcha Turlar" >
+                                                          content="Turlar" >
                                 </x-dashboard.sidebar.item>
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('tour-categories.index') }}"
@@ -90,10 +90,7 @@
                                                           path="{{ route('bookings.index') }}"
                                                           content="Buyurtmalar" >
                                 </x-dashboard.sidebar.item>
-                                <x-dashboard.sidebar.item class="pl-10"
-                                                          path="{{ route('bookings.templates') }}"
-                                                          content="Buyurtma Shablonlari" >
-                                </x-dashboard.sidebar.item>
+
                                 <x-dashboard.sidebar.item class="pl-10"
                                                           path="{{ route('bookings.index',['filter' => 'archive']) }}"
                                                           content="Buyurtmalar arxivi" >

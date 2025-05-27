@@ -33,13 +33,6 @@
                         </svg>
                         Qo'shish
                     </button>
-
-                    <button data-modal-target="copy_template" data-modal-toggle="copy_template" class="admin-add-btn" type="button">
-                        <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
-                        </svg>
-                        Shablondan Nusxalash
-                    </button>
                 </div>
             </div>
 
@@ -329,7 +322,7 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form action="{{ route('bookings.store') }}" method="POST">
+                <form action="{{ route('bookings.copystore') }}" method="POST">
                     @csrf
                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
                         <div>
@@ -345,7 +338,6 @@
                                 </select>
                             </div>
                         </div>
-
 
                         <div>
                             <label for="create-unique_code" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Unique Code</label>
@@ -364,33 +356,7 @@
                             <label for="create-start-date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Boshlanish sanasi</label>
                             <input type="date" name="start_date" id="create-start-date" class="e-input" required>
                         </div>
-                        <div>
-                            <label for="create-end-date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tugash sanasi</label>
-                            <input type="date" name="end_date" id="create-end-date" class="e-input" required>
-                        </div>
-                        <!-- PriceList va Custom Price tanlash -->
-                        <div>
-                            <label for="create-price-select" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Narxi</label>
-                            <select id="create-price-select" class="e-input" required>
-                                <option selected disabled value="">-- Narxni tanlang --</option>
-                                @foreach ($priceList as $price)
-                                    <option value="{{ $price->price }}" data-tour="{{ $price->tour_id }}">
-                                        ({{ $price->quantity }} kishilik): {{ number_format($price->price, 2) }} so'm
-                                    </option>
-                                @endforeach
-                                <option value="custom">Boshqa</option>
-                            </select>
-                            <input type="number" step="0.01" name="price" id="create-price-input" class="e-input mt-2 hidden" placeholder="Boshqa narx kiriting">
-                        </div>
 
-                        <div>
-                            <label for="create-cost-price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tan narxi</label>
-                            <input type="number" step="0.01" name="cost_price" id="create-cost-price" class="e-input" required>
-                        </div>
-                        <div>
-                            <label for="create-total-amount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ja'mi summa</label>
-                            <input type="number" step="0.01" name="total_amount" id="create-total-amount" class="e-input" required>
-                        </div>
                     </div>
                     <div class="flex items-center space-x-4">
                         <button type="submit" class="admin-add-btn">

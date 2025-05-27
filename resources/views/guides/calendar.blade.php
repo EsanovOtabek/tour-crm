@@ -59,87 +59,104 @@
                 </div>
             </div>
 
-            <!-- Calendar Grid -->
             <div class="overflow-x-auto">
-                <div class="inline-block min-w-full align-middle">
-                    <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg">
-                        <table class="min-w-full divide-y divide-gray-300 dark:divide-gray-600">
-                            <!-- Days Header -->
-                            <thead class="bg-gray-50 dark:bg-gray-700">
-                            <tr>
-                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Gid</th>
-                                @php
-                                    $firstDay = $currentMonth->copy()->startOfMonth();
-                                    $daysInMonth = $currentMonth->daysInMonth;
-                                @endphp
+                <div class="min-w-max grid grid-cols-[200px_auto_100px]">
+                    <!-- Fixed Gidlar Ustuni -->
+                    <div class="sticky left-0 z-10 bg-white dark:bg-gray-800 border-r border-gray-300 dark:border-gray-600">
+                        <!-- Header -->
+                        <div class="h-[70px] flex items-center pl-4 font-semibold text-gray-900 dark:text-white border-b border-gray-300 dark:border-gray-600">
+                            Gid
+                        </div>
+                        <!-- Gid Rows -->
+                        @foreach($guides as $guide)
+                            <div class="flex flex-col justify-center pl-4 py-4 border-b border-gray-200 dark:border-gray-700 text-sm text-gray-900 dark:text-white">
+                                <div class="flex items-center">
+                                    <div class="h-4 w-4 rounded-full mr-2
+                            {{ $guide->status === 'green' ? 'bg-green-500' :
+                               ($guide->status === 'yellow' ? 'bg-yellow-500' : 'bg-red-500') }}"></div>
+                                    {{ $guide->name }}
+                                </div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">
+                                    {{ $guide->tour_city->name ?? 'Shahar yo\'q' }}
+                                    @if($guide->price)
+                                        • {{ number_format($guide->price) }} {{ $guide->currency->code ?? '' }}
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
 
-                                @for($i = 0; $i < $daysInMonth; $i++)
-                                    @php
-                                        $day = $firstDay->copy()->addDays($i);
-                                    @endphp
-                                    <th scope="col" class="px-2 py-3.5 text-center text-sm font-semibold text-gray-900 dark:text-white">
-                                        {{ $day->translatedFormat('D') }}<br>
-                                        <span class="font-normal">{{ $day->day }}</span>
-                                    </th>
-                                @endfor
-                            </tr>
-                            </thead>
+                    <!-- Calendar Grid -->
+                    <div>
+                        <!-- Days Header -->
+                        <div class="grid" style="grid-template-columns: repeat({{ $currentMonth->daysInMonth }}, minmax(60px, 1fr));">
+                            @php
+                                $firstDay = $currentMonth->copy()->startOfMonth();
+                            @endphp
+                            @for($i = 0; $i < $currentMonth->daysInMonth; $i++)
+                                @php $day = $firstDay->copy()->addDays($i); @endphp
+                                <div class="h-[70px] text-center py-2 px-1 text-sm font-semibold text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700 border-b border-l border-gray-300 dark:border-gray-600">
+                                    {{ $day->translatedFormat('D') }}<br>
+                                    <span class="font-normal">{{ $day->day }}</span>
+                                </div>
+                            @endfor
+                        </div>
 
-                            <tbody class="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800">
-                            @foreach($guides as $guide)
-                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
-                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-white">
-                                        <div class="flex items-center">
-                                            <!-- Status indicator based on guide's status field -->
-                                            <div class="h-4 w-4 rounded-full mr-2
-                {{ $guide->status === 'green' ? 'bg-green-500' :
-                   ($guide->status === 'yellow' ? 'bg-yellow-500' : 'bg-red-500') }}"></div>
-                                            {{ $guide->name }}
-                                        </div>
-                                        <div class="text-xs text-gray-500 dark:text-gray-400">
-                                            {{ $guide->tour_city->name ?? 'Shahar yo\'q' }}
-                                            @if($guide->price)
-                                                • {{ number_format($guide->price) }} {{ $guide->currency->code ?? '' }}
-                                            @endif
-                                        </div>
-                                    </td>
-
-                                    @foreach($guide->calendarDays as $day)
-                                        <td class="whitespace-nowrap px-2 py-4 text-sm text-center border">
-
-                                            <div x-data="{ open: false }" class="relative">
-                                                <div class="h-8 w-8 mx-auto flex items-center justify-center rounded-full
+                        <!-- Day Cells -->
+                        @foreach($guides as $guide)
+                            <div class="grid" style="grid-template-columns: repeat({{ $currentMonth->daysInMonth }}, minmax(60px, 1fr));">
+                                @foreach($guide->calendarDays as $day)
+                                    <div class="h-[70px] border border-gray-200 dark:border-gray-700 py-3 px-1 flex justify-center items-center relative">
+                                        <div x-data="{ open: false }" class="relative">
+                                            <div class="h-8 w-8 mx-auto flex items-center justify-center rounded-full
                     {{ $day['is_booked'] ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' :
                        'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' }}"
-                                                     @mouseenter="open = true" @mouseleave="open = false">
-                                                </div>
-
-                                                @if($day['is_booked'])
-                                                    <div x-show="open" x-transition
-                                                         class="absolute z-10 left-1/2 transform -translate-x-1/2 mt-2 w-48 p-2 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700">
-                                                        <div class="text-xs font-semibold text-gray-900 dark:text-white mb-1">
-                                                            Band:
-                                                        </div>
-                                                        @foreach($day['bookings'] as $booking)
-                                                            <div class="text-xs text-gray-600 dark:text-gray-300">
-                                                                {{ $booking->booking->unique_code ?? 'N/A' }}
-                                                                ({{ $booking->start_date->format('d.m') }}-{{ $booking->end_date->format('d.m') }})
-                                                            </div>
-                                                            @if($booking->tourCity)
-                                                                <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                                                                    {{ $booking->tourCity->name }}
-                                                                </div>
-                                                            @endif
-                                                        @endforeach
-                                                    </div>
-                                                @endif
+                                                 @mouseenter="open = true" @mouseleave="open = false">
                                             </div>
-                                        </td>
-                                    @endforeach
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+
+                                            @if($day['is_booked'])
+                                                <div x-show="open" x-transition
+                                                     class="absolute z-10 left-1/2 transform -translate-x-1/2 mt-2 w-48 p-2 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700">
+                                                    <div class="text-xs font-semibold text-gray-900 dark:text-white mb-1">
+                                                        Band:
+                                                    </div>
+                                                    @foreach($day['bookings'] as $booking)
+                                                        <div class="text-xs text-gray-600 dark:text-gray-300">
+                                                            {{ $booking->booking->unique_code ?? 'N/A' }}
+                                                            ({{ $booking->start_date->format('d.m') }}-{{ $booking->end_date->format('d.m') }})
+                                                        </div>
+                                                        @if($booking->tourCity)
+                                                            <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                                                {{ $booking->tourCity->name }}
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <!-- Booked Days Column -->
+                    <div class="sticky right-0 z-10 bg-white dark:bg-gray-800 border-l border-gray-300 dark:border-gray-600">
+                        <!-- Header -->
+                        <div class="h-[70px] flex items-center justify-center font-semibold text-gray-900 dark:text-white border-b border-gray-300 dark:border-gray-600">
+                            Ish kunlar
+                        </div>
+                        <!-- Booked Days Count -->
+                        @foreach($guides as $guide)
+                            @php
+                                $bookedDays = collect($guide->calendarDays)->filter(function($day) {
+                                    return $day['is_booked'];
+                                })->count();
+                            @endphp
+                            <div class="h-[70px] flex items-center justify-center border-b border-gray-200 dark:border-gray-700 text-sm text-gray-900 dark:text-white">
+                                {{ $bookedDays }}
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

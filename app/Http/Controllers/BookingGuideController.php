@@ -31,7 +31,11 @@ class BookingGuideController extends Controller
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date',
         ]);
-
+        $guide = Guide::find($data['guide_id']);
+        if ($guide->category->name == 'main' or $guide->category->name == 'Main'){
+            $data['start_date'] = $booking['start_date'];
+            $data['end_date'] = $booking['end_date'];
+        }
         $data['user_id'] = auth()->user()->id;
 
         $booking->guides()->create($data);

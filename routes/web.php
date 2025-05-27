@@ -27,6 +27,7 @@ use App\Http\Controllers\{AgentController,
     TourCategoryController,
     TourCitiesController,
     TourController,
+    TourTemplateController,
     UserController,
     GroupMemberController};
 
@@ -94,6 +95,7 @@ Route::middleware(['auth'])->group(callback: function () {
     Route::resource('price-lists', PriceListController::class)->names('price-lists')->only('index', 'store', 'update', 'destroy');
 
     Route::resource('bookings', BookingController::class)->names('bookings')->only('index','show', 'store', 'update', 'destroy');
+
     Route::get('booking-templates', [BookingController::class, 'templates'])->name('bookings.templates');
     Route::get('changeMarked/{booking}', [BookingController::class, 'changeMarked'])->name('bookings.changeMarked');
 
@@ -117,6 +119,8 @@ Route::middleware(['auth'])->group(callback: function () {
     Route::get('/bookings/copy-from-booking/{booking}', [BookingController::class, 'copyFromBooking'])->name('bookings.copy.from.booking');
     Route::post('/bookings/store-copy', [BookingController::class, 'storeCopy'])->name('bookings.store.copy');
 
+    Route::post('/bookings/copystore', [BookingController::class, 'copystore'])->name('bookings.copystore');
+
 
     Route::resource('daily-records', DailyRecordController::class)->names('daily-records')->only('index','store','update','destroy');
 
@@ -137,6 +141,23 @@ Route::middleware(['auth'])->group(callback: function () {
     Route::post('/daily-reports/send-emails', [DailyReportController::class, 'sendEmails'])
             ->name('daily-reports.send-emails');
 
+
+    Route::prefix('tours/{tour}/template')->name('tours.templates.')->group(function () {
+        Route::get('/', [TourTemplateController::class, 'index'])->name('index');
+
+        // Detail routes
+        Route::post('/details', [TourTemplateController::class, 'addDetail'])->name('addDetail');
+        Route::put('/details/{details}', [TourTemplateController::class, 'updateDetail'])->name('updateDetail');
+        Route::delete('/details/{detail}', [TourTemplateController::class, 'removeDetail'])->name('removeDetail');
+
+        // Mashrut routes
+        Route::post('/mashruts', [TourTemplateController::class, 'addMashrut'])->name('addMashrut');
+        Route::put('/mashruts/{mashrut}', [TourTemplateController::class, 'updateMashrut'])->name('updateMashrut');
+        Route::delete('/mashruts/{mashrut}', [TourTemplateController::class, 'removeMashrut'])->name('removeMashrut');
+
+        // Apply to booking
+        Route::post('/apply/{booking}', [TourTemplateController::class, 'applyTemplate'])->name('apply');
+    });
 });
 
 require __DIR__.'/auth.php';

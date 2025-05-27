@@ -14,6 +14,7 @@
                             <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
                             Email jo'natish
                         </button>
+
                     </div>
                 </div>
                 <div class="items-center sm:flex">
@@ -30,10 +31,14 @@
 
             <!-- Active bookings table -->
             <div class="flex flex-col mt-6">
+                <div class="text-end mb-2">
+                    <button onclick="exportToExcel()" class="admin-info-btn">Excel</button>
+                    <button onclick="exportToPDF()" class="admin-delete-btn">PDF</button>
+                </div>
                 <div class="overflow-x-auto">
                     <div class="inline-block min-w-full align-middle">
                         <div class="overflow-hidden shadow">
-                            <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600">
+                            <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600" id="report-div-table">
                                 <thead class="bg-gray-100 dark:bg-gray-700">
                                 <tr>
                                     <th scope="col" class="px-3 py-1 w-10">
@@ -55,7 +60,7 @@
                                         Tur nomi
                                     </th>
                                     <th scope="col" class="px-3 py-1 text-sm font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                        Guruh
+                                        PAX
                                     </th>
                                     <th scope="col" class="px-3 py-1 text-sm font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                         Git
@@ -64,7 +69,13 @@
                                         Hotel
                                     </th>
                                     <th scope="col" class="px-3 py-1 text-sm font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                        Muammo-Yechim
+                                        City
+                                    </th>
+                                    <th scope="col" class="px-3 py-1 text-sm font-medium text-left text-gray-500 uppercase dark:text-gray-400">
+                                        Muammo
+                                    </th>
+                                    <th scope="col" class="px-3 py-1 text-sm font-medium text-left text-gray-500 uppercase dark:text-gray-400">
+                                        Yechim
                                     </th>
                                 </tr>
                                 </thead>
@@ -73,6 +84,7 @@
                                     <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
                                         <td class="px-3 py-1">
                                             <input type="checkbox" name="selected_bookings[]" value="{{ $booking->id }}" class="booking-checkbox w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                            <span class="hidden">{{ $loop->index + 1 }}</span>
                                         </td>
                                         <td class="px-3 py-1 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {{ $selectedDate->format('d.m.Y') }}
@@ -87,7 +99,7 @@
                                             {{ $booking->tour->name ?? 'N/A' }}
                                         </td>
                                         <td class="px-3 py-1 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $booking->groupMembers->count() ?? 'N/A' }} kishi
+                                            {{ $booking->groupMembers->count() ?? 'N/A' }}
                                         </td>
                                         <td class="px-3 py-1 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             @foreach($booking->guides as $guideBooking)
@@ -105,25 +117,45 @@
                                                     $selectedDate->between($detail->start_date, $detail->end_date)
                                                 )
                                                     <span class="bg-green-100 text-green-800 text-sm font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-                                                        {{ $detail->objectItem->partnerObject->partner->type->name ?? 'N/A' }}
-                                                        ({{ $detail->start_date->format('d.m') }} - {{ $detail->end_date->format('d.m') }})
+                                                        {{ $detail->objectItem->partnerObject->name ?? 'N/A' }}
                                                     </span>
                                                 @endif
                                             @endforeach
                                         </td>
+
+                                        <td class="px-3 py-1 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            @foreach($booking->details as $detail)
+                                                @if(
+                                                    $detail->objectItem->partnerObject->partner->type->name === 'Hotels' &&
+                                                    $selectedDate->between($detail->start_date, $detail->end_date)
+                                                )
+                                                    <span class="bg-yellow-100 text-yellow-800 text-sm font-medium px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">
+                                                        {{ $detail->objectItem->partnerObject->city->code ?? 'N/A' }}
+                                                    </span>
+                                                @endif
+                                            @endforeach
+                                        </td>
+
                                         <td class="px-3 py-1 text-sm font-medium text-gray-900 dark:text-white">
                                             <div class="max-h-32 overflow-y-auto">
                                                 @foreach($booking->dailyReports->where('created_at', '>=', $selectedDate->startOfDay())->where('created_at', '<=', $selectedDate->copy()->endOfDay()) as $report)
                                                     <div class="mb-2 bg-gray-50 p-2 rounded dark:bg-gray-700">
-                                                        <p class="text-xs font-bold mb-1">Muammo:</p>
                                                         <p class="text-xs mb-2">{{ $report->problem }}</p>
-                                                        <p class="text-xs font-bold mb-1">Yechim:</p>
-                                                        <p class="text-xs">{{ $report->solve }}</p>
-                                                        <p class="text-xs text-gray-500 mt-1 text-right">{{ $report->created_at->format('H:i') }}</p>
                                                     </div>
                                                 @endforeach
                                             </div>
                                         </td>
+
+                                        <td class="px-3 py-1 text-sm font-medium text-gray-900 dark:text-white">
+                                            <div class="max-h-32 overflow-y-auto">
+                                                @foreach($booking->dailyReports->where('created_at', '>=', $selectedDate->startOfDay())->where('created_at', '<=', $selectedDate->copy()->endOfDay()) as $report)
+                                                    <div class="mb-2 bg-gray-50 p-2 rounded dark:bg-gray-700">
+                                                        <p class="text-xs">{{ $report->solve }}</p>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </td>
+
                                     </tr>
                                 @empty
                                     <tr>
@@ -216,9 +248,76 @@
         </div>
     </div>
 
+    <!-- Email Modal -->
+    <div id="emailModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-gray-900 bg-opacity-50 flex items-center justify-center p-4">
+        <div class="relative w-full max-w-4xl">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-700">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                        Email jo'natish
+                    </h3>
+                    <button type="button" id="closeEmailModal" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-700 dark:hover:text-white">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="p-6 space-y-6">
+                    <form action="{{ route('daily-reports.send-emails') }}" method="POST" id="emailForm">
+                        @csrf
+                        <input type="hidden" name="date" value="{{ $selectedDate->format('Y-m-d') }}">
+
+                        <h4 class="text-sm font-semibold mb-4 text-gray-900 dark:text-white">Agentlar:</h4>
+                        <div class="overflow-y-auto max-h-64">
+                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" class="px-4 py-3">Tanlash</th>
+                                    <th scope="col" class="px-4 py-3">Ism</th>
+                                    <th scope="col" class="px-4 py-3">Email</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($agents as $agent)
+                                    <tr class="border-b dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                        <td class="px-4 py-3">
+                                            <input type="checkbox" name="recipients[]" value="{{ $agent['email'] }}" checked class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        </td>
+                                        <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            {{ $agent['name'] }}
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <input type="email" name="agent_emails[{{ $agent['id'] }}]" value="{{ $agent['email'] }}" class="e-input text-sm p-2">
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+                <!-- Modal footer -->
+                <div class="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-700">
+                    <button type="button" id="cancelEmailModal" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700">
+                        Bekor qilish
+                    </button>
+                    <button type="submit" form="emailForm" class="admin-email-btn">
+                        <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                        Email jo'natish
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('reportModal');
@@ -315,5 +414,57 @@
             // Dastlabki holatni yangilaymiz
             handleTableCheckboxChange();
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const emailModal = document.getElementById('emailModal');
+            const openEmailModalBtn = document.getElementById('openEmailModal');
+            const closeEmailModalBtn = document.getElementById('closeEmailModal');
+            const cancelEmailModalBtn = document.getElementById('cancelEmailModal');
+
+            // Modalni ochish
+            openEmailModalBtn.addEventListener('click', function() {
+                emailModal.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden');
+            });
+
+            // Modalni yopish
+            function hideEmailModal() {
+                emailModal.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }
+
+            closeEmailModalBtn.addEventListener('click', hideEmailModal);
+            cancelEmailModalBtn.addEventListener('click', hideEmailModal);
+
+            // Modal tashqarisiga bosganda yopish
+            emailModal.addEventListener('click', function(event) {
+                if (event.target === emailModal) {
+                    hideEmailModal();
+                }
+            });
+
+            // Email formani yuborishdan oldin tekshirish
+            document.getElementById('emailForm').addEventListener('submit', function(e) {
+                const checkedCount = document.querySelectorAll('input[name="recipients[]"]:checked').length;
+
+                if (checkedCount === 0) {
+                    e.preventDefault();
+                    alert('Iltimos, kamida bitta qabul qiluvchini tanlang!');
+                }
+            });
+        });
+
+        function exportToExcel() {
+            let wb = XLSX.utils.table_to_book(document.getElementById("report-div-table"), { sheet: "Sheet1" });
+            XLSX.writeFile(wb, "jadval.xlsx");
+        }
+
+        function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.autoTable({ html: "#report-div-table" });
+            doc.save("jadval.pdf");
+        }
+
     </script>
 @endpush

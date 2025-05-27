@@ -12,6 +12,7 @@ use App\Models\PartnerType;
 use App\Models\PriceList;
 use App\Models\Tour;
 use App\Models\TourCity;
+use App\Models\TourTemplate;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -95,9 +96,50 @@ class BookingController extends Controller
             ->with('success', 'Booking created successfully.');
     }
 
-    public function show(Booking $booking)
+    public function copystore(Request $request)
     {
+        $tour_id = $request->input('tour_id');
+        $tour = Tour::findOrFail($tour_id);
+        $tour_template = TourTemplate::where('tour_id', $tour_id)->with(['details', 'mashruts'])->first();
 
+        $booking = new Booking();
+        $booking->user_id = auth()->user()->id;
+        $booking->tour()->associate($tour);
+        $booking->status = $request->input('status');
+        $booking->start_date = $request->input('start_date');
+        $booking->end_date = $booking->start_date->addDays($tour->day_quantity - 1);
+        $booking->unique_code = $request->input('unique_code');
+        $booking->total_amount = 0;
+        $booking->price = 0;
+        $booking->cost_price = 0;
+        $booking->save();
+
+
+        // Apply details
+        foreach ($tour_template->details as $detail) {
+            $booking->details()->create([
+                'object_item_id' => $detail->object_item_id,
+                'quantity' => $detail->quantity,
+                'price' => $detail->price,
+                'cost_price' => $detail->cost_price,
+                'start_date' => $booking->start_date->addDays($detail->start_day - 1),
+                'end_date' => $booking->start_date->addDays($detail->end_day - 1),
+                'user_id' => auth()->id(),
+                'comment' => $detail->comment,
+            ]);
+        }
+
+        // Apply mashruts
+        foreach ($tour_template->mashruts as $mashrut) {
+            $booking->mashruts()->create([
+                'tour_city_id' => $mashrut->tour_city_id,
+                'date_time' => $booking->start_date->addDays($mashrut->day_number - 1),
+                'program' => $mashrut->program,
+                'order_no' => $mashrut->order_no,
+            ]);
+        }
+
+        return back()->with('success', 'Template applied to booking successfully.');
     }
 
     public function update(Request $request, Booking $booking)

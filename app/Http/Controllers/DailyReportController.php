@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\DailyReportMail;
+use App\Models\Agent;
 use App\Models\Booking;
 use App\Models\DailyReport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class DailyReportController extends Controller
 {
@@ -41,7 +44,10 @@ class DailyReportController extends Controller
             ])
             ->get();
 
-        return view('daily-reports', compact('activeBookings', 'selectedDate'));
+        $bookingIds = $activeBookings->pluck('id')->toArray();
+        $agents = $this->getAllAgents($bookingIds);
+
+        return view('daily-reports', compact('activeBookings', 'selectedDate', 'agents'));
     }
 
     public function store(Request $request)
@@ -58,12 +64,31 @@ class DailyReportController extends Controller
         DB::beginTransaction();
 
         try {
+            $today = now()->toDateString(); // Get current date (without time)
+
             foreach ($request->selected_bookings as $bookingId) {
-                DailyReport::create([
-                    'booking_id' => $bookingId,
-                    'problem' => $request->problem,
-                    'solve' => $request->solve,
-                ]);
+                // Try to find existing report for today for this booking
+                $existingReport = DailyReport::where('booking_id', $bookingId)
+                    ->whereDate('created_at', $today)
+                    ->first();
+
+                if ($existingReport) {
+                    // Update existing report
+                    $existingReport->update([
+                        'problem' => $request->problem,
+                        'solve' => $request->solve,
+                        'updated_at' => now(),
+                    ]);
+                } else {
+                    // Create new report
+                    DailyReport::create([
+                        'booking_id' => $bookingId,
+                        'problem' => $request->problem,
+                        'solve' => $request->solve,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
             }
 
             DB::commit();
@@ -76,11 +101,8 @@ class DailyReportController extends Controller
         }
     }
 
-    public function getAgents(Request $request)
+    public function getAllAgents($bookingIds)
     {
-        $bookingIds = $request->input('booking_ids', []);
-        $date = $request->input('date');
-
         $agents = [];
 
         // Get all bookings with their group members
@@ -92,6 +114,7 @@ class DailyReportController extends Controller
             foreach ($booking->groupMembers as $member) {
                 if ($member->agent && $member->agent->email) {
                     $agents[] = [
+                        'id' => $member->agent->id,
                         'name' => $member->agent->name,
                         'email' => $member->agent->email,
                         'booking_code' => $booking->unique_code
@@ -100,34 +123,55 @@ class DailyReportController extends Controller
             }
         }
 
-        // Remove duplicates
-        $uniqueAgents = collect($agents)->unique('email')->values()->all();
-
-        return response()->json(['agents' => $uniqueAgents]);
+        return collect($agents)->unique('email')->values()->all();
     }
+
 
     public function sendEmails(Request $request)
     {
         $request->validate([
-            'agent_emails' => 'required|array',
-            'agent_emails.*' => 'email',
-            'subject' => 'required|string',
+            'recipients' => 'required|array',
+            'recipients.*' => 'exists:agents,id',
+            'subject' => 'required|string|max:255',
             'message' => 'required|string',
-            'date' => 'required|date'
+            'date' => 'required|date',
+            'include_table' => 'sometimes|boolean'
         ]);
 
-        $emails = $request->input('agent_emails');
-        $subject = $request->input('subject');
-        $message = $request->input('message');
+        $date = Carbon::parse($request->date);
+        $subject = $request->subject;
+        $baseMessage = $request->message;
+        $includeTable = $request->boolean('include_table', true);
 
-        try {
-            foreach ($emails as $email) {
-                Mail::to($email)->send(new DailyReportMail($subject, $message));
-            }
+        foreach ($request->recipients as $agentId) {
+            $agent = Agent::findOrFail($agentId);
 
-            return redirect()->back()->with('success', 'Emaillar muvaffaqiyatli jo\'natildi!');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Email jo\'natishda xatolik: ' . $e->getMessage());
+            // Get bookings for this agent for the selected date
+            $bookings = Booking::where('agent_id', $agentId)
+                ->whereHas('dailyReports', function($query) use ($date) {
+                    $query->whereDate('created_at', $date);
+                })
+                ->with([
+                    'tour',
+                    'guides.guide',
+                    'details.objectItem.partnerObject.city',
+                    'groupMembers',
+                    'dailyReports' => function($query) use ($date) {
+                        $query->whereDate('created_at', $date);
+                    }
+                ])
+                ->get();
+
+            // Send email to agent
+            Mail::to($agent->email)->send(new DailyReportMail(
+                $subject,
+                $agent,
+                $date,
+                $includeTable ? $bookings : collect(),
+                $baseMessage
+            ));
         }
+
+        return redirect()->back()->with('success', 'Email xabarlari muvaffaqiyatli jo\'natildi!');
     }
 }

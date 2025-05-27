@@ -23,4 +23,9 @@ class Tour extends Model
     {
         return $this->hasMany(PriceList::class);
     }
+
+    public function templates()
+    {
+        return $this->hasMany(TourTemplate::class);
+    }
 }

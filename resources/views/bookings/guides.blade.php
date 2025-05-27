@@ -300,20 +300,21 @@
                             </div>
                             <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Gid tanlanganda uning narxi avtomatik ravishda kiritiladi</p>
                         </div>
-                        <div>
-                            <label for="create-start_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Boshlash sanasi</label>
-                            <input type="date" name="start_date"
-                                   id="create-start_date" class="e-input" required
-                                   min="{{ $booking->start_date->format('Y-m-d') }}"
-                                   max="{{ $booking->end_date->format('Y-m-d') }}">
+                        <div id="date-fields">
+                            <div>
+                                <label for="create-start_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Boshlash sanasi</label>
+                                <input type="date" name="start_date" id="create-start_date" class="e-input"
+                                       min="{{ $booking->start_date->format('Y-m-d') }}"
+                                       max="{{ $booking->end_date->format('Y-m-d') }}">
+                            </div>
+                            <div>
+                                <label for="create-end_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tugash sanasi</label>
+                                <input type="date" name="end_date" id="create-end_date" class="e-input"
+                                       min="{{ $booking->start_date->format('Y-m-d') }}"
+                                       max="{{ $booking->end_date->format('Y-m-d') }}">
+                            </div>
                         </div>
-                        <div>
-                            <label for="create-end_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tugash sanasi</label>
-                            <input type="date" name="end_date"
-                                   id="create-end_date" class="e-input" required
-                                   min="{{ $booking->start_date->format('Y-m-d') }}"
-                                   max="{{ $booking->end_date->format('Y-m-d') }}">
-                        </div>
+
                         <div>
                             <label for="create-comment" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Izoh</label>
                             <textarea name="comment" id="create-comment" class="e-input"></textarea>
@@ -371,6 +372,14 @@
             // Create modal
             $('#create-category').on('change', function () {
                 loadGuides($(this), $('#create-guide'));
+                if ($(this).find('option:selected').html() === 'Main') {
+                    $('#date-fields').hide();
+                    // Avtomatik ravishda turning sanalarini o'rnatish
+                    $('#create-start_date').val('{{ $booking->start_date->format('Y-m-d') }}');
+                    $('#create-end_date').val('{{ $booking->end_date->format('Y-m-d') }}');
+                } else {
+                    $('#date-fields').show();
+                }
             });
 
             $('#create-guide').on('change', function () {
@@ -381,9 +390,17 @@
                 $('#currency-symbol').text($selected.data('symbol'));
             });
 
+            // Modal ochilganda tekshirish
             $('#createGuideModal').on('shown.bs.modal', function () {
                 loadGuides($('#create-category'), $('#create-guide'));
+                if ($('#create-category').val() === 'Main') {
+                    $('#date-fields').hide();
+                } else {
+                    $('#date-fields').show();
+                }
             });
+
+
 
             // Edit modallar
             $('[id^="edit-category-"]').each(function () {
