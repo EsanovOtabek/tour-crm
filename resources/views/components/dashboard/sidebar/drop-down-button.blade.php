@@ -15,14 +15,16 @@ ex:
 --}}
 
 
-@props([
-'controls',
-'content' => 'Layouts'
-])
+@props(['content' => '', 'controls' => '', 'active' => false])
+
 <button type="button"
-    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
-    aria-controls="dropdown-layouts-{{ $controls }}" data-collapse-toggle="dropdown-layouts-{{ $controls }}">
+        class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700
+               {{ $active ? 'bg-gray-100 dark:bg-gray-700 text-blue-600 dark:text-blue-400' : '' }}"
+        aria-controls="{{ $controls }}"
+        data-collapse-toggle="{{ $controls }}">
     {{ $slot }}
     <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>{{ $content }}</span>
-    <x-s-v-g-s.arrow-down sidebar-toggle-item class="w-6 h-6"/>
+    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+    </svg>
 </button>

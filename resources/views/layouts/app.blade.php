@@ -19,6 +19,32 @@
     @vite(['resources/css/app.css','resources/js/app.js'])
 
     @stack('styles')
+    {{-- CSS qo'shimchalari --}}
+    <style>
+        #sidebar {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        @media (min-width: 1024px) {
+            #sidebar.-translate-x-full {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Backdrop-ni desktop da yashirish */
+        @media (min-width: 1024px) {
+            [data-drawer-backdrop],
+            [drawer-backdrop] {
+                display: none !important;
+            }
+        }
+
+        /* Flowbite backdrop-ni yashirish */
+        .drawer-backdrop {
+            display: none !important;
+        }
+    </style>
+
 
 </head>
 <body  class="bg-gray-50 dark:bg-gray-800">
